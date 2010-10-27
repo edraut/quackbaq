@@ -8,11 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :persistence_token, :null => false
       t.string   "name"
       t.string   "type"
-      t.integer  "membership_level_id"
-      t.string   "avatar_file_name"
-      t.string   "avatar_content_type"
-      t.integer  "avatar_file_size"
-      t.datetime "avatar_updated_at"
+      t.string  "membership_level"
       t.string   "state",               :default => "active", :null => false
       t.integer :login_count, :default => 0, :null => false
       t.datetime :last_request_at

@@ -10,21 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101014175721) do
-
-  create_table "accessories", :force => true do |t|
-    t.integer  "item_id"
-    t.string   "name"
-    t.text     "description"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "accessories", ["item_id"], :name => "index_accessories_on_item_id"
+ActiveRecord::Schema.define(:version => 20101025200852) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -55,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20101014175721) do
     t.integer  "only_for_auction_id"
     t.datetime "placed_at"
     t.integer  "price_paid"
+    t.datetime "created_at"
   end
 
   add_index "bids", ["placed_auction_id"], :name => "index_bids_on_placed_auction_id"
@@ -95,12 +82,12 @@ ActiveRecord::Schema.define(:version => 20101014175721) do
   add_index "item_images", ["item_id"], :name => "index_bids_on_item_id"
 
   create_table "items", :force => true do |t|
-    t.string   "name"
-    t.integer  "full_price"
-    t.text     "description"
-    t.integer  "shipping_cost"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "name"
+    t.integer "full_price"
+    t.text    "description"
+    t.integer "shipping_cost"
+    t.string  "type"
+    t.integer "parent_id"
   end
 
   create_table "pages", :force => true do |t|
@@ -119,6 +106,17 @@ ActiveRecord::Schema.define(:version => 20101014175721) do
   add_index "user_auctions", ["auction_id"], :name => "index_user_auctions_on_auction_id"
   add_index "user_auctions", ["user_id"], :name => "index_user_auctions_on_user_id"
 
+  create_table "user_items", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "shipped_at"
+    t.integer  "auction_id"
+    t.string   "type"
+    t.string   "state"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -128,11 +126,7 @@ ActiveRecord::Schema.define(:version => 20101014175721) do
     t.string   "persistence_token",                         :null => false
     t.string   "name"
     t.string   "type"
-    t.integer  "membership_level_id"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.string   "membership_level"
     t.string   "state",               :default => "active", :null => false
     t.integer  "login_count",         :default => 0,        :null => false
     t.datetime "last_request_at"

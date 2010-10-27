@@ -6,7 +6,7 @@ class CreateBids < ActiveRecord::Migration
       t.integer     :only_for_auction_id
       t.datetime    :placed_at
       t.integer     :price_paid
-      t.datetime    :bought_at
+      t.datetime    :created_at
     end
     add_index "bids", "user_id", :name => "index_bids_on_user_id"
     add_index "bids", "placed_auction_id", :name => "index_bids_on_placed_auction_id"
