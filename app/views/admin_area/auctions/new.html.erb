@@ -1,0 +1,12 @@
+<% form_for @auction, :url => auctions_path(@auction) do |f| %>
+	<% if @auction.errors.any? %> <%= @auction.errors.full_messages %> <% end %>
+	<%= f.label :item_id %><br />
+	<%= f.select :item_id, Item.all.map{|i| [i.name,i.id]} %><br />
+	<br />
+	<%= f.label :type %><br />
+	<%= f.select :type, Auction::TYPES.map{|t| [t[:name],t[:id]]} %><br />
+	<br />
+	<%= f.label :begin_time %><br />
+	<%= f.datetime_select :begin_time, :minute_step => 60 %><br />
+  	<%= f.submit "Save" %>
+<% end %>

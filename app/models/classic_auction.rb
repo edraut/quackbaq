@@ -1,0 +1,2 @@
+class ClassicAuction < Auction
+end

@@ -1,0 +1,4 @@
+<h1><%= t(:auction_index_heading) %></h1>
+<% for auction in Auction.all %>
+	<%= auction.name %>
+<% end %>

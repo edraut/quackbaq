@@ -1,0 +1,2 @@
+class LightningAuction < Auction
+end

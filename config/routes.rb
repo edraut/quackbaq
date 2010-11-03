@@ -5,6 +5,15 @@ Quackbaq::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
+  match 'pages/:id' => 'pages#show', :as => 'page'
+  match 'sign_in' => 'user_sessions#new'
+  match 'sign_out' => 'user_sessions#destroy'
+  resource :user_session
+  resource :users
+  match 'auctions' => 'auctions#index'
+  match 'auction/:id' => 'auctions#show'
+  match 'sign_up' => 'users#new'
+  match 'my_account' => 'users#show'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
@@ -45,10 +54,13 @@ Quackbaq::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
+namespace :admin_area do
+  resources :auctions
+end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
+  root :to => "auctions#index"
 
   # See how all your routes lay out with "rake routes"
 

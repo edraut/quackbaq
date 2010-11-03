@@ -138,6 +138,15 @@ ActiveRecord::Schema.define(:version => 20101025200852) do
     t.string   "last_login_ip"
     t.string   "current_login_ip"
     t.integer  "quackstars"
+    t.string   "cim_id"
+    t.boolean  "card_valid"
+    t.string   "age_bracket"
+    t.integer  "cell_phone"
+    t.string   "contact_phone"
+    t.boolean  "terms_accepted"
+    t.string   "how_hear"
+    t.string   "how_hear_other"
+    t.string   "gender"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

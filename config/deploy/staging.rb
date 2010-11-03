@@ -1,5 +1,5 @@
-role :app, "184.106.135.19"
-role :web, "184.106.135.19"
+role :app, "184.106.133.196"
+role :web, "184.106.133.196"
 role :db,  "184.106.133.196", :primary => true
 
 set :db_user, "quackbaq"
