@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  #constants
+  TYPES = [
+    {:name => 'Customer', :id => 'Customer'},
+    {:name => 'Admin', :id => 'Admin'}
+  ]
+  
   acts_as_authentic
   attr_accessor :cim_profile
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'

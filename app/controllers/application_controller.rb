@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
 
   private
@@ -19,8 +18,23 @@ class ApplicationController < ActionController::Base
         flash[:notice] = "You must be logged in to access this page" 
         redirect_to sign_in_url 
         return false 
-      end 
-    end 
+      end
+      return true
+    end
+    def require_admin
+      if require_user
+        if current_user.class.name != 'Admin'
+          flash[:notice] = "You don't have the right privileges to view that page."
+          redirect_to root_url
+          return false
+        else
+          return true
+        end
+      else
+        return false
+      end
+    end
+    
     def require_no_user 
       if current_user 
         store_location 

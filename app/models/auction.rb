@@ -5,5 +5,5 @@ class Auction < ActiveRecord::Base
     {:name => 'Lightning', :id => 'LightningAuction'}
   ]
 
-  belongs_to :auction
+  belongs_to :item
 end

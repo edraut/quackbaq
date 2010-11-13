@@ -1,0 +1,14 @@
+<h2>Items for Auction</h2>
+<div class="span-20 text-right"><%= link_to 'Add an Item', new_admin_area_item_url %></div>
+<div class="span-20">
+	<div class="span-4">Name</div>
+	<div class="span-4">Full Price</div>
+	<div class="span-4">Shipping Cost</div>
+</div>
+<% for item in Item.primary %>
+<div class="span-20">
+	<div class="span-4"><%= link_to item.name, admin_area_item_url(item) %></div>
+	<div class="span-4"><%= item.full_price.format %></div>
+	<div class="span-4"><%= item.shipping_cost.format %></div>
+</div>
+<% end %>

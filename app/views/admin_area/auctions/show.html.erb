@@ -1,0 +1,7 @@
+<h1><%= @auction.type %></h1>
+<p>
+item: <%= @auction.item.name %><br/>
+type: <%= @auction.class.name %><br/>
+begin time: <%= @auction.begin_time.to_formatted_s(:friendly) %><br/>
+<%= link_to 'edit', edit_admin_area_auction_url(@auction) %>
+</p>

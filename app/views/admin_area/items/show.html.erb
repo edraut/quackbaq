@@ -1,0 +1,8 @@
+<h1><%= @item.type %></h1>
+<p>
+name: <%= @item.name %><br/>
+description: <%= @item.description %><br/>
+full_price: <%= @item.full_price.format %><br/>
+shipping_cost: <%= @item.shipping_cost.format %><br/>
+<%= link_to 'edit', edit_admin_area_item_url(@item) %>
+</p>

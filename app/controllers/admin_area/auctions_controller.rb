@@ -10,9 +10,10 @@ class AdminArea::AuctionsController < AdminArea::ApplicationController
   end
 
   def create
-    @auction = Auction.new({:user_id => @current_user.id}.merge(params[:auction]))
+    type = params[:auction][:type].constantize
+    @auction = type.new(params[:auction])
     if @auction.save
-      render :action => 'edit' and return
+      render :action => 'show' and return
     else
       render :action => 'new' and return
     end
@@ -23,6 +24,11 @@ class AdminArea::AuctionsController < AdminArea::ApplicationController
   end
 
   def update
+    if @auction.update_attributes(params[@auction.class.name.underscore.to_sym])
+      render :action => 'show'
+    else
+      render :action => 'edit'
+    end
   end
 
   def show

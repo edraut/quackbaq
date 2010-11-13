@@ -45,6 +45,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    money (2.2.0)
     mongrel (1.1.5)
       cgi_multipart_eof_fix (>= 2.4)
       daemons (>= 1.0.3)
@@ -81,6 +82,7 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
+  money
   mongrel
   mysql
   rails (= 3.0.0)

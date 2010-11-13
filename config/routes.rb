@@ -11,7 +11,7 @@ Quackbaq::Application.routes.draw do
   resource :user_session
   resource :users
   match 'auctions' => 'auctions#index'
-  match 'auction/:id' => 'auctions#show'
+  match 'auctions/:id' => 'auctions#show'
   match 'sign_up' => 'users#new'
   match 'my_account' => 'users#show'
 
@@ -56,6 +56,8 @@ Quackbaq::Application.routes.draw do
   #   end
 namespace :admin_area do
   resources :auctions
+  resources :items
+  resources :classic_auctions, :controller => 'auctions'
 end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

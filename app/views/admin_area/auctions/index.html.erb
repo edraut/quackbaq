@@ -1,4 +1,5 @@
 <h1>Auctions</h1>
+<div class="span-20 text-right"><%= link_to 'Add an Auction', new_admin_area_auction_url %></div>
 <div class="span-20">
 	<div class="span-4">Item</div>
 	<div class="span-4">Auction Type</div>
@@ -10,6 +11,6 @@
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
 	<div class="span-4"><%= auction.begin_time.to_formatted_s(:friendly) %></div>
-	<div class="span-4"><%= link_to 'details', auctions_url(auction) %>
+	<div class="span-4"><%= link_to 'details', admin_area_auction_url(auction) %>
 </div>
 <% end %>

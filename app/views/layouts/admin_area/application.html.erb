@@ -14,7 +14,7 @@
 			</div>
 			<div class="span-5 text-center">
 				<% if current_user %>
-					hello <%= current_user.email %>
+				hello <%= current_user.email %>
 					<%= link_to t(:my_auctions_link), "javascript:void();" %>
 				<% else %>
 					<%= link_to 'Sign Up', sign_up_url %>
@@ -30,7 +30,14 @@
 		</div>
 	</div>
 	<div class="container">
-	
+		<div class="span-24">
+			<div class="span-4">
+				<%= link_to 'Auctions', admin_area_auctions_url %>
+			</div>
+			<div class="span-4">
+				<%= link_to 'Items', admin_area_items_url %>
+			</div>
+		</div>
 		<%= yield %>
 	</div>
 
