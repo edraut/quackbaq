@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'
   has_many :bids
   #special behaviors
-  acts_as_authentic
-
+  acts_as_authentic 
   ########### Begin CIM methods ##############
     def add_credit_card(card_hash)
       self.cim_id ||= get_new_cim_id
