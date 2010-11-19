@@ -2,42 +2,34 @@
 <html>
 <head>
   <title>Quackbaq</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= render :partial => '/layouts/base_stylesheets' %>
+  <%= render :partial => '/layouts/base_javascripts' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
 	<div class="top-nav">
 		<div class="container">
-			<div class="span-5 text-center">
-				<%= link_to 'Home', root_url %>
+			<div class="span-4 text-center">
+				<%= link_to 'Back to Public Site', root_url %>
 			</div>
-			<div class="span-5 text-center">
-				<% if current_user %>
-				hello <%= current_user.email %>
-					<%= link_to t(:my_auctions_link), "javascript:void();" %>
-				<% else %>
-					<%= link_to 'Sign Up', sign_up_url %>
-				<% end %>
+			<div class="span-4 text-center">
+				hello <%= @this_user.email %>
 			</div>
-			<div class="span-5 text-center">
-				<% if current_user %>
-					<%= link_to 'Sign out', sign_out_url %>
-				<% else %>
-					<%= link_to 'Sign in', sign_in_url %>
-				<% end %>
+			<div class="span-4 text-center">
+				<%= link_to 'Manage Auctions', admin_area_auctions_url %>
+			</div>
+			<div class="span-4 text-center">
+				<%= link_to 'Manage Items', admin_area_items_url %>
+			</div>
+			<div class="span-4 text-center">
+			</div>
+			<div class="span-4 last text-center">
+				<%= link_to 'Sign out', sign_out_url %>
 			</div>
 		</div>
+		<hr/>
 	</div>
 	<div class="container">
-		<div class="span-24">
-			<div class="span-4">
-				<%= link_to 'Auctions', admin_area_auctions_url %>
-			</div>
-			<div class="span-4">
-				<%= link_to 'Items', admin_area_items_url %>
-			</div>
-		</div>
 		<%= yield %>
 	</div>
 

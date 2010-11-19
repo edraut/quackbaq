@@ -1,0 +1,17 @@
+<h1>Bids</h1>
+<div class="span-20">
+	You currently have <%= @bids.available.length %> bids available.
+</div>
+<h2>Buy more Bids</h2>
+<div class="span-20">
+	<div class="span-4">Number of Bids</div>
+	<div class="span-4">Total Price</div>
+	<div class="span-4">&nbsp;</div>
+</div>
+<% for bid_package in BidPackage.all %>
+	<div class="span-20">
+		<div class="span-4"><%= bid_package.quantity %></div>
+		<div class="span-4"><%= bid_package.price.format %></div>
+		<div class="span-4"><%= link_to 'buy', bids_url(:bid_package_id => bid_package.id), :method => 'POST', :'data-behavior' => 'link_to_form' %>
+	</div>
+<% end %>

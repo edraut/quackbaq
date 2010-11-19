@@ -8,5 +8,5 @@
 	<br />
 	<%= f.label :begin_time %><br />
 	<%= f.datetime_select :begin_time, :minute_step => 60 %><br />
-  	<%= f.submit "Save" %>
+  	<%= f.submit "Save" %> or <%= link_to 'Cancel', admin_area_auctions_url %>
 <% end %>

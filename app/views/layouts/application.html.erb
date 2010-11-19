@@ -2,25 +2,43 @@
 <html>
 <head>
   <title>Quackbaq</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= render :partial => '/layouts/base_stylesheets' %>
+  <%= render :partial => '/layouts/base_javascripts' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
 	<div class="top-nav">
 		<div class="container">
-			<div class="span-5 text-center">
+			<div class="span-4 text-center">
 				<%= link_to 'Home', root_url %>
 			</div>
-			<div class="span-5 text-center">
+			<div class="span-4 text-center">
 				<% if current_user %>
-					hello <%= current_user.email %>
-					<%= link_to t(:my_auctions_link), "javascript:void();" %>
+					hello <%= @this_user.email %>
 				<% else %>
 					<%= link_to 'Sign Up', sign_up_url %>
 				<% end %>
 			</div>
-			<div class="span-5 text-center">
+			<div class="span-4 text-center">
+				<% if current_user %>
+					<%= link_to t(:my_auctions_link), "javascript:void();" %>
+				<% else %>
+					&nbsp;
+				<% end %>
+			</div>
+			<div class="span-4 text-center">
+				<% if current_user %>
+					<%= link_to 'My Bids', bids_url %>
+				<% else %>
+					&nbsp;
+				<% end %>
+			</div>
+			<div class="span-4 text-center">
+				<% if current_user and current_user.is_a? Admin %>
+					<%= link_to 'Dashboard', admin_area_dashboard_url %>
+				<% end %>
+			</div>
+			<div class="span-4 last text-center">
 				<% if current_user %>
 					<%= link_to 'Sign out', sign_out_url %>
 				<% else %>
@@ -28,6 +46,7 @@
 				<% end %>
 			</div>
 		</div>
+		<hr/>
 	</div>
 	<div class="container">
 	

@@ -10,9 +10,12 @@ class AdminArea::ItemsController < AdminArea::ApplicationController
   end
 
   def create
-    @item = Item.new(params[:item])
+    prepare_params
+    manage_money
+    @item = Item.new(@editable_params)
     if @item.save
-      render :action => 'show' and return
+      index
+      render :action => 'index' and return
     else
       render :action => 'new' and return
     end
@@ -23,7 +26,9 @@ class AdminArea::ItemsController < AdminArea::ApplicationController
   end
 
   def update
-    if @item.update_attributes(params[:item])
+    prepare_params
+    manage_money
+    if @item.update_attributes(@editable_params)
       render :action => 'show'
     else
       render :action => 'edit'
@@ -36,6 +41,11 @@ class AdminArea::ItemsController < AdminArea::ApplicationController
   def destroy
   end
 
+  def prepare_params
+    @editable_params = params[:item].dup
+    @money_attributes = [:full_price,:shipping_cost]
+  end
+  
   def get_item
     @item = Item.find(params[:id])
   end

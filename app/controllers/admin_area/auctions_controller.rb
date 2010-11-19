@@ -13,7 +13,8 @@ class AdminArea::AuctionsController < AdminArea::ApplicationController
     type = params[:auction][:type].constantize
     @auction = type.new(params[:auction])
     if @auction.save
-      render :action => 'show' and return
+      index
+      render :action => 'index' and return
     else
       render :action => 'new' and return
     end

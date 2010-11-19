@@ -4,10 +4,14 @@ class User < ActiveRecord::Base
     {:name => 'Customer', :id => 'Customer'},
     {:name => 'Admin', :id => 'Admin'}
   ]
-  
-  acts_as_authentic
+  #accessors
   attr_accessor :cim_profile
+  
+  #associations
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'
+  has_many :bids
+  #special behaviors
+  acts_as_authentic
 
   ########### Begin CIM methods ##############
     def add_credit_card(card_hash)

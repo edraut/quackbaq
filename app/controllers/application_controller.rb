@@ -1,8 +1,22 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user
+  before_filter :get_this_user
+  def string_to_money(string)
+    Money.new(string.to_f * 100)
+  end
+  
+  def manage_money
+    for money_attribute in @money_attributes
+      @editable_params[money_attribute] = string_to_money(@editable_params[money_attribute])
+    end
+  end
 
   private
+    def get_this_user
+      @this_user = current_user
+    end
+    
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find

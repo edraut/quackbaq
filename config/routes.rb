@@ -10,8 +10,9 @@ Quackbaq::Application.routes.draw do
   match 'sign_out' => 'user_sessions#destroy'
   resource :user_session
   resource :users
-  match 'auctions' => 'auctions#index'
-  match 'auctions/:id' => 'auctions#show'
+  resources :bids
+  match 'auctions' => 'auctions#index', :as => :auctions
+  match 'auction/:id' => 'auctions#show', :as => :auction
   match 'sign_up' => 'users#new'
   match 'my_account' => 'users#show'
 
@@ -58,6 +59,7 @@ namespace :admin_area do
   resources :auctions
   resources :items
   resources :classic_auctions, :controller => 'auctions'
+  match 'dashboard' => 'auctions#index', :as => :dashboard
 end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

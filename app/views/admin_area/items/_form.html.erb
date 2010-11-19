@@ -4,13 +4,13 @@
 	<%= f.text_field :name %><br />
 	<br />
 	<%= f.label :full_price %><br />
-	$<%= f.text_field :full_price, :value => @item.full_price.to_s, :size => 8 %><br />
+	$<%= f.text_field :full_price, :value => @item.new_record? ? '' : @item.full_price, :size => 8 %><br />
 	<br />
 	<%= f.label :description %><br />
 	<%= f.text_area :description %><br />
 	<br />
 	<%= f.label :shipping_cost %><br />
-	$<%= f.text_field :shipping_cost, :value => @item.shipping_cost.to_s, :size => 8 %><br />
+	$<%= f.text_field :shipping_cost, :value => @item.new_record? ? '' : @item.shipping_cost, :size => 8 %><br />
 	<%= f.hidden_field :type %>
-  	<%= f.submit "Save" %>
+  	<%= f.submit "Save" %> or <%= link_to 'Cancel', admin_area_items_url %>
 <% end %>
