@@ -9,11 +9,12 @@
 <body>
 	<div class="top-nav">
 		<div class="container">
-			<div class="span-4 text-center">
-				<%= link_to 'Back to Public Site', root_url %>
+			<div class="span-2 text-center">
+				<%= link_to 'Public Site', root_url %>
 			</div>
-			<div class="span-4 text-center">
+			<div class="span-6 text-center">
 				hello <%= @this_user.email %>
+				<%= link_to '(sign out)', sign_out_url %>
 			</div>
 			<div class="span-4 text-center">
 				<%= link_to 'Manage Auctions', admin_area_auctions_url %>
@@ -24,7 +25,6 @@
 			<div class="span-4 text-center">
 			</div>
 			<div class="span-4 last text-center">
-				<%= link_to 'Sign out', sign_out_url %>
 			</div>
 		</div>
 		<hr/>
