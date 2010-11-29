@@ -6,6 +6,7 @@ class AuctionsController < ApplicationController
   end
   
   def show
+    @hookbox = true
   end
 
   def get_auction

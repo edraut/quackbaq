@@ -5,6 +5,9 @@
   <%= render :partial => '/layouts/base_stylesheets' %>
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= csrf_meta_tag %>
+  <% if @hookbox %>
+ 	<script src="<%= HOOKBOX_URL %>/static/hookbox.js"></script>
+  <% end %>
 </head>
 <body>
 	<div class="top-nav">

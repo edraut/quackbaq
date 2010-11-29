@@ -15,7 +15,7 @@ Quackbaq::Application.routes.draw do
   match 'auction/:id' => 'auctions#show', :as => :auction
   match 'sign_up' => 'users#new'
   match 'my_account' => 'users#show'
-
+  match 'hookbox/:action', :controller => 'hookbox'
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)

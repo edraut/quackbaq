@@ -3,24 +3,48 @@
 	<div class="span-20">
 		You have <span id="available_bids"><%= @this_user.bids.available.count %></span> bids available.
 	</div>
-	<div id="debugging"></div>
-	<%= link_to 'place a bid', bid_url(@this_user.bids.first, :placed_auction_id => @auction.id), 
+	<div class="span-20">
+		<%= link_to 'place a bid', bid_url(@this_user.bids.first, :placed_auction_id => @auction.id), 
 	:id => 'place_bid_link', 
 	:style => @this_user.bids.available.any? ? '' : 'display:none;'
  	 %>
-	<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
+		<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
+	</div>
+	<div class="span-20" id="bid_history"></div>
 	<% javascript_tag do %>
-		$(document).ready(function(){
-			$('#place_bid_link').click(function(e){
-				$.ajax({
-					url: $(e.target).attr('href'),
+		var subscription = null;
+		var conn = null;
+		jQuery(document).ready(function(){
+			function refreshBidHistory(new_history){
+				jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload + '<br/>');
+			};
+			hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
+			conn = hookbox.connect("<%= HOOKBOX_URL %>");
+			conn.onSubscribed = function(channel_name, _subscription) {
+				subscription = _subscription;
+				subscription.onPublish = function(frame) {
+					refreshBidHistory(frame);
+				};
+	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
+				  	var name = item[0];
+					var frame = item[1];
+					refreshBidHistory(frame);
+			    };
+			};
+			conn.onClose = function() {
+				alert("Connection Lost, please refresh this page");
+			};
+			conn.subscribe("<%= @auction.channel_name %>");
+			jQuery('#place_bid_link').click(function(e){
+				jQuery.ajax({
+					url: jQuery(e.target).attr('href'),
 					type: 'PUT',
 					dataType: 'json',
 					success: function(data,textStatus) {
-						$('#available_bids').html(data.bid_count);
+						jQuery('#available_bids').html(data.bid_count);
 						if(data.bid_count == 0){
-							$('#place_bid_link').hide();
-							$('#buy_bids_link').show();
+							jQuery('#place_bid_link').hide();
+							jQuery('#buy_bids_link').show();
 						}
 					}
 				});

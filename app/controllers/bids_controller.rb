@@ -19,6 +19,7 @@ class BidsController < ApplicationController
     @bid.placed_auction_id = params[:placed_auction_id].to_i
     @bid.placed_at = Time.now
     @bid.save
+    Nestful.post("http://#{HOOKBOX_HOST}:8001/web/publish", :params => {:security_token => 'secret', :channel_name => @bid.placed_auction.channel_name, :originator => @this_user.email, :payload => @bid.placed_auction.current_price.format.to_json})
     render :json => {:bid_count => @this_user.bids.available.count}
   end
 end

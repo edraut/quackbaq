@@ -4,13 +4,13 @@ function bindAjaxEvents(context){
 	if(!target_document){
 		var target_document = document;
 	}
-	$("[data-ajax-behavior='ajax_form']",target_document).die('submit', {element_type:'form'}, ajaxEvent);
-	$("[data-ajax-behavior='ajax_link']",target_document).die('click', {element_type:'link'}, ajaxEvent);
-	$("[data-ajax-behavior='ajax_form']",target_document).live('submit', {element_type:'form'}, ajaxEvent);
-	$("[data-ajax-behavior='ajax_link']",target_document).live('click', {element_type:'link'}, ajaxEvent);
+	jQuery("[data-ajax-behavior='ajax_form']",target_document).die('submit', {element_type:'form'}, ajaxEvent);
+	jQuery("[data-ajax-behavior='ajax_link']",target_document).die('click', {element_type:'link'}, ajaxEvent);
+	jQuery("[data-ajax-behavior='ajax_form']",target_document).live('submit', {element_type:'form'}, ajaxEvent);
+	jQuery("[data-ajax-behavior='ajax_link']",target_document).live('click', {element_type:'link'}, ajaxEvent);
 };
 function ajaxEvent(e){
-	var our_element = $(e.target);
+	var our_element = jQuery(e.target);
 	var element_type = e.data.element_type;
 	if( element_type == 'link' && (our_element.attr('nodeName').toUpperCase() != 'A') ){
 		our_element = our_element.parents('a');
@@ -33,22 +33,22 @@ function ajaxEvent(e){
 			if(jquery_error_element = our_element.attr('data-ajax_error_element')){
 				switch( our_element.attr('data-ajax_error_placement') ) {
 					case 'after':
-						$('#' + jquery_error_element).after(XMLHttpRequest.responseText);
+						jQuery('#' + jquery_error_element).after(XMLHttpRequest.responseText);
 						break;
 					case 'html':
-						$('#' + jquery_error_element).html(XMLHttpRequest.responseText);
+						jQuery('#' + jquery_error_element).html(XMLHttpRequest.responseText);
 						break;
 					case 'before':
-						$('#' + jquery_error_element).before(XMLHttpRequest.responseText);
+						jQuery('#' + jquery_error_element).before(XMLHttpRequest.responseText);
 						break;
 					case 'prepend':
-						$('#' + jquery_error_element).prepend(XMLHttpRequest.responseText);
+						jQuery('#' + jquery_error_element).prepend(XMLHttpRequest.responseText);
 						break;
 					case 'append':
-						$('#' + jquery_error_element).append(XMLHttpRequest.responseText);
+						jQuery('#' + jquery_error_element).append(XMLHttpRequest.responseText);
 						break;
 					default:
-						$('#' + jquery_error_element).html(XMLHttpRequest.responseText);
+						jQuery('#' + jquery_error_element).html(XMLHttpRequest.responseText);
 						break;
 				}
 			} else {
@@ -65,22 +65,22 @@ function ajaxEvent(e){
 			if(jquery_success_element) {
 				switch( our_element.attr('data-ajax_success_placement') ) {
 					case 'after':
-						$('#' + jquery_success_element).after(data);
+						jQuery('#' + jquery_success_element).after(data);
 						break;
 					case 'html':
-						$('#' + jquery_success_element).html(data);
+						jQuery('#' + jquery_success_element).html(data);
 						break;
 					case 'before':
-						$('#' + jquery_success_element).before(data);
+						jQuery('#' + jquery_success_element).before(data);
 						break;
 					case 'prepend':
-						$('#' + jquery_success_element).prepend(data);
+						jQuery('#' + jquery_success_element).prepend(data);
 						break;
 					case 'append':
-						$('#' + jquery_success_element).append(data);
+						jQuery('#' + jquery_success_element).append(data);
 						break;
 					default:
-						$('#' + jquery_success_element).html(data);
+						jQuery('#' + jquery_success_element).html(data);
 						break;
 				}
 			}; 
@@ -102,10 +102,10 @@ function ajaxEvent(e){
 			our_parameters.url = our_element.attr('href')
 			break;
 	}
-	$.ajax(our_parameters);
+	jQuery.ajax(our_parameters);
 	return false;
 };
 
-$(document).ready(function() {
+jQuery(document).ready(function() {
 	bindAjaxEvents();
 });

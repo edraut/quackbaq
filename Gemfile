@@ -9,6 +9,7 @@ gem 'rails', '3.0.0'
 gem 'mysql'
 gem 'authlogic'
 gem 'money'
+gem 'nestful'
 
 # Use unicorn as the web server
 # gem 'unicorn'
