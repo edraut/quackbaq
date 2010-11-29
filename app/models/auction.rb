@@ -28,6 +28,6 @@ class Auction < ActiveRecord::Base
   end
   
   def create_channel
-    Nestful.get("#{HOOKBOX_URL}/web/create_channel", :params => {:security_token => 'secret', :channel_name => self.channel_name})
+    Nestful.get("#{HOOKBOX_URL}/web/create_channel", :params => {:security_token => 'secret', :channel_name => self.channel_name, :history_size => 5})
   end
 end

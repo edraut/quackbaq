@@ -10,26 +10,29 @@
  	 %>
 		<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
 	</div>
-	<div class="span-20" id="bid_history"></div>
+	<div class="span-20" id="bid_history">
+		<h3>Bid History</h3>
+	</div>
 	<% javascript_tag do %>
-		var subscription = null;
-		var conn = null;
 		jQuery(document).ready(function(){
 			function refreshBidHistory(new_history){
 				jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload + '<br/>');
 			};
 			hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
 			conn = hookbox.connect("<%= HOOKBOX_URL %>");
-			conn.onSubscribed = function(channel_name, _subscription) {
-				subscription = _subscription;
-				subscription.onPublish = function(frame) {
-					refreshBidHistory(frame);
-				};
-	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
-				  	var name = item[0];
-					var frame = item[1];
-					refreshBidHistory(frame);
-			    };
+			conn.onSubscribed = function(channel_name, subscription) {
+				if(channel_name == "<%= @auction.channel_name %>"){
+					subscription.onPublish = function(frame) {
+						refreshBidHistory(frame);
+					};
+		  			for (var i = 0, item; item = subscription.history[i]; ++i) {
+					  	var name = item[0];
+						var frame = item[1];
+						if(name == 'PUBLISH'){
+							refreshBidHistory(frame);
+						}
+				    };
+				}
 			};
 			conn.onClose = function() {
 				alert("Connection Lost, please refresh this page");
