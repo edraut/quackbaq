@@ -9,7 +9,13 @@ Quackbaq::Application.routes.draw do
   match 'sign_in' => 'user_sessions#new'
   match 'sign_out' => 'user_sessions#destroy'
   resource :user_session
-  resource :users
+  resources :users do
+    member do
+      get 'activate'
+      post 'request_password_reset'
+      get 'forgot_password'
+    end
+  end
   resources :bids
   match 'auctions' => 'auctions#index', :as => :auctions
   match 'auction/:id' => 'auctions#show', :as => :auction

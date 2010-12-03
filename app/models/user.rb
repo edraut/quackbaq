@@ -11,7 +11,31 @@ class User < ActiveRecord::Base
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'
   has_many :bids
   #special behaviors
-  acts_as_authentic 
+  acts_as_authentic
+  
+  state_machine :state, :initial => :not_valid do
+    event :validate_account do
+      transition :not_valid => :active
+    end
+    event :deactivate do
+      transition :active => :inactive
+    end
+    state :not_valid
+    state :active
+    state :inactive
+  end
+  
+  def prepare_for_validation
+    self.reset_perishable_token!
+    Notifier.account_validation_instructions(self).deliver
+  end
+
+  def prepare_password_reset
+    self.reset_perishable_token!  
+    Notifier.password_reset_instructions(self).deliver
+  end  
+  
+  
   ########### Begin CIM methods ##############
     def add_credit_card(card_hash)
       self.cim_id ||= get_new_cim_id
