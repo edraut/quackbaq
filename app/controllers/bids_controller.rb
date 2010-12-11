@@ -16,10 +16,21 @@ class BidsController < ApplicationController
   
   def update
     @bid = @this_user.bids.available.first
-    @bid.placed_auction_id = params[:placed_auction_id].to_i
-    @bid.placed_at = Time.now
-    @bid.save
-    Nestful.post("#{HOOKBOX_URL}/web/publish", :params => {:security_token => 'secret', :channel_name => @bid.placed_auction.channel_name, :originator => @this_user.email, :payload => @bid.placed_auction.current_price.format.to_json})
-    render :json => {:bid_count => @this_user.bids.available.count}
+    @auction = Auction.find(params[:placed_auction_id].to_i)
+    if @auction.in_progress?
+      @bid.placed_auction_id = params[:placed_auction_id].to_i
+      @bid.placed_at = Time.now
+      @bid.save
+      begin
+        Nestful.post("#{HOOKBOX_URL}/web/get_channel_info", :params => {:security_token => 'secret', :channel_name => @auction.channel_name})
+      rescue
+        @auction.create_channel
+      end
+      Nestful.post("#{HOOKBOX_URL}/web/publish", :params => {:security_token => 'secret', :channel_name => @auction.channel_name, :originator => @this_user.email, :payload => {:new_price => @auction.current_price.format,:time_left => 20}.to_json})
+      render :json => {:bid_count => @this_user.bids.available.count}
+    else
+      Nestful.post("#{HOOKBOX_URL}/web/publish", :params => {:security_token => 'secret', :channel_name => @auction.channel_name, :originator => 'quackbaq', :payload => {:event => 'WINNER', :winner => @auction.winner.email} })
+      Nestful.post("#{HOOKBOX_URL}/web/destroy_channel", :params => {:security_token => 'secret', :channel_name => @auction.channel_name })
+    end
   end
 end

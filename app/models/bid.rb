@@ -7,6 +7,7 @@ class Bid < ActiveRecord::Base
   #named_scopes
   scope :placed, :conditions => "placed_at is not null"
   scope :available, :conditions => "placed_at is null"
+  scope :new_to_old, :order => "placed_at desc"
   
   #special behaviors
   composed_of :price_paid, :class_name => 'Money', :mapping => [%w(price_paid cents)]

@@ -15,6 +15,18 @@ class UserSessionsController < ApplicationController
     end
   end
   
+  def update
+    if params[:time_zone_offset]
+      session[:time_zone_offset] = params[:time_zone_offset]
+    end
+    redirect_back_or_default(root_url)
+    # render :text => session.inspect and return
+  end
+  
+  def show
+    update
+  end
+  
   def destroy
     current_user_session.destroy
     redirect_back_or_default root_url

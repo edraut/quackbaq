@@ -13,3 +13,25 @@ function bindLinkToForm(){
 jQuery(document).ready(function(){
 	bindLinkToForm();
 })
+function humanize_interval(seconds){
+	denominations = [60,60,24,1000];
+	time_string = "";
+	for(i in denominations){
+      if(seconds > 0){
+		n = seconds % denominations[i];
+        seconds -= n;
+		seconds = seconds / denominations[i];
+		if(seconds > 0){
+			if(n < 10){
+				n = "0" + n;
+			}
+		}
+		if(time_string.length == 0){
+        	time_string = n;
+		} else {
+			time_string = n + ":" + time_string;
+		}
+	  }
+	}
+	return time_string;
+}

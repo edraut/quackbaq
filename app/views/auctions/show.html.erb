@@ -1,4 +1,5 @@
 <h1><%= @auction.item.name %></h1>
+<div id="time_left"></div>
 <% if current_user %>
 	<div class="span-20">
 		You have <span id="available_bids"><%= @this_user.bids.available.count %></span> bids available.
@@ -13,48 +14,88 @@
 	<div class="span-20" id="bid_history">
 		<h3>Bid History</h3>
 	</div>
-	<% javascript_tag do %>
-		jQuery(document).ready(function(){
-			function refreshBidHistory(new_history){
-				jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload + '<br/>');
-			};
-			hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
-			conn = hookbox.connect("<%= HOOKBOX_URL %>");
-			conn.onSubscribed = function(channel_name, subscription) {
-				if(channel_name == "<%= @auction.channel_name %>"){
-					subscription.onPublish = function(frame) {
-						refreshBidHistory(frame);
-					};
-		  			for (var i = 0, item; item = subscription.history[i]; ++i) {
-					  	var name = item[0];
-						var frame = item[1];
-						if(name == 'PUBLISH'){
-							refreshBidHistory(frame);
-						}
-				    };
-				}
-			};
-			conn.onClose = function() {
-				alert("Connection Lost, please refresh this page");
-			};
-			conn.subscribe("<%= @auction.channel_name %>");
-			jQuery('#place_bid_link').click(function(e){
-				jQuery.ajax({
-					url: jQuery(e.target).attr('href'),
-					type: 'PUT',
-					dataType: 'json',
-					success: function(data,textStatus) {
-						jQuery('#available_bids').html(data.bid_count);
-						if(data.bid_count == 0){
-							jQuery('#place_bid_link').hide();
-							jQuery('#buy_bids_link').show();
-						}
-					}
-				});
+<% end %>
+<% javascript_tag do %>
+	jQuery(document).ready(function(){
+		var tick_count = 0;
+		var start_time = new Date().getTime();
+		var seconds_left = <%= @auction.time_left_in_seconds %>;
+		var timer_handle = 0;
+		function resetTimer(seconds){
+			tick_count = 0;
+			start_time = new Date().getTime();
+			seconds_left = seconds;
+			clearTimeout(timer_handle)
+			updateTimer();
+			timer_handle = setTimeout(cycleTimer,1000);
+		}
+		function updateTimer(){
+			jQuery('#time_left').html(humanize_interval(secondsLeft()));
+		}
+		updateTimer();
+		function cycleTimer(){
+			tick_count += 1000;
+			if(secondsLeft() == 0){
+				closeAuction();
 				return false;
+			}
+			slew = (new Date().getTime() - start_time) - tick_count;
+			updateTimer();
+			timer_handle = setTimeout(cycleTimer,(1000 - slew));
+		}
+		function secondsLeft(){
+			return seconds_left - (tick_count / 1000);
+		}
+		function closeAuction(){
+			clearTimeout(timer_handle);
+			jQuery('#place_bid_link').hide();
+			jQuery('#time_left').html('CLOSED');
+//			jQuery.ajax()
+		}
+		timer_handle = setTimeout(cycleTimer,1000);
+		<% if current_user %>
+		function refreshBidHistory(new_history){
+			jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload.new_price + '<br/>');
+		};
+		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
+		conn = hookbox.connect("<%= HOOKBOX_URL %>");
+		conn.onSubscribed = function(channel_name, subscription) {
+			if(channel_name == "<%= @auction.channel_name %>"){
+				subscription.onPublish = function(frame) {
+					resetTimer(frame.payload.time_left);
+					refreshBidHistory(frame);
+				};
+	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
+				  	var name = item[0];
+					var frame = item[1];
+					if(name == 'PUBLISH'){
+						refreshBidHistory(frame);
+					}
+			    };
+			}
+		};
+		conn.onClose = function() {
+			alert("Connection Lost, please refresh this page");
+		};
+		conn.subscribe("<%= @auction.channel_name %>");
+		jQuery('#place_bid_link').click(function(e){
+			jQuery.ajax({
+				url: jQuery(e.target).attr('href'),
+				type: 'PUT',
+				dataType: 'json',
+				success: function(data,textStatus) {
+					jQuery('#available_bids').html(data.bid_count);
+					if(data.bid_count == 0){
+						jQuery('#place_bid_link').hide();
+						jQuery('#buy_bids_link').show();
+					}
+				}
 			});
+			return false;
 		});
-	<% end %>
-<% else %>
+		<% end %>
+	});
+<% end %>
+<% unless current_user %>
 	<%= link_to 'sign in', sign_in_url %> or <%= link_to 'sign_up', sign_up_url %> to join the auction.
 <% end %>

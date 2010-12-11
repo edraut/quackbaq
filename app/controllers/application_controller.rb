@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user
   before_filter :get_this_user
+  before_filter :handle_time_zone
   def string_to_money(string)
     Money.new(string.to_f * 100)
   end
@@ -13,6 +14,13 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  
+    def handle_time_zone
+      unless session[:time_zone_offset]
+        store_location
+      end
+    end
+    
     def get_this_user
       @this_user = current_user
     end

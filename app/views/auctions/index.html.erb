@@ -2,14 +2,14 @@
 <div class="span-20">
 	<div class="span-4">Item</div>
 	<div class="span-4">Auction Type</div>
-	<div class="span-4">Begin Time</div>
+	<div class="span-4">Time Left</div>
 	<div class="span-4">&nbsp;</div>
 </div>
-<% for auction in Auction.all %>
+<% for auction in Auction.in_progress %>
 <div class="span-20">
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
-	<div class="span-4"><%= auction.begin_time.to_formatted_s(:friendly) %></div>
+	<div class="span-4"><%= auction.time_left %></div>
 	<div class="span-4"><%= link_to 'details', auction_url(auction) %>
 </div>
 <% end %>
