@@ -10,20 +10,21 @@ class Auction < ActiveRecord::Base
   belongs_to :item
   has_many :placed_bids, :class_name => 'Bid', :foreign_key => 'placed_auction_id'
   #named_scopes
-  scope :in_progress, :conditions => ["begin_time < :now and (begin_time + interval 12 hour) > :now",{:now => Time.now}]
+  scope :in_progress, :conditions => ["begin_time < :now and end_time > :now",{:now => Time.now}]
   scope :not_started, :conditions => ["begin_time > :now",{:now => Time.now}]
-  scope :finished, :conditions => ["(begin_time + interval 12 hour) < :now",{:now => Time.now}]
+  scope :finished, :conditions => ["end_time < :now",{:now => Time.now}]
   #special behaviors
   #validations
   
   #callbacks
+  before_create :set_end_time
   after_create :create_channel
   #class methods
   
   #instance methods
   
   def current_price
-    self.item.full_price - Money.new(self.placed_bids.count)
+    Money.new(self.placed_bids.count)
   end
   
   def begin_time_local(offset)
@@ -31,16 +32,25 @@ class Auction < ActiveRecord::Base
     gm_time - offset.hours
   end
   
-  def the_end
-    self.begin_time + 12.hours
+  def humanize_interval(seconds)
+    [[60, :seconds], [60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
+      if seconds > 0
+        seconds, n = seconds.divmod(count)
+        "#{n.to_i}"
+      end
+    }.compact.reverse.join(':')
   end
-  
+
   def time_left
     humanize_interval(time_left_in_seconds)
   end
   
   def time_left_in_seconds
-    (self.the_end - Time.now).round
+    (self.end_time - Time.now).round
+  end
+  
+  def reset_timer
+    self.end_time = Time.now + 20.seconds
   end
   
   def in_progress?
@@ -69,5 +79,9 @@ class Auction < ActiveRecord::Base
   
   def create_channel
     Nestful.get("#{HOOKBOX_URL}/web/create_channel", :params => {:security_token => 'secret', :channel_name => self.channel_name, :history_size => 5})
+  end
+  
+  def set_end_time
+    self.end_time = self.begin_time + 12.hours
   end
 end

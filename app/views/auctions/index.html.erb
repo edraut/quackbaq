@@ -9,7 +9,84 @@
 <div class="span-20">
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
-	<div class="span-4"><%= auction.time_left %></div>
+	<div class="span-4" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
 	<div class="span-4"><%= link_to 'details', auction_url(auction) %>
 </div>
+<% end %>
+<% javascript_tag do %>
+	jQuery(document).ready(function(){
+		var tick_count = 0;
+		var start_time = new Date().getTime();
+		var timer_handle = 0;
+		jQuery("[data-role='time_left']").each(function(i){
+			jQuery(this).data('seconds_left',jQuery(this).attr('data-seconds_left'));
+		});
+		function updateTimer(){
+			jQuery("[data-role='time_left']").each(function(i){
+				jQuery(this).html(humanize_interval(secondsLeft(jQuery(this).data('seconds_left'))));
+			});
+		};
+		updateTimer();
+		function cycleTimer(){
+			tick_count += 1000;
+			slew = (new Date().getTime() - start_time) - tick_count;
+			jQuery("[data-role='time_left']").each(function(i){
+				if(secondsLeft(jQuery(this).data('seconds_left')) == 0){
+					closeAuction(jQuery(this));
+				};
+			});
+			updateTimer();
+			timer_handle = setTimeout(cycleTimer,(1000 - slew));
+		};
+		function secondsLeft(seconds_left){
+			return seconds_left - (tick_count / 1000);
+		};
+		function closeAuction(auction_time_left){
+//			jQuery('#place_bid_link').hide();
+			auction_time_left.html('CLOSED');
+			auction_time_left.attr('data-role','no_time_left');
+		};
+		timer_handle = setTimeout(cycleTimer,1000);
+		<% if current_user and false%>
+		function refreshBidHistory(new_history){
+			jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload.new_price + '<br/>');
+		};
+		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
+		conn = hookbox.connect("<%= HOOKBOX_URL %>");
+		conn.onSubscribed = function(channel_name, subscription) {
+			if(channel_name == "<%= @auction.channel_name %>"){
+				subscription.onPublish = function(frame) {
+					jQuery("[data-id='" + timer_id +"']").data('seconds_left',frame.payload.time_left);
+					refreshBidHistory(frame);
+				};
+	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
+				  	var name = item[0];
+					var frame = item[1];
+					if(name == 'PUBLISH'){
+						refreshBidHistory(frame);
+					}
+			    };
+			}
+		};
+		conn.onClose = function() {
+			alert("Connection Lost, please refresh this page");
+		};
+		conn.subscribe("<%= @auction.channel_name %>");
+		jQuery('#place_bid_link').click(function(e){
+			jQuery.ajax({
+				url: jQuery(e.target).attr('href'),
+				type: 'PUT',
+				dataType: 'json',
+				success: function(data,textStatus) {
+					jQuery('#available_bids').html(data.bid_count);
+					if(data.bid_count == 0){
+						jQuery('#place_bid_link').hide();
+						jQuery('#buy_bids_link').show();
+					}
+				}
+			});
+			return false;
+		});
+		<% end %>
+	});
 <% end %>

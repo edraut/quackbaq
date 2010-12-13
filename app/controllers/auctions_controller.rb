@@ -3,6 +3,7 @@ class AuctionsController < ApplicationController
   
   def index
     @auctions = Auction.all
+    @hookbox = true
   end
   
   def show

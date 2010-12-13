@@ -81,8 +81,9 @@
 		jQuery('#place_bid_link').click(function(e){
 			jQuery.ajax({
 				url: jQuery(e.target).attr('href'),
-				type: 'PUT',
+				type: 'GET',
 				dataType: 'json',
+				cache: false,
 				success: function(data,textStatus) {
 					jQuery('#available_bids').html(data.bid_count);
 					if(data.bid_count == 0){
