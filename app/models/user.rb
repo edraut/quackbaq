@@ -35,8 +35,10 @@ class User < ActiveRecord::Base
     Notifier.password_reset_instructions(self).deliver
   end  
   
-  
-  ########### Begin CIM methods ##############
+  ############################################################################################
+  ########### Begin CIM methods, copyright 2008 Eric Draut, all rights reserved ##############
+  ############################################################################################
+
     def add_credit_card(card_hash)
       self.cim_id ||= get_new_cim_id
       if self.cim_id.blank?
@@ -51,7 +53,7 @@ class User < ActiveRecord::Base
           :verification_value => card_hash[:cvv],            
           :type => ActiveMerchant::Billing::CreditCard.type?(card_hash[:number])
         )
-        gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => MARKET_AUTH_LOGIN, :password => MARKET_AUTH_TRANS_ID )
+        gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => AUTH_NET_LOGIN, :password => AUTH_NET_TRANS_ID )
         response = gateway.create_customer_payment_profile(:customer_profile_id => self.cim_id,:payment_profile => {:payment => {:credit_card => credit_card}, :bill_to => {:first_name => self.billing_address.first_name, :last_name => self.billing_address.last_name, :address => (self.billing_address.address_1 + self.billing_address.address_2), :city => self.billing_address.city, :state => self.billing_address.state, :zip => self.billing_address.zipcode, :country => self.billing_address.country.iso}},:validation_mode => :live)
         if response.message != 'Successful.'
           handle_errors(response)
@@ -67,7 +69,7 @@ class User < ActiveRecord::Base
       if self.cim_id.blank? or self.cim_payment_profile_id.blank?
         return false
       else
-        gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => MARKET_AUTH_LOGIN, :password => MARKET_AUTH_TRANS_ID )
+        gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => AUTH_NET_LOGIN, :password => AUTH_NET_TRANS_ID )
         response = gateway.delete_customer_payment_profile(:customer_profile_id => self.cim_id,:customer_payment_profile_id => self.cim_payment_profile_id)
         if response.message == 'Successful.'
           self.card_valid = false
@@ -79,7 +81,7 @@ class User < ActiveRecord::Base
     end
 
     def get_new_cim_id
-      gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => MARKET_AUTH_LOGIN, :password => MARKET_AUTH_TRANS_ID )
+      gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => AUTH_NET_LOGIN, :password => AUTH_NET_TRANS_ID )
       response = gateway.create_customer_profile(:profile => {:email => self.email, :merchant_customer_id => self.id})
       if response.message == 'Successful.'
         self.cim_id = response.params['customer_profile_id']
@@ -99,7 +101,7 @@ class User < ActiveRecord::Base
     end
 
     def refresh_cim_profile
-      gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => MARKET_AUTH_LOGIN, :password => MARKET_AUTH_TRANS_ID )
+      gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => AUTH_NET_LOGIN, :password => AUTH_NET_TRANS_ID )
       @cim_profile = gateway.get_customer_profile(:customer_profile_id => self.cim_id)
     end
 
@@ -122,10 +124,7 @@ class User < ActiveRecord::Base
 
     def handle_errors(response)
       if response.params['messages']['message']['code'] == 'E00007'
-        unless TenderTicket.find(:first, :conditions => {:reason => 'BAD_CIM_CREDENTIALS',:identification => MARKET_AUTH_LOGIN + ':' + MARKET_AUTH_TRANS_ID})
-          TenderTicket.create_ticket({:title => "#{MARKET_NAME} CIM Failure", :body => "The Curated Commerce app for #{MARKET_NAME} could not connect to Authorize.net CIM because of invalid login / transaction key."})
-          TenderTicket.create(:reason => 'BAD_CIM_CREDENTIALS',:identification => MARKET_AUTH_LOGIN + ':' + MARKET_AUTH_TRANS_ID)
-        end
+        # handle invalid auth.net login/transaction id error here.
       end
     end
 
