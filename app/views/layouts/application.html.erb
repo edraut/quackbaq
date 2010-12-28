@@ -49,12 +49,23 @@
 				<% end %>
 			</div>
 		</div>
-		<hr/>
+		<hr id="top_nav_divider"/>
 	</div>
 	<div class="container">
 	
 		<%= yield %>
 	</div>
-
+	<%= javascript_tag do %>
+		jQuery(document).ready(function(){
+		<% unless flash[:notice].blank? %>
+			function clearFlash(){
+				jQuery('#flash_notice').fadeOut(1000);
+			}
+			jQuery('#top_nav_divider').after('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:notice] %></div>');
+			jQuery('#flash_notice').fadeIn(500);
+			setTimeout(clearFlash,3000);
+		<% end %>
+		});
+	<% end %>
 </body>
 </html>
