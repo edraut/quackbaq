@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   default :from => "'Quackbaq Notifications' <notifications@quackbaq.com>"
-  default_url_options[:host] = "quackbaq.com"  
+  default_url_options[:host] = THIS_HOST 
 
   def password_reset_instructions(user)  
     @password_reset_url = edit_user_url(:id => user.perishable_token, :reset_password => true)  
