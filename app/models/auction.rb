@@ -27,6 +27,10 @@ class Auction < ActiveRecord::Base
     Money.new(self.placed_bids.count)
   end
   
+  def highest_bidder
+    self.placed_bids.new_to_old.first.user
+  end
+  
   def begin_time_local(offset)
     gm_time = self.begin_time.getgm
     gm_time - offset.hours
@@ -67,7 +71,7 @@ class Auction < ActiveRecord::Base
   
   def winner
     if self.finished?
-      return self.placed_bids.new_to_old.first.user
+      return self.highest_bidder
     else
       return nil
     end

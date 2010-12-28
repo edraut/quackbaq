@@ -1,8 +1,8 @@
 class HookboxController < ApplicationController
-  protect_from_forgery :except => [:connect,:disconnect,:create_channel,:subscribe,:poll,:destroy_channel,:publish]
+  protect_from_forgery :except => [:connect,:disconnect,:create_channel,:subscribe,:unsubscribe,:poll,:destroy_channel,:publish]
   def connect
     Rails.logger.info("Hookbox reports a connection from a user.")
-    render :json => [true, {"name" => "test_name"}] and return
+    render :json => [true, {"name" => current_user ? @this_user.email : session["id"]}] and return
   end
   def disconnect
     render :json => [true, {}] and return
