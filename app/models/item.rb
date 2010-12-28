@@ -2,7 +2,7 @@ class Item < ActiveRecord::Base
   #constants
   
   #associations
-  has_many :auctions
+  has_many :auctions, :dependent => :destroy
   #named_scopes
   scope :primary, :conditions => {:parent_id => nil}
   #special behaviors

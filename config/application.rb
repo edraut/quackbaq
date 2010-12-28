@@ -42,9 +42,8 @@ module Quackbaq
     config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
-      :domain               => 'quackbaq.com',
-      :user_name            => 'notifications',
-      :password             => 'n0t1f1c4tions',
+      :user_name            => 'notifications@quackbaq.com',
+      :password             => '3gd66eD4s0kqQ',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
   end
