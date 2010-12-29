@@ -13,7 +13,7 @@
 	<div class="span-4"><%= link_to 'details', auction_url(auction) %>
 </div>
 <% end %>
-<!-- <%= Auction.all.map{|a| [a.id,a.in_progress?]} %>
+<!-- <%= Auction.all.map{|a| [a.id,a.in_progress?].inspect}.join("\n") %>
 
  	<%= Auction.in_progress.count %>-->
 <%= javascript_tag do %>

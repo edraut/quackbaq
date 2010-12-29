@@ -28,7 +28,15 @@ class Auction < ActiveRecord::Base
   end
   
   def highest_bidder
-    self.placed_bids.new_to_old.first.user
+    if self.placed_bids.any?
+      self.placed_bids.new_to_old.first.user
+    else
+      nil
+    end
+  end
+  
+  def highest_bidder_name
+    self.highest_bidder ? self.highest_bidder : ''
   end
   
   def begin_time_local(offset)

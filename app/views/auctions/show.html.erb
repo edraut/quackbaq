@@ -63,7 +63,7 @@
 			jQuery('#current_price').html(frame.payload.new_price);
 			jQuery('#highest_bidder').html(frame.user);
 		};
-		refreshStats({payload:{new_price:'<%= @auction.current_price.format %>'},user:'<%= @auction.highest_bidder.email %>'});
+		refreshStats({payload:{new_price:'<%= @auction.current_price.format %>'},user:'<%= @auction.highest_bidder_name %>'});
 		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
 		conn = hookbox.connect("<%= HOOKBOX_URL %>");
 		conn.onSubscribed = function(channel_name, subscription) {
