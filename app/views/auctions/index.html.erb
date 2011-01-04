@@ -5,7 +5,7 @@
 	<div class="span-4">Time Left</div>
 	<div class="span-4">&nbsp;</div>
 </div>
-<% for auction in Auction.in_progress %>
+<% for auction in @auctions %>
 <div class="span-20">
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>

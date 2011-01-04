@@ -2,7 +2,7 @@ class AuctionsController < ApplicationController
   before_filter :get_auction, :only => [:edit,:update,:show,:destroy]
   
   def index
-    @auctions = Auction.all
+    @auctions = Auction.in_progress
     @hookbox = true
   end
   
