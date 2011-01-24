@@ -1,0 +1,46 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = new_video %>
+<% form_for :content_element, content_element, :url => admin_area_content_elements_url,
+	:html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_success_element' => 'content_element_list',
+		:'data-ajax_success_placement' => 'append',
+		:'data-ajax_success_callback' => "jQuery('#content_element_new_links').show();jQuery('#content_element_new').empty();"),
+		:'data-ajax_error_element' => 'content_element_new',
+		:'data-ajax_method' => 'POST'
+	} do |f| %>
+	<div class="span-20 last item_new editing">
+		<div class="halfpadbox">
+			<h3>Add a video</h3>
+			<ul>
+				<li>Enter the full video URL, including <em>http://</em></li>
+				<li>Vimeo and YouTube video URLs accepted</li>
+			</ul>
+			<h3>Enter Video URL</h3>
+			<%= content_element.first_error_on :video_url %>
+			<%= f.text_field :video_url, :class => 'text' %>
+			<br/>
+			<br/>
+			<h3>Add a Caption</h3>
+			<%= content_element.first_error_on :body %>
+			<div id="body_feedback"></div>
+			<%= f.text_area :body, :class => "caption_input",
+					:validation_binding => 'textarea_limit',
+					:validation_limit => '200',
+					:validation_feedback_element => 'body_feedback' %>
+			<%= f.hidden_field :container_id %>
+			<%= f.hidden_field :container_type %>
+			<%= f.hidden_field :type %>
+		</div>
+		
+		<div class="span-20 last text_center">
+			<p>
+				<%= f.submit :add %>
+				<a onclick="jQuery('#content_element_new_links').show();jQuery('#content_element_new').empty();">cancel</a>
+			</p>
+		</div>
+	</div>
+<% end %>
+<% javascript_tag do %>
+	bindLimitedTextAreas();
+<% end %>

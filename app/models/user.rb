@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   #associations
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'
   has_many :bids, :dependent => :destroy
+  has_many :user_auctions, :dependent => :destroy
+  has_many :auctions, :through => :user_auctions
+  
   #special behaviors
   acts_as_authentic
   

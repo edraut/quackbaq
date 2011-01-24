@@ -26,12 +26,31 @@ set :keep_releases, 2
 desc "Modified deploy task for Phusion Passenger"
 namespace :deploy do
   desc "Restart Application"
-  task :restart, :roles => :app do
+  task :restart_app, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
     #restart_workling
   end
-  task :start, :roles => :app do
+  task :start_app, :roles => :app do
     # start task unnecessary for Passenger deployment
+  end
+  task :restart_workers, :roles => :push do
+    begin
+      run "cd #{deploy_to}/current; if [ -e \"tmp/pids/image_worker.pid\" ]; then kill `cat tmp/pids/image_worker.pid`; fi"
+    rescue Exception => e
+      run "cd #{deploy_to}/current; rm tmp/pids/image_worker.pid"
+    end
+    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production"
+  end
+  task :start_workers, :roles => :push do
+    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production"
+  end
+  task :start do
+    start_app
+    start_workers
+  end
+  task :restart do
+    restart_app
+    restart_workers
   end
 end
 

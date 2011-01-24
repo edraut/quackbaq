@@ -13,6 +13,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def handle_broken_browser_methods
+    if params[:_method]
+      case params[:_method].downcase
+      when 'put'
+        update and return
+      when 'delete'
+        destroy and return
+      when 'post'
+        create and return
+      end
+    end
+  end
+
   private
   
     def handle_time_zone

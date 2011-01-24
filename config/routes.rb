@@ -17,8 +17,12 @@ Quackbaq::Application.routes.draw do
     end
   end
   resources :bids
-  match 'auctions' => 'auctions#index', :as => :auctions
-  match 'auction/:id' => 'auctions#show', :as => :auction
+  resources :auctions do
+    collection do
+      get 'my'
+    end
+  end
+  resources :user_auctions
   match 'sign_up' => 'users#new'
   match 'my_account' => 'users#show'
   match 'hookbox/:action', :controller => 'hookbox'
@@ -65,6 +69,7 @@ namespace :admin_area do
   resources :auctions
   resources :items
   resources :classic_auctions, :controller => 'auctions'
+  resources :content_elements
   match 'dashboard' => 'auctions#index', :as => :dashboard
 end
   # You can have the root of your site routed with "root"

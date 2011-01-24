@@ -7,3 +7,39 @@ function getActualLinkTarget(alleged_link_target){
 		return alleged_link_target.parents('a');
 	}
 }
+function bindSortables(){
+	jQuery("[data-behavior='sortable']").sortable({
+		update: function(e,ui){
+			jQuery.ajax({
+				type: 'POST', 
+				url: jQuery(this).attr('data-sort_url'),
+				data: jQuery(this).sortable('serialize')
+			});
+			if(jQuery(this).attr('data-sort_callback')){
+				eval(jQuery(this).attr('data-sort_callback'));
+			}
+		},
+		handle: (jQuery(this).find("[data-role='sortable_drag_handle']").length == 0) ? false : "[data-role='sortable_drag_handle']"
+	});
+}
+function bindLimitedTextAreas(){
+	jQuery("[validation_binding='textarea_limit']").keyup(function(e){
+		limitChars(jQuery(e.target), parseInt(jQuery(e.target).attr('validation_limit')),jQuery(e.target).attr('validation_feedback_element'));
+	});
+};
+function limitChars(textarea, limit, infodiv){
+	var text = textarea.val(); 
+	var textlength = text.length;
+	if(textlength > limit){
+		jQuery('#' + infodiv).html('You exceeded the limit of '+limit+' characters, your content was truncated.');
+		textarea.css({'background-color':'#FF9999'});
+		jQuery('#' + infodiv).css({'text-decoration':'blink','color':'#FF0000'});
+		textarea.val(text.substr(0,limit));
+		return false;
+	} else {
+		jQuery('#' + infodiv).html('You have '+ (limit - textlength) +' characters left.');
+		textarea.css({'background-color':'white'});
+		jQuery('#' + infodiv).css({'text-decoration':'none','color':'#000000'});
+		return true;
+	}
+};

@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       end
     elsif @user.update_attributes(params[@user.class.name.underscore.to_sym])
       flash[:notice] = "Account updated!"
-      redirect_to account_url
+      redirect_to user_url(@user)
     else
       render :action => :edit
     end

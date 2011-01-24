@@ -1,0 +1,47 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = new_text %>
+<% form_for :content_element, content_element, :url => admin_area_content_elements_url,
+	:html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_success_element' => 'content_element_list',
+		:'data-ajax_success_placement' => 'append',
+		:'data-ajax_success_callback' => "jQuery('#content_element_new_links').show();jQuery('#content_element_new').empty();"),
+		:'data-ajax_error_element' => 'content_element_new',
+		:'data-ajax_method' => 'POST'
+	} do |f| %>
+	<div class="span-20 last editing">
+		<div class="padbox">
+		<div class="span-11">
+			<p>
+				<%= f.label :body %><br/>
+				<%= content_element.first_error_on :body %>
+				<%= f.text_area :body %>
+				<%= f.hidden_field :container_id %>
+				<%= f.hidden_field :container_type %>
+				<%= f.hidden_field :type %>
+			</p>
+		</div>
+		<div class="span-8 last">
+			<div class="textile_guide_wrapper">
+				<h4>Text Formatting</h4>
+				<br/>
+				<p><strong>italics:</strong><br/>
+				_text_ &rarr; <em>text</em></p>
+				<p><strong>bold:</strong><br/>
+				*text* &rarr; <strong>text</strong></p>
+				<p><strong>linking:</strong><br/>
+				&lt;a href=&quot;http://google.com&quot; target=&quot;_blank&quot;&gt;Google&lt;/a&gt; &rarr; <a href="http://google.com" target="_blank">Google</a>
+				</p>
+			</div>
+		</div>
+		</div>
+		<div class="text_center">
+			<p>
+				<%= f.submit :add %>
+				<a onclick="jQuery('#content_element_new_links').show();jQuery('#content_element_new').empty();">cancel</a>
+			</p>
+		</div>
+	</div>
+		
+	</div>
+<% end %>

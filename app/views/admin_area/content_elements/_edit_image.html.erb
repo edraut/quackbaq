@@ -1,0 +1,38 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = edit_image %>
+<% form_for :content_element, content_element,
+	:url => admin_area_content_element_url(content_element),
+	:html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_success_element' => "content_element_#{content_element.id}",
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_callback' => "jQuery('#content_element_#{content_element.id}').removeClass('editing');",
+		:id => "edit_content_element_form_#{content_element.id}"
+	} do |f| %>
+	<div class="span-19 last item_new editing" id="product_image_loader">
+		<div class="span-19 last">
+			<%= image_tag content_element.image.url(:large) %>
+		</div>
+		<div class="span-19 last">
+			<div class="halfpadbox">
+				<h3>Edit Caption</h3>
+				<%= content_element.first_error_on :body %>
+				<div id="body_feedback"></div>
+				<%= f.text_area :body, :class => "caption_input",
+						:validation_binding => 'textarea_limit',
+						:validation_limit => '200',
+						:validation_feedback_element => 'body_feedback' %>
+			</div>
+		</div>
+		<div class="span-19 last item_new_submit text_center">
+			<%= f.submit 'Save' %><%= link_to 'cancel', admin_area_content_element_url(content_element),
+				:'data-ajax_behavior' => 'ajax_link',
+				:'data-ajax_method' => 'GET',
+				:'data-ajax_success_element' => "content_element_#{content_element.id}",
+				:'data-ajax_success_callback' => "jQuery('#content_element_#{content_element.id}').removeClass('editing');" %>
+		</div>
+	</div>
+<% end %>
+<% javascript_tag do %>
+	bindLimitedTextAreas();
+<% end %>

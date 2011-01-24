@@ -3,6 +3,10 @@ class Item < ActiveRecord::Base
   
   #associations
   has_many :auctions, :dependent => :destroy
+  has_many :content_elements, :as => :container, :dependent => :destroy, :order => 'position'
+  has_many :content_images, :as => :container, :order => 'position'
+  has_many :content_videos, :as => :container, :order => 'position'
+  has_many :content_texts, :as => :container, :order => 'position'
   #named_scopes
   scope :primary, :conditions => {:parent_id => nil}
   #special behaviors

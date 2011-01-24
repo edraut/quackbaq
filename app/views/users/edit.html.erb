@@ -1,0 +1,17 @@
+<h1>Edit Your Account Info</h1>
+<%= form_for @this_user, :url => user_url(@this_user) do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %><br/>
+	<%= f.label :email %>
+	<%= f.text_field :email %><br/>
+	<%= f.label :contact_phone %>
+	<%= f.text_field :contact_phone %><br/>
+	<%= f.label :cell_phone %>
+	<%= f.text_field :cell_phone %><br/>
+	<%= f.label :age_bracket %>
+	<%= f.select :age_bracket, ['21-30','31-40','41-50','51-60','61-70','71-80','81-90','91+'].map{|b| [b,b]} %><br/>
+	<%= f.label :gender %>
+	<%= f.select :gender, ['Male','Female'].map{|g| [g,g]} %><br/>
+	<%= f.submit 'Update' %> or
+	<%= link_to 'cancel', user_url(@this_user) %>
+<% end %>

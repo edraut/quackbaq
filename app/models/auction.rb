@@ -54,7 +54,8 @@ class Auction < ActiveRecord::Base
   end
 
   def time_left
-    humanize_interval(time_left_in_seconds)
+    @time_left = humanize_interval(time_left_in_seconds)
+    @time_left = @time_left.blank? ? 'CLOSED' : @time_left
   end
   
   def time_left_in_seconds

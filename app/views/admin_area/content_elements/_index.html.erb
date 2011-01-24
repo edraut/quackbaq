@@ -1,0 +1,50 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<div class="span-20 last">
+	<div class="span-20 last edit_box box_header">
+		<div class="box_header_only">
+			<div id="content_element_new_links" class="span-15 last box_header_only text_right">
+				<span id="content_element_controls">
+				<% if ContentElement::TEXT_CONTAINERS.include? @container.class.name %>
+					<%= link_to 'add text', new_admin_area_content_element_url(:container_id => @container.id, :container_type => @container.class.name, :type => 'ContentText'),
+						:'data-ajax_behavior' => 'ajax_link',
+						:'data-ajax_method' => 'GET',
+						:'data-ajax_success_element' => "content_element_new",
+						:'data-ajax_success_callback' => "jQuery('#content_element_new_links').hide();"	 	%> 
+					&nbsp; 
+				<% end %>
+				<% if ContentElement::IMAGE_CONTAINERS.include? @container.class.name %>
+					<%= link_to 'add image', new_admin_area_content_element_url(:container_id => @container.id, :container_type => @container.class.name, :type => 'ContentImage'),
+						:'data-ajax_behavior' => 'ajax_link',
+						:'data-ajax_method' => 'GET',
+						:'data-ajax_success_element' => "content_element_new",
+						:'data-ajax_success_callback' => "jQuery('#content_element_new_links').hide();"	 	%>
+					&nbsp; 
+				<% end %>
+				<% if ContentElement::VIDEO_CONTAINERS.include? @container.class.name %>
+					<%= link_to 'add video', new_admin_area_content_element_url(:container_id => @container.id, :container_type => @container.class.name, :type => 'ContentVideo'),
+						:'data-ajax_behavior' => 'ajax_link',
+						:'data-ajax_method' => 'GET',
+						:'data-ajax_success_element' => "content_element_new",
+						:'data-ajax_success_callback' => "jQuery('#content_element_new_links').hide();"	 	%>
+					 &nbsp; | &nbsp;
+				<% end %>
+				</span>
+				<%= link_to 'rearrange', admin_area_content_elements_url(:container_id => @container.id, :container_type => @container.class.name, :arrange => true),
+					:'data-ajax_behavior' => 'ajax_link',
+					:'data-ajax_method' => 'GET',
+					:'data-ajax_success_element' => 'content_element_index'
+				%>
+			</div> <!-- end content_element_new_links -->
+		</div> <!-- box_header_only -->
+	</div>
+	<div id="content_element_new" class="span-20 last">
+	</div>
+	<div id="content_element_list" class="span-20 last">
+	<% for content_element in @container.content_elements %>
+		<div id="content_element_<%= content_element.id %>" class="span-19 last">
+			<%= render :partial => 'admin_area/content_elements/show_' + content_element.class.name.underscore.split('_').last, :object => content_element %>
+		</div>
+	<% end %>
+	</div>
+</div>
+<div id="content_element_container_template" class="span-19 last" style="display:none;"></div>

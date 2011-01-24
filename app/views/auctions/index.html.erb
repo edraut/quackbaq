@@ -1,4 +1,4 @@
-<h1>Auctions</h1>
+<h1><% if @my_auctions %>My <% end %>Auctions</h1>
 <div class="span-20">
 	<div class="span-4">Item</div>
 	<div class="span-4">Auction Type</div>
@@ -13,9 +13,7 @@
 	<div class="span-4"><%= link_to 'details', auction_url(auction) %>
 </div>
 <% end %>
-<!-- <%= Auction.all.map{|a| [a.id,a.in_progress?].inspect}.join("\n") %>
 
- 	<%= Auction.in_progress.count %>-->
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
 		var tick_count = 0;

@@ -1,0 +1,11 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = arrange_video %>
+<li id="content_element_<%= content_element.id %>" class="list_item_content_element_sortable">
+<% if content_element.image %>
+	<%= image_tag content_element.image.url(:small_thumb) %>
+<% else %>
+	<%=h content_element.video_url %>
+<% end %>
+
+<%= truncate(content_element.body,60,'...') %>
+</li>

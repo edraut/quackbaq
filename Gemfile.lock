@@ -28,23 +28,36 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
+    amqp (0.6.7)
+      eventmachine (>= 0.12.4)
     arel (2.0.6)
     authlogic (2.1.6)
       activesupport
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     builder (2.1.2)
+    bunny (0.6.0)
     cgi_multipart_eof_fix (2.5.0)
     daemons (1.1.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    eventmachine (0.12.10)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
     i18n (0.5.0)
+    json (1.4.6)
     mail (2.2.12)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    minion (0.1.15)
+      amqp (>= 0.6.7)
+      bunny (>= 0.6.0)
+      json (>= 1.2.0)
     money (3.1.5)
     mongrel (1.1.5)
       cgi_multipart_eof_fix (>= 2.4)
@@ -54,6 +67,9 @@ GEM
     mysql (2.8.1)
     nestful (0.0.6)
       activesupport (>= 3.0.0.beta)
+    paperclip (2.3.8)
+      activerecord
+      activesupport
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -78,14 +94,18 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
+    xml-simple (1.0.12)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   authlogic
+  aws-s3
+  minion
   money
   mongrel
   mysql
   nestful
+  paperclip
   rails (= 3.0.3)

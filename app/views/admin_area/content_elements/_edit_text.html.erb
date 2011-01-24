@@ -1,0 +1,44 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = edit_text %>
+<% form_for :content_element, content_element,
+	:url => admin_area_content_element_url(content_element),
+	:html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_success_element' => "content_element_#{content_element.id}",
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_callback' => "jQuery('#content_element_#{content_element.id}').removeClass('editing');",
+		:id => "edit_content_element_form_#{content_element.id}"
+	} do |f| %>
+	<div class="span-19 last">
+		<div class="halfpadbox">
+			<div class="span-11">
+				<%= f.label :body %>
+				<%= content_element.first_error_on :body %>
+				<%= f.text_area :body %>
+			</div>
+			<div class="span-7 last">
+				<div class="textile_guide_wrapper">
+					<h4>Text Formatting</h4>
+					<br/>
+					<p><strong>italics:</strong><br/>
+					_text_ &rarr; <em>text</em></p>
+					<p><strong>bold:</strong><br/>
+					*text* &rarr; <strong>text</strong></p>
+					<p><strong>linking:</strong><br/>
+					&lt;a href=&quot;http://google.com&quot; target=&quot;_blank&quot;&gt;Google&lt;/a&gt; &rarr; <a href="http://google.com" target="_blank">Google</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="span-18 last edit_notice">
+		<p><%= f.submit :save %>
+			<%= link_to 'cancel', admin_area_content_element_url(content_element),
+:'data-ajax_behavior' => 'ajax_link',
+:'data-ajax_method' => 'GET',
+:'data-ajax_success_element' => "content_element_#{content_element.id}",
+:'data-ajax_success_callback' => "jQuery('#content_element_#{content_element.id}').removeClass('editing');" %>
+		</p>
+	</div>
+<% end %>

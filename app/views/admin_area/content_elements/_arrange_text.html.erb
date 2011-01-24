@@ -1,0 +1,3 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = arrange_text %>
+<li id="content_element_<%= content_element.id %>" class="sortable"><%= content_element.body.blank? ? '(empty)' : truncate_clean(strip_tags(content_element.body),:length => 60,:omission => '...') %></li>

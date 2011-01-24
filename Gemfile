@@ -10,6 +10,9 @@ gem 'mysql'
 gem 'authlogic'
 gem 'money'
 gem 'nestful'
+gem 'minion'
+gem 'paperclip'
+gem 'aws-s3'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,0 +1,26 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<div id="content_element_list" class="span-20 last">
+	<div class="span-20 last edit_box box_header">
+		<div class="box_header_only">
+			<div class="span-15 last text_right">
+				<%= link_to 'done arranging', admin_area_content_elements_url(:container_id => @container.id, :container_type => @container.class.name, :partial => true),
+					:'data-ajax_behavior' => 'ajax_link',
+					:'data-ajax_method' => 'GET',
+					:'data-ajax_success_element' => 'content_element_index'
+					%>
+			</div>
+		</div>
+	</div>
+	<div class="span-20 last text_center">Drag to Rearrange</div>
+	<div class="span-20 last">
+		<ul data-behavior="sortable" data-sort_url="<%= admin_area_content_element_url(:id => :multiple) %>" class="content_element_sortable">
+		<% for content_element in @container.content_elements %>
+			<%= render :partial => 'arrange_' + content_element.class.name.underscore.split('_').last, :object => content_element %>
+		<% end %>
+		</ul>
+	</div>
+</div>
+
+<% javascript_tag do %>
+	bindSortables();
+<% end %>

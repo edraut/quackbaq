@@ -1,0 +1,60 @@
+<!-- All Code Copyright 2008 Eric Draut all rights reserved -->
+<% content_element = new_image %>
+<% form_for :content_element, content_element, :url => admin_area_content_elements_url,
+	:html => {
+		:multipart => true,
+		:target => "content_image_upload_frame",
+		:onsubmit => "jQuery('#image_ready').hide(); jQuery('#content_image_uploading').show();"
+	} do |f| %>
+	<div class="span-20 last item_new editing" id="product_image_loader">
+		<div id="image_ready">
+			<div class="halfpadbox">
+				<h3>Choose an image</h3>
+				<h6>Images Specifications</h6>
+				<ul>
+				<% content_element.image_specifications.each do |spec| %>
+					<li><%= spec %></li>
+				<% end %>
+				</ul>
+				<div id="file_field_locater" class="file_field_locator">
+					<div id="file_field_input" class="file_field_input">
+				  		<%= f.file_field :image %>
+						<%= f.hidden_field :container_id %>
+						<%= f.hidden_field :container_type %>
+						<%= f.hidden_field :type %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="span-20 last">
+			<div class="halfpadbox">
+				<h3>Add a Caption</h3>
+				<%= content_element.first_error_on :body %>
+				<div id="body_feedback"></div>
+				<%= f.text_area :body, :class => "caption_input",
+						:validation_binding => 'textarea_limit',
+						:validation_limit => '200',
+						:validation_feedback_element => 'body_feedback' %>
+			</div>
+		</div>
+		<div class="span-20 last text_center">
+			<%= f.submit 'Save' %><a onclick="jQuery('#content_element_new_links').show();jQuery('#content_element_new').empty();">cancel</a>
+			&nbsp; <br/>
+			&nbsp; <br/>
+		</div>
+	</div>
+<% end %>
+<div class="" id="content_image_uploading" style="display: none;">
+	<h3>Uploading</h3>
+	<%= image_tag 'ajax-loader.gif' %>
+</div>					
+<iframe id="content_image_upload_frame" name="content_image_upload_frame" style="display: none"></iframe>
+<%= link_to '', admin_area_content_elements_url,
+	:'data-ajax_behavior' => 'ajax_link',
+	:'data-ajax_method' => 'GET',
+	:'data-ajax_success_callback' => "jQuery('#content_element_new').empty();",
+	:id => 'refresh_images_link' %>
+
+<% javascript_tag do %>
+	bindLimitedTextAreas();
+<% end %>

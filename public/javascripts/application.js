@@ -10,9 +10,6 @@ function bindLinkToForm(){
 		return false;
 	})
 }
-jQuery(document).ready(function(){
-	bindLinkToForm();
-})
 function humanize_interval(seconds){
 	denominations = [60,60,24,1000];
 	time_string = "";
@@ -35,3 +32,17 @@ function humanize_interval(seconds){
 	}
 	return time_string;
 }
+function clickRefreshImageLink(id){
+	new_item = jQuery('#content_element_container_template').clone();
+	new_item.attr('id','content_element_' + id);
+	new_item.appendTo('#content_element_list');
+	new_item.show();
+	jQuery('#refresh_images_link').attr('href',jQuery('#refresh_images_link').attr('href') + '/' + id);
+	jQuery('#refresh_images_link').attr('data-ajax_success_element','content_element_' + id)
+	jQuery('#refresh_images_link').click();
+	jQuery('#content_element_new').empty();
+	jQuery('#content_element_new_links').show();
+}
+jQuery(document).ready(function(){
+	bindLinkToForm();
+})

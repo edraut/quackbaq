@@ -4,10 +4,10 @@ function bindAjaxEvents(context){
 	if(!target_document){
 		var target_document = document;
 	}
-	jQuery("[data-ajax-behavior='ajax_form']",target_document).die('submit', {element_type:'form'}, ajaxEvent);
-	jQuery("[data-ajax-behavior='ajax_link']",target_document).die('click', {element_type:'link'}, ajaxEvent);
-	jQuery("[data-ajax-behavior='ajax_form']",target_document).live('submit', {element_type:'form'}, ajaxEvent);
-	jQuery("[data-ajax-behavior='ajax_link']",target_document).live('click', {element_type:'link'}, ajaxEvent);
+	jQuery("[data-ajax_behavior='ajax_form']",target_document).die('submit', {element_type:'form'}, ajaxEvent);
+	jQuery("[data-ajax_behavior='ajax_link']",target_document).die('click', {element_type:'link'}, ajaxEvent);
+	jQuery("[data-ajax_behavior='ajax_form']",target_document).live('submit', {element_type:'form'}, ajaxEvent);
+	jQuery("[data-ajax_behavior='ajax_link']",target_document).live('click', {element_type:'link'}, ajaxEvent);
 };
 function ajaxEvent(e){
 	var our_element = jQuery(e.target);

@@ -4,5 +4,6 @@ name: <%= @item.name %><br/>
 description: <%= @item.description %><br/>
 full_price: <%= @item.full_price.format %><br/>
 shipping_cost: <%= @item.shipping_cost.format %><br/>
-<%= link_to 'edit', edit_admin_area_item_url(@item) %>
+<%= link_to 'edit item info', edit_admin_area_item_url(@item) %><br/>
+<%= link_to 'manage images', admin_area_content_elements_url(:container_id => @item.id, :container_type => 'Item')%>
 </p>

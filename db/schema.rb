@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101025200852) do
+ActiveRecord::Schema.define(:version => 20110116221240) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -54,6 +54,20 @@ ActiveRecord::Schema.define(:version => 20101025200852) do
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
+
+  create_table "content_elements", :force => true do |t|
+    t.integer  "container_id"
+    t.string   "container_type"
+    t.string   "type",               :limit => 25
+    t.text     "body"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.string   "video_url"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "processing",                       :default => false, :null => false
+  end
 
   create_table "countries", :force => true do |t|
     t.string   "iso"
