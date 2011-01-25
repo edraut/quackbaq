@@ -1,6 +1,7 @@
 before "deploy:cold", "config_files:create"
 after "deploy:update_code", "config_files:symlink"
 after "deploy:update", "deploy:cleanup"
+after 'deploy:update_code', 'bundler:bundle_new_release'
 
 require 'erb'
 
@@ -39,10 +40,10 @@ namespace :deploy do
     rescue Exception => e
       run "cd #{deploy_to}/current; rm tmp/pids/image_worker.pid"
     end
-    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production"
+    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production 2>>/var/www/quackbaq/#{stage}/current/log/image_worker.log &"
   end
   task :start_workers, :roles => :push do
-    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production"
+    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production 2>>/var/www/quackbaq/#{stage}/current/log/image_worker.log &"
   end
   task :start do
     start_app
@@ -123,7 +124,19 @@ namespace :config_files do
   #   run "ln -nfs #{shared_path}/public/pictures #{release_path}/public/pictures" 
   # end
 end
-
+namespace :bundler do
+  task :create_symlink, :roles => [:app, :push] do
+    shared_dir = File.join(shared_path, 'bundle')
+    release_dir = File.join(current_release, '.bundle')
+    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+  end
+ 
+  task :bundle_new_release, :roles => [:app, :push] do
+    bundler.create_symlink
+    run "cd #{release_path} && bundle install --without test"
+  end
+end
+ 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
