@@ -15,4 +15,7 @@ test
 public/system/**/*
 public/system
 public/sitemap.xml
+public/.sass-cache
+public/.sass-cache/*
+public/stylesheets/master.scss
 
