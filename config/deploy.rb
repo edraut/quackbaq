@@ -34,19 +34,27 @@ namespace :deploy do
   task :start_app, :roles => :app do
     # start task unnecessary for Passenger deployment
   end
-  task :restart_workers, :roles => :push do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_worker_ctl restart"
+  task :restart_pushers, :roles => :app do
+    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl restart"
   end
-  task :start_workers, :roles => :push do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_worker_ctl start"
+  task :start_pushers, :roles => :app do
+    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl start"
+  end
+  task :restart_processors, :roles => :push do
+    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl restart"
+  end
+  task :start_processors, :roles => :push do
+    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl start"
   end
   task :start do
     start_app
-    start_workers
+    start_pushers
+    start_processors
   end
   task :restart do
     restart_app
-    restart_workers
+    restart_pushers
+    restart_processors
   end
 end
 

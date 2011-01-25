@@ -13,3 +13,8 @@ Signal.trap("TERM") do
   $running = false
 end
 
+job "image.upload" do |args|
+  post_image = ContentImageTmp.find(args["image_id"])
+  post_image.move_to_s3
+  {"image_id" => args["image_id"]}
+end

@@ -13,3 +13,7 @@ Signal.trap("TERM") do
   $running = false
 end
 
+job "image.process" do |args|
+  post_image = ContentImage.find(args["image_id"])
+  post_image.regenerate_styles!
+end
