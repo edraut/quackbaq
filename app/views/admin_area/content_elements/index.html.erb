@@ -1,4 +1,4 @@
-<h1>Images for <%= @container.class.human_name %> <%= @container.name %></h1>
+<h1>Images for <%= @container.class.human_name %> <%= link_to @container.name, admin_area_item_url(@container) %></h1>
 <div id="content_element_index">
 	<%= render :partial => 'index' %>
 </div>
