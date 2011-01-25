@@ -35,15 +35,10 @@ namespace :deploy do
     # start task unnecessary for Passenger deployment
   end
   task :restart_workers, :roles => :push do
-    begin
-      run "cd #{deploy_to}/current; if [ -e \"tmp/pids/image_worker.pid\" ]; then kill `cat tmp/pids/image_worker.pid`; fi"
-    rescue Exception => e
-      run "cd #{deploy_to}/current; rm tmp/pids/image_worker.pid"
-    end
-    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production 2>>/var/www/quackbaq/#{stage}/current/log/image_worker.log &"
+    run "cd #{deploy_to}/current; ./lib/daemons/image_worker_ctl restart"
   end
   task :start_workers, :roles => :push do
-    run "cd #{deploy_to}/current; rails runner lib/workers/image_worker.rb RAILS_ENV=production 2>>/var/www/quackbaq/#{stage}/current/log/image_worker.log &"
+    run "cd #{deploy_to}/current; ./lib/daemons/image_worker_ctl start"
   end
   task :start do
     start_app
