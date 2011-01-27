@@ -1,4 +1,5 @@
 <h1><%= @auction.type %></h1>
+<%= image_tag @auction.item.content_images.first.image.url(:medium) %>
 <p>
 item: <%= @auction.item.name %><br/>
 type: <%= @auction.class.name %><br/>

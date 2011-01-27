@@ -1,5 +1,5 @@
 <h1><%= @auction.item.name %></h1>
-<div class="span-8"><img src="<%= @auction.item.content_images.first.image.url(:large) %>"></div>
+<div class="span-8"><img src="<%= @auction.item.content_images.first.image.url(:medium) %>"></div>
 <div class="span-8">
 	<% if current_user %>
 		<% if @this_user.auctions.include? @auction %>

@@ -1,13 +1,14 @@
 <h1><% if @my_auctions %>My <% end %>Auctions</h1>
-<div class="span-20">
+<div class="span-24">
+	<div class="span-8">&nbsp;</div>
 	<div class="span-4">Item</div>
 	<div class="span-4">Auction Type</div>
 	<div class="span-4">Time Left</div>
 	<div class="span-4">&nbsp;</div>
 </div>
 <% for auction in @auctions %>
-<div class="span-20">
-	<div class="span-4"><img src="<%= auction.item.content_images.first.image.url(:medium) %>" ></div>
+<div class="span-24">
+	<div class="span-8"><img src="<%= auction.item.content_images.first.image.url(:medium) %>" ></div>
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
 	<div class="span-4" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
