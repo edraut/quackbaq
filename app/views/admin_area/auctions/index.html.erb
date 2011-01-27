@@ -1,16 +1,18 @@
 <h1>Manage Auctions</h1>
 <div class="span-20 text-right"><%= link_to 'Add an Auction', new_admin_area_auction_url %></div>
 <div class="span-20">
+	<div class="span-4">&nbsp;</div>
 	<div class="span-4">Item</div>
 	<div class="span-4">Auction Type</div>
 	<div class="span-4">Begin Time</div>
-	<div class="span-4">&nbsp;</div>
+	<div class="span-4 last">&nbsp;</div>
 </div>
 <% for auction in Auction.all %>
 <div class="span-20">
+	<div class="span-4"><% if auction.item.content_images.any? %> <%= link_to image_tag( auction.item.content_images.first.image.url(:small_thumb)), admin_area_auction_url(auction) %> <% else %>&nbsp;<% end %></div>
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
 	<div class="span-4"><%= auction.begin_time.to_formatted_s(:friendly) %></div>
-	<div class="span-4"><%= link_to 'details', admin_area_auction_url(auction) %>
+	<div class="span-4 last"><%= link_to 'details', admin_area_auction_url(auction) %>
 </div>
 <% end %>

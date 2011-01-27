@@ -5,5 +5,13 @@ description: <%= @item.description %><br/>
 full_price: <%= @item.full_price.format %><br/>
 shipping_cost: <%= @item.shipping_cost.format %><br/>
 <%= link_to 'edit item info', edit_admin_area_item_url(@item) %><br/>
+<h2>Images</h2>
+<div class="span-24">
+<% @item.content_images.each_with_index do |image,index| %>
+	<div class="span-2 <% if ((index + 1) % 10) == 0 %> last <% end %>">
+		<img src="<%= image.image.url(:small_thumb) %>">
+	</div>
+<% end %>
+</div>
 <%= link_to 'manage images', admin_area_content_elements_url(:container_id => @item.id, :container_type => 'Item')%>
 </p>
