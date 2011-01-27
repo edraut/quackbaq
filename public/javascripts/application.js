@@ -11,6 +11,9 @@ function bindLinkToForm(){
 	})
 }
 function humanize_interval(seconds){
+	if (seconds < 1) {
+		return 'CLOSED';
+	}
 	denominations = [60,60,24,1000];
 	time_string = "";
 	for(i in denominations){

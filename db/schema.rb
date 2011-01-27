@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110116221240) do
+ActiveRecord::Schema.define(:version => 20110125215539) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(:version => 20110116221240) do
     t.string   "cim_id"
     t.boolean  "card_valid"
     t.string   "age_bracket"
-    t.integer  "cell_phone"
+    t.string   "cell_phone"
     t.string   "contact_phone"
     t.boolean  "terms_accepted"
     t.string   "how_hear"

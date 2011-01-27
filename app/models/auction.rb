@@ -36,7 +36,7 @@ class Auction < ActiveRecord::Base
   end
   
   def highest_bidder_name
-    self.highest_bidder ? self.highest_bidder : ''
+    self.highest_bidder ? self.highest_bidder.email : ''
   end
   
   def begin_time_local(offset)

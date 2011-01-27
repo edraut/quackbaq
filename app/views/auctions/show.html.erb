@@ -1,29 +1,35 @@
 <h1><%= @auction.item.name %></h1>
-<% if current_user %>
-	<% if @this_user.auctions.include? @auction %>
-		This auction is in your auctions list.<br/>
-	<% else %>
-		<%= link_to 'add to my auctions', user_auctions_url + "?auction_id=#{@auction.id}&_method=post" %>
+<div class="span-8"><img src="<%= @auction.item.content_images.first.image.url(:large) %>"></div>
+<div class="span-8">
+	<% if current_user %>
+		<% if @this_user.auctions.include? @auction %>
+			This auction is in your auctions list.<br/>
+		<% else %>
+			<%= link_to 'add to my auctions', user_auctions_url + "?auction_id=#{@auction.id}&_method=post" %>
+		<% end %>
 	<% end %>
-<% end %>
-<div class="span-24"><div class="span-3">Time Left</div><div id="time_left" class="span-21 last"></div></div>
-<div class="span-24"><div class="span-3">Current Price</div><div id="current_price" class="span-21 last"></div></div>
-<div class="span-24"><div class="span-3">Highest Bidder</div><div id="highest_bidder" class="span-21 last"></div></div>
-<% if current_user %>
-	<div class="span-20">
-		You have <span id="available_bids"><%= @this_user.bids.available.count %></span> bids available.
-	</div>
-	<div class="span-20">
-		<%= link_to 'place a bid', bid_url(@this_user.bids.first, :placed_auction_id => @auction.id), 
-	:id => 'place_bid_link', 
-	:style => @this_user.bids.available.any? ? '' : 'display:none;'
- 	 %>
-		<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
-	</div>
-	<div class="span-20" id="bid_history">
-		<h3>Bid History</h3>
-	</div>
-<% end %>
+	<div class="span-8 last"><div class="span-3">Time Left</div><div id="time_left" class="span-5 last"></div></div>
+	<div class="span-8 last"><div class="span-3">Current Price</div><div id="current_price" class="span-5 last"></div></div>
+	<div class="span-8 last"><div class="span-3">Highest Bidder</div><div id="highest_bidder" class="span-5 last"></div></div>
+</div>
+<div class="span-8 last">
+	<% if current_user %>
+		<div class="span-8 last">
+			You have <span id="available_bids"><%= @this_user.bids.available.count %></span> bids available.
+		</div>
+		<div class="span-8 last">
+			<%= link_to 'place a bid', bid_url(@this_user.bids.first, :placed_auction_id => @auction.id), 
+		:id => 'place_bid_link', 
+		:style => @this_user.bids.available.any? ? '' : 'display:none;'
+	 	 %>
+			<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
+		</div>
+		<div class="span-8 last">&nbsp;</div>
+		<div class="span-8 last" id="bid_history">
+			<h3>Bid History</h3>
+		</div>
+	<% end %>
+</div>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
 		var tick_count = 0;

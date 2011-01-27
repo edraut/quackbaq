@@ -7,10 +7,11 @@
 </div>
 <% for auction in @auctions %>
 <div class="span-20">
+	<div class="span-4"><img src="<%= auction.item.content_images.first.image.url(:medium) %>" ></div>
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
 	<div class="span-4" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
-	<div class="span-4"><%= link_to 'details', auction_url(auction) %>
+	<div class="span-4 last"><%= link_to 'details', auction_url(auction) %></div>
 </div>
 <% end %>
 
