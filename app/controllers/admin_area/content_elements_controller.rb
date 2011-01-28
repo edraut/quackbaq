@@ -69,7 +69,7 @@ class AdminArea::ContentElementsController < AdminArea::ApplicationController
       responds_to_parent do
         if success
           render :update do |page|
-            page << "clickRefreshImageLink('#{@content_element.id}');"
+            page << "clickRefreshImageLink('#{@content_element.id}',#{ContentElement::COLUMNS});"
           end
         else
           render :partial => 'new_image', :object => @content_element

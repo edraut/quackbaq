@@ -2,6 +2,7 @@ class ContentElement < ActiveRecord::Base
   TEXT_CONTAINERS = []
   IMAGE_CONTAINERS = ['Item']
   VIDEO_CONTAINERS = []
+  COLUMNS = 3
   include FormatsErrors
   belongs_to :container, :polymorphic => true
 

@@ -12,5 +12,5 @@
 	<%= f.label :shipping_cost %><br />
 	$<%= f.text_field :shipping_cost, :value => @item.new_record? ? '' : @item.shipping_cost, :size => 8 %><br />
 	<%= f.hidden_field :type %>
-  	<%= f.submit "Save" %> or <%= link_to 'Cancel', admin_area_items_url %>
+  	<%= f.submit "Save" %> or <%= link_to 'Cancel', admin_area_item_url(@item) %>
 <% end %>
