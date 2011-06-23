@@ -1,15 +1,73 @@
-<h1><%= t(:login_heading) %></h1>
-
-<% form_for :user_session, @user_session, :url => user_session_url do |f| %>
-  <% if @user_session.errors.any? %> <%= @user_session.errors.full_messages %><br/> <% end %>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
-  <br />
-  <%= f.submit "Login" %>
-  <%= link_to 'Forget your password?', forgot_password_user_url('none') %>
+<% unless @this_user %>
+  <div id="sign_up_box">
+    <div class="section_heading big_font">
+      Become a Member
+    </div>
+    <div id="sign_in_pitch">
+      Get access to thousands of premier online auctions featuring fashion and luxury brands that are up to 70% off retail. Membership is free and we accept new members daily.<br/>
+      <%= link_to 'Tell me more' %>
+    </div>
+    <div id="sign_up_button">
+      <div class="button_left">&nbsp;</div>
+      <div class="button_middle big_font"><%= link_to 'SIGN UP NOW', sign_up_url %></div>
+      <div class="button_right">&nbsp;</div>
+    </div>
+  </div>
 <% end %>
+<div id="category_list">
+  <div class="form_box_top">&nbsp;</div>
+  <div class="form_box_middle">
+    <%= form_for @user_session, :as => :user_session, :url => user_session_url do |f| %>
+      <div class="section_heading big_font">MEMBER INFO</div>
+      <% if @user_session.errors.any? %><div class="span-18 last"> <%= @user_session.errors.full_messages %></div> <% end %>
+      <div class="span-22 last">
+        <div class="span-6">
+          <%= f.label :email, 'email address' %>
+        </div>
+        <div class="span-6">
+          <%= f.label :password, 'password' %>
+        </div>
+        <div class="span-6 last">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, 'Keep Me Logged In' %>
+        </div>
+      </div>
+      <div class="span-22 last">
+        <div class="span-6">
+          <%= f.text_field :email %>
+        </div>
+        <div class="span-6">
+          <%= f.password_field :password %>
+        </div>
+        <div class="span-6 last">
+          <%= link_to 'Forgot your password?', forgot_password_user_url('none') %>
+        </div>
+      </div>
+      <div class="span-22 last">&nbsp;</div>
+      <hr/>
+      <div class="section_heading big_font">SELECT A CATEGORY OF AUCTIONS</div>
+      <div class="span-22 last">&nbsp;</div>
+      <%= hidden_field_tag 'category_id', nil, :id => 'category_id_field' %>
+      <div class="category_list">
+        <% Category.ordered.each_with_index do |category,index| %>
+        <div class="category_list_item <% if Category.count == (index + 1) %> last<% end %>" data-behavior="hidden_field_proxy" data-hidden_field="category_id_field" data-value="<%= category.id %>" >
+          <div class="category_image">
+            <%= image_tag category.image.url(:small_thumb) %>
+          </div>
+          <div class="category_name">
+            <%= category.name %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      <hr/>
+      <div id="sign_in_button">
+        <div class="button_left">&nbsp;</div>
+        <button type="submit" class="button_middle big_font">SIGN IN</button>
+        <div class="button_right">&nbsp;</div>
+      </div>
+      
+    <% end %>
+  </div>
+  <div class="form_box_bottom">&nbsp;</div>
+</div>

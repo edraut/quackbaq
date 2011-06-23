@@ -3,13 +3,16 @@ class UserSessionsController < ApplicationController
   before_filter :require_user, :only => :destroy
   
   def new
+    if @this_user
+      redirect_to auctions_url and return
+    end
     @user_session = UserSession.new
   end
   
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      redirect_back_or_default root_url
+      redirect_back_or_default auctions_url(:category_id => params[:category_id]) and return
     else
       render :action => :new
     end

@@ -3,6 +3,9 @@
 	<%= f.label :name %><br />
 	<%= f.text_field :name %><br />
 	<br />
+	<%= f.label :category_id, 'Category' %><br />
+	<%= f.select :category_id, Category.ordered.map{|c| [c.name,c.id]} %><br />
+	<br />
 	<%= f.label :full_price %><br />
 	$<%= f.text_field :full_price, :value => @item.new_record? ? '' : @item.full_price, :size => 8 %><br />
 	<br />

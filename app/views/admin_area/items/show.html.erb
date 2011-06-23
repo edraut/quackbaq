@@ -1,6 +1,7 @@
 <h1><%= @item.type %></h1>
 <p>
 name: <%= @item.name %><br/>
+category: <%= @item.category.name %><br/>
 description: <%= @item.description %><br/>
 full_price: <%= @item.full_price.format %><br/>
 shipping_cost: <%= @item.shipping_cost.format %><br/>

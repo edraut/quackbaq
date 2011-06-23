@@ -2,6 +2,7 @@ class Item < ActiveRecord::Base
   #constants
   
   #associations
+  belongs_to :category
   has_many :auctions, :dependent => :destroy
   has_many :content_elements, :as => :container, :dependent => :destroy, :order => 'position'
   has_many :content_images, :as => :container, :order => 'position'

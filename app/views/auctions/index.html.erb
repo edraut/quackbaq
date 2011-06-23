@@ -1,4 +1,4 @@
-<h1><% if @my_auctions %>My <% end %>Auctions</h1>
+<h1><% if @category %> <%= @category.name %> <% elsif @my_auctions %>My <% end %>Auctions</h1>
 <div class="span-24">
 	<div class="span-8">&nbsp;</div>
 	<div class="span-4">Item</div>

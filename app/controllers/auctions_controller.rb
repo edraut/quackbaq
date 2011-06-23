@@ -2,8 +2,18 @@ class AuctionsController < ApplicationController
   before_filter :get_auction, :only => [:edit,:update,:show,:destroy]
   before_filter :require_user, :only => [:my]
   def index
+    if params[:category_id]
+      if params[:category_id].to_i > 0
+        @category = Category.find(params[:category_id])
+      else
+        @category = Category.first
+      end
+    end
     @auctions = Auction.in_progress
     @hookbox = true
+    unless @this_user
+      @user_session = UserSession.new
+    end
   end
   
   def my

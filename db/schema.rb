@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110125215539) do
+ActiveRecord::Schema.define(:version => 20110622201119) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20110125215539) do
     t.string  "name"
     t.integer "parent_id"
     t.integer "position"
+    t.string  "image_file_name"
+    t.string  "image_content_type"
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
@@ -82,7 +84,6 @@ ActiveRecord::Schema.define(:version => 20110125215539) do
 
   create_table "item_images", :force => true do |t|
     t.integer  "item_id"
-    t.integer  "category_id"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -92,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20110125215539) do
     t.datetime "updated_at"
   end
 
-  add_index "item_images", ["category_id"], :name => "index_bids_on_category_id"
   add_index "item_images", ["item_id"], :name => "index_bids_on_item_id"
 
   create_table "items", :force => true do |t|
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20110125215539) do
     t.integer "shipping_cost"
     t.string  "type"
     t.integer "parent_id"
+    t.integer "category_id"
   end
 
   create_table "pages", :force => true do |t|

@@ -10,52 +10,59 @@
   <% end %>
 </head>
 <body>
-	<div class="top-nav">
-		<div class="container">
-			<div class="span-2 text-center">
-				<%= link_to 'Home', root_url %>
-			</div>
-			<div class="span-6 text-center">
-				<% if current_user %>
-					hello <%= @this_user.email %>
-					<%= link_to '(sign out)', sign_out_url %>
-				<% else %>
-					<%= link_to 'Sign Up', sign_up_url %> or
-					<%= link_to 'Sign in', sign_in_url %>
-				<% end %>
-			</div>
-			<div class="span-4 text-center">
-				<% if current_user %>
-					<%= link_to t(:my_auctions_link), my_auctions_url %>
-				<% else %>
-					&nbsp;
-				<% end %>
-			</div>
-			<div class="span-4 text-center">
-				<% if current_user %>
-					<%= link_to 'My Bids', bids_url %>
-				<% else %>
-					&nbsp;
-				<% end %>
-			</div>
-			<div class="span-4 text-center">
-				<% if current_user %>
-					<%= link_to 'My Account', user_url(@this_user) %>
-				<% else %>
-					&nbsp;
-				<% end %>
-			</div>
-			<div class="span-4 last text-center">
-				<% if current_user and current_user.is_a? Admin %>
-					<%= link_to 'Dashboard', admin_area_dashboard_url %>
-				<% end %>
-			</div>
+	<div class="top_nav">
+	  <% if current_user %>
+		<div class="top_right_nav">
+		  stuff here
+      <!-- <div class="span-2 text-center">
+        <%= link_to 'Home', root_url %>
+      </div>
+      <div class="span-6 text-center">
+        <% if current_user %>
+          hello <%= @this_user.email %>
+          <%= link_to '(sign out)', sign_out_url %>
+        <% else %>
+          <%= link_to 'Sign Up', sign_up_url %> or
+          <%= link_to 'Sign in', sign_in_url %>
+        <% end %>
+      </div>
+      <div class="span-4 text-center">
+        <% if current_user %>
+          <%= link_to t(:my_auctions_link), my_auctions_url %>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </div>
+      <div class="span-4 text-center">
+        <% if current_user %>
+          <%= link_to 'My Bids', bids_url %>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </div>
+      <div class="span-4 text-center">
+        <% if current_user %>
+          <%= link_to 'My Account', user_url(@this_user) %>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </div>
+      <div class="span-4 last text-center">
+        <% if current_user and current_user.is_a? Admin %>
+          <%= link_to 'Dashboard', admin_area_dashboard_url %>
+        <% end %>
+      </div> -->
 		</div>
-		<hr id="top_nav_divider"/>
+		<% else %>
+    &nbsp;
+		<% end %>
 	</div>
-	<div class="container">
-	
+	<div class="container quackbaq">
+
 		<%= yield %>
+	</div>
+	<div id="footer">
+    &nbsp;
 	</div>
 	<%= javascript_tag do %>
 		jQuery(document).ready(function(){

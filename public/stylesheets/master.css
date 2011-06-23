@@ -1,5 +1,158 @@
+body {
+  background: #6c6c6c url(../images/background.jpg) no-repeat; }
+
+a {
+  color: #56396f; }
+
+input[type="text"], input[type="password"] {
+  background-color: #DDDDDD;
+  border: none; }
+
+label {
+  color: #666; }
+
+hr {
+  color: #999;
+  background-color: #999; }
+
+.container.quackbaq {
+  padding-bottom: 120px; }
+
 #flash_notice {
   width: 100%;
   text-align: center;
   background-color: #222222;
   color: #DDDDDD; }
+
+.top_nav {
+  height: 180px;
+  width: 100%; }
+
+.top_right_nav {
+  height: 100%;
+  width: auto;
+  margin-left: 492px; }
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  background: url(../images/footerBackground.jpg);
+  background-repeat: repeat-x;
+  height: 46px;
+  width: 100%; }
+
+.big_font {
+  font-family: "Arial Narrow", "Lucida Sans Unicode", sans-serif; }
+
+#sign_up_box {
+  position: relative;
+  background: url(../images/loginTopBox.jpg);
+  height: 65px;
+  width: 855px;
+  padding: 30px 35px; }
+  #sign_up_box .section_heading {
+    position: relative;
+    float: left;
+    width: 182px;
+    margin: 14px 0;
+    color: white;
+    font-size: 24px; }
+  #sign_up_box #sign_up_button {
+    position: absolute;
+    bottom: 30px;
+    right: 35px; }
+
+#sign_in_pitch {
+  position: relative;
+  float: left;
+  width: 654px;
+  height: 65px;
+  padding-left: 18px;
+  border-left: 1px solid white;
+  color: white;
+  font-size: 14px; }
+
+#category_list .section_heading {
+  position: relative;
+  float: left;
+  width: 100%;
+  color: #F18B3E;
+  font-size: 20px; }
+
+.category_list_item {
+  position: relative;
+  float: left;
+  width: 76px;
+  padding: 0 10px; }
+
+.category_image {
+  position: relative;
+  width: 76px; }
+
+.category_list_item:active, .category_list_item:hover {
+  color: #F18B3E; }
+
+.category_name {
+  position: relative;
+  width: 76px;
+  text-align: center;
+  color: #666;
+  font-weight: bold; }
+
+.button_left {
+  position: relative;
+  float: left;
+  width: 8px;
+  height: 39px;
+  background: url(../images/buttonLeftBorder.jpg); }
+
+.button_middle {
+  position: relative;
+  float: left;
+  height: 37px;
+  padding: 0 10px;
+  padding-top: 2px;
+  background: url(../images/buttonBorderBackground.jpg);
+  background-repeat: repeat-x; }
+  .button_middle a {
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 0 5px #b7541b;
+    font-size: 22px; }
+
+button.button_middle {
+  border: none;
+  margin: 0;
+  font-size: 22px;
+  text-shadow: 0 0 5px #b7541b;
+  color: white; }
+
+.button_right {
+  position: relative;
+  float: left;
+  width: 13px;
+  height: 39px;
+  background: url(../images/buttonRightBorder.jpg); }
+
+.form_box_top {
+  position: relative;
+  float: left;
+  width: 925px;
+  height: 30px;
+  background: url(../images/loginTopBorder.jpg); }
+
+.form_box_middle {
+  position: relative;
+  float: left;
+  width: 856px;
+  height: auto;
+  padding: 0 35px;
+  background: url(../images/loginMiddleBackground.jpg);
+  background-repeat: repeat-y; }
+
+.form_box_bottom {
+  position: relative;
+  float: left;
+  width: 925px;
+  height: 29px;
+  background: url(../images/loginBottomBorder.jpg); }
