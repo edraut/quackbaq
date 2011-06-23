@@ -48,11 +48,13 @@
       <div class="section_heading big_font">SELECT A CATEGORY OF AUCTIONS</div>
       <div class="span-22 last">&nbsp;</div>
       <%= hidden_field_tag 'category_id', nil, :id => 'category_id_field' %>
-      <div class="category_list">
+      <div class="horizontal_tiles">
         <% Category.ordered.each_with_index do |category,index| %>
-        <div class="category_list_item <% if Category.count == (index + 1) %> last<% end %>" data-behavior="hidden_field_proxy" data-hidden_field="category_id_field" data-value="<%= category.id %>" >
+        <div class="category_list_item <% if Category.count == (index + 1) %> last<% end %>" data-behavior="hidden_field_proxy" data-hidden_field="category_id_field" data-value="<%= category.id %>" data-click_to_select="true" data-click_id="category_id_selection">
           <div class="category_image">
-            <%= image_tag category.image.url(:small_thumb) %>
+            <div class="category_image_inner">
+              <%= image_tag category.image.url(:small_thumb) %>
+            </div>
           </div>
           <div class="category_name">
             <%= category.name %>
