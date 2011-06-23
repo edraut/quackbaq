@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Quackbaq</title>
-  <%= render :partial => '/layouts/base_stylesheets' %>
   <%= render :partial => '/layouts/base_javascripts' %>
+  <%= render :partial => '/layouts/base_stylesheets' %>
   <%= csrf_meta_tag %>
   <% if @hookbox %>
  	<script src="<%= HOOKBOX_URL %>/static/hookbox.js"></script>
@@ -62,7 +62,17 @@
 		<%= yield %>
 	</div>
 	<div id="footer">
-    &nbsp;
+	  <div class="container">
+      <div class="span-18 text_links">
+        <%= link_to 'Home', root_url %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'About', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Support', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Privacy Policy', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Terms & Conditions', '#' %>
+      </div>
+      <div class="span-1 prepend-4">
+        <%= link_to image_tag('twitter.png') %>
+      </div>
+      <div class="span-1 last">
+        <%= link_to image_tag('facebook.jpg') %>
+      </div>
+    </div>
 	</div>
 	<%= javascript_tag do %>
 		jQuery(document).ready(function(){

@@ -39,10 +39,21 @@ hr {
   background: url(../images/footerBackground.jpg);
   background-repeat: repeat-x;
   height: 46px;
-  width: 100%; }
+  width: 100%;
+  color: white;
+  font-size: 14px; }
+  #footer .container {
+    margin-top: 10px; }
+    #footer .container div.text_links {
+      margin-top: 4px; }
+  #footer a {
+    color: white; }
+
+.steelfish {
+  font-family: SteelfishRg-Regular; }
 
 .big_font {
-  font-family: "Arial Narrow", "Lucida Sans Unicode", sans-serif; }
+  font-family: SteelfishRg-Regular; }
 
 #sign_up_box {
   position: relative;
@@ -56,7 +67,7 @@ hr {
     width: 182px;
     margin: 14px 0;
     color: white;
-    font-size: 24px; }
+    font-size: 28px; }
   #sign_up_box #sign_up_button {
     position: absolute;
     bottom: 30px;
@@ -76,8 +87,8 @@ hr {
   position: relative;
   float: left;
   width: 100%;
-  color: #F18B3E;
-  font-size: 20px; }
+  color: #F8782B;
+  font-size: 24px; }
 
 .horizontal_tiles {
   position: relative;
@@ -131,19 +142,20 @@ hr {
   float: left;
   height: 37px;
   padding: 0 10px;
-  padding-top: 2px;
   background: url(../images/buttonBorderBackground.jpg);
   background-repeat: repeat-x; }
   .button_middle a {
     color: white;
     text-decoration: none;
     text-shadow: 0 0 5px #b7541b;
-    font-size: 22px; }
+    font-size: 26px;
+    padding: 0;
+    margin: 0; }
 
 button.button_middle {
   border: none;
   margin: 0;
-  font-size: 22px;
+  font-size: 26px;
   text-shadow: 0 0 5px #b7541b;
   color: white; }
 

@@ -1,4 +1,10 @@
 <%= stylesheet_link_tag 'master.css' %>
 <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
-<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">	
+<![if !IE]>
+<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/stylesheets/non_ie.css" type="text/css" media="screen">
+<![endif]>	
 <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+<!--[if IE]>
+<link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen">
+<![endif]-->

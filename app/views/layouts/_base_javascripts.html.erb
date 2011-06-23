@@ -6,6 +6,32 @@
 <%= javascript_include_tag "ajax_bindings.js" %>
 <%= javascript_include_tag "ui_bindings.js" %>
 <%= javascript_include_tag "jquery-ui-1.8.7.custom.min.js" if @jquery_ui%>
+<!--
+/*
+ * MyFonts Webfont Build ID 841034, 2011-06-23T18:26:16-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Steelfish
+ * URL: http://new.myfonts.com/fonts/larabie/steelfish/regular/
+ * Foundry: Larabie
+ * Copyright: (c) 2001-2011 Typodermic Fonts. design: Ray Larabie. kerning &amp; languages: Chikako Larabie. license agreement: typodermicfonts.com/pages/license
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: unlimited/month
+ * CSS font-family: SteelfishRg-Regular
+ * CSS font-weight: normal
+ * 
+ * (c) 2011 Bitstream Inc
+*/
+
+
+-->
+<%= javascript_include_tag "MyFontsWebfontsOrderM3004788.js" %>
+
 <%= javascript_tag do %>
 	var authenticity_token = '<%= form_authenticity_token %>';
 	var preload_date = new Date();
