@@ -58,3 +58,54 @@ function bindClickToSelect(){
 		target.addClass('selected');
 	})
 }
+function buttonControl(e){
+	target = jQuery(e.target);
+	if(!target.attr('data-button')){
+		target = target.parents("[data-button]");
+	}
+	if(target.data('confirm')){
+		if(!confirm(target.data('confirm'))){
+			e.preventDefault();
+			return false;
+		};
+	}
+	if(target.attr('data-submit')){
+		target.parents('form').submit();
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	}
+	if(target.attr('href')){
+		document.location = target.attr('href');
+		return false;
+	}
+	link = target.find("[data-behavior='link_to_form']");
+	if(link.length == 0){
+		link = target.find("[data-role='delete']");
+	}
+	if(link.length == 0){
+		link = target.find("[data-ajax_behavior='ajax_link']");
+	}
+	if(link.length == 0){
+		link = target.find("[data-behavior='expander'][data-action]");
+	}
+	if(link.length > 0){
+		e.stopPropagation();
+		e.preventDefault();
+		link.click();
+		return false;
+	}
+	if(link.length == 0){
+		link = target.find('[href]');
+		if(link.length > 0){
+			document.location.href = link.attr('href');
+			return true;
+		}
+	}
+	if(link.length == 0){
+		form = target.find('form');
+		if(form.length > 0){
+			form.submit();
+		}
+	}
+}

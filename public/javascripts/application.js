@@ -58,4 +58,5 @@ jQuery(document).ready(function(){
 	bindLinkToForm();
 	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);
 	bindClickToSelect();
+	jQuery("[data-button]").live('click',buttonControl);
 })

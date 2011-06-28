@@ -144,8 +144,16 @@ hr {
   height: 28px;
   padding: 0 10px;
   background: url(../images/buttonMiddle.png);
-  background-repeat: repeat-x; }
+  background-repeat: repeat-x;
+  color: white;
+  text-shadow: 0 0 5px #b7541b;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 28px; }
   .button_middle a {
+    display: block;
+    position: relative;
+    top: 0;
     color: white;
     text-decoration: none;
     text-shadow: 0 0 5px #b7541b;
