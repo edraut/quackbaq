@@ -169,22 +169,22 @@ button.button_middle {
 .form_box_top {
   position: relative;
   float: left;
-  width: 925px;
-  height: 30px;
-  background: url(../images/loginTopBorder.jpg); }
+  width: 916px;
+  height: 17px;
+  background: url(../images/grayBoxTop.png); }
 
 .form_box_middle {
   position: relative;
   float: left;
-  width: 856px;
+  width: 846px;
   height: auto;
   padding: 0 35px;
-  background: url(../images/loginMiddleBackground.jpg);
+  background: url(../images/grayBoxMiddle.png);
   background-repeat: repeat-y; }
 
 .form_box_bottom {
   position: relative;
   float: left;
-  width: 925px;
-  height: 29px;
-  background: url(../images/loginBottomBorder.jpg); }
+  width: 916px;
+  height: 16px;
+  background: url(../images/grayBoxBottom.png); }
