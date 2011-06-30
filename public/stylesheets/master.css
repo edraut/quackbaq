@@ -16,7 +16,8 @@ hr {
   background-color: #999; }
 
 .container.quackbaq {
-  padding-bottom: 120px; }
+  padding-bottom: 120px;
+  position: relative; }
 
 #flash_notice {
   width: 100%;
@@ -27,6 +28,11 @@ hr {
 .top_nav {
   height: 180px;
   width: 100%; }
+
+.top_logo {
+  position: absolute;
+  top: -165px;
+  left: 0; }
 
 .top_right_nav {
   height: 100%;
