@@ -54,6 +54,8 @@ function clickRefreshImageLink(id,columns){
 	jQuery('#content_element_new').empty();
 	jQuery('#content_element_new_links').show();
 }
+function roundCorners(){
+}
 jQuery(document).ready(function(){
 	bindLinkToForm();
 	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);

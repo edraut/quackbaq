@@ -6,7 +6,17 @@ class AuctionsController < ApplicationController
       if params[:category_id].to_i > 0
         @category = Category.find(params[:category_id])
       else
+        if @this_user
+          @category = Category.first
+        else
+          redirect_to sign_in_url and return
+        end
+      end
+    else
+      if @this_user
         @category = Category.first
+      else
+        redirect_to sign_in_url and return
       end
     end
     @auctions = Auction.in_progress

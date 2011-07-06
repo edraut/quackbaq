@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   before_filter :get_this_user
   before_filter :handle_time_zone
+  before_filter :set_nav_tab
   def string_to_money(string)
     Money.new(string.to_f * 100)
   end
@@ -26,6 +27,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_nav_tab
+    case controller_name
+    when 'auctions'
+      case action_name
+      when 'index'
+        @nav_tab = 'auctions'
+      end
+    when 'users'
+      case action_name
+      when 'show'
+        @nav_tab = 'account'
+      end
+    end
+  end
+  
   private
   
     def handle_time_zone

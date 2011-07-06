@@ -10,58 +10,92 @@
   <% end %>
 </head>
 <body>
-	<div class="top_nav">
-	  <% if current_user %>
-		<div class="top_right_nav">
-		  stuff here
-      <!-- <div class="span-2 text-center">
-        <%= link_to 'Home', root_url %>
-      </div>
-      <div class="span-6 text-center">
-        <% if current_user %>
-          hello <%= @this_user.email %>
-          <%= link_to '(sign out)', sign_out_url %>
-        <% else %>
-          <%= link_to 'Sign Up', sign_up_url %> or
-          <%= link_to 'Sign in', sign_in_url %>
-        <% end %>
-      </div>
-      <div class="span-4 text-center">
-        <% if current_user %>
-          <%= link_to t(:my_auctions_link), my_auctions_url %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </div>
-      <div class="span-4 text-center">
-        <% if current_user %>
-          <%= link_to 'My Bids', bids_url %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </div>
-      <div class="span-4 text-center">
-        <% if current_user %>
-          <%= link_to 'My Account', user_url(@this_user) %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </div>
-      <div class="span-4 last text-center">
-        <% if current_user and current_user.is_a? Admin %>
-          <%= link_to 'Dashboard', admin_area_dashboard_url %>
-        <% end %>
-      </div> -->
-		</div>
-		<% else %>
-    &nbsp;
-		<% end %>
-	</div>
 	<div class="container quackbaq">
-	  <div class="top_logo">
-  	  <%= image_tag 'QB-Logo.png' %>
+  	<div class="top_nav">
+  	  <div class="top_logo">
+    	  <%= link_to (image_tag 'QB-Logo.png'), root_url %>
+    	</div>
+  	  <% if current_user %>
+    		<div class="top_right_nav">
+          <div id="credit_info">
+            <div id="credits_left">
+              Remaining Credits: &nbsp;&nbsp;<span id="remaining_credits_amount"><%= @this_user.bids.available.count %></span>
+            </div>
+            <div id="buy_credits_button" class="button orange">
+              <div class="button_left">&nbsp;</div>
+              <div class="button_middle big_font" data-button="true" href="<%= bids_url %>" onclick="void(0)">BUY CREDITS</div>
+              <div class="button_right">&nbsp;</div>
+            </div>
+          </div>
+          <div id="top_nav">
+            <div class="top_nav_button <% if @nav_tab == 'account' %>selected<% end %>"><%= link_to 'MY ACCOUNT', user_url(@this_user) %></div>
+            <div class="top_nav_divider">&nbsp;</div>
+            <div class="top_nav_button <% if @nav_tab == 'how_it_works' %>selected<% end %>"><%= link_to 'HOW IT WORKS', '#' %></div>
+            <div class="top_nav_divider">&nbsp;</div>
+            <div class="top_nav_button <% if @nav_tab == 'quackpond' %>selected<% end %>"><%= link_to 'QUACKPOND', '#' %></div>
+            <div class="top_nav_divider">&nbsp;</div>
+            <div class="top_nav_button <% if @nav_tab == 'help' %>selected<% end %>"><%= link_to 'HELP', '#' %></div>
+          </div>
+          <!-- <div class="span-2 text-center">
+            <%= link_to 'Home', root_url %>
+          </div>
+          <div class="span-6 text-center">
+            <% if current_user %>
+              hello <%= @this_user.email %>
+              <%= link_to '(sign out)', sign_out_url %>
+            <% else %>
+              <%= link_to 'Sign Up', sign_up_url %> or
+              <%= link_to 'Sign in', sign_in_url %>
+            <% end %>
+          </div>
+          <div class="span-4 text-center">
+            <% if current_user %>
+              <%= link_to t(:my_auctions_link), my_auctions_url %>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </div>
+          <div class="span-4 text-center">
+            <% if current_user %>
+              <%= link_to 'My Bids', bids_url %>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </div>
+          <div class="span-4 text-center">
+            <% if current_user %>
+              <%= link_to 'My Account', user_url(@this_user) %>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </div>
+          <div class="span-4 last text-center">
+            <% if current_user and current_user.is_a? Admin %>
+              <%= link_to 'Dashboard', admin_area_dashboard_url %>
+            <% end %>
+          </div> -->
+    		</div>
+  		<% else %>
+        &nbsp;
+  		<% end %>
   	</div>
-
+    <div id="category_nav">
+      <div class="span-22 last">&nbsp;</div>
+      <div class="horizontal_tiles">
+        <% Category.ordered.each_with_index do |category,index| %>
+          <div class="category_list_item_wide <% if @category.id == category.id %>selected<% end %> <% if Category.count == (index + 1) %> last<% end %>" data-button="true" href="<%= auctions_url(:category_id => category.id) %>">
+            <div class="category_image">
+              <div class="category_image_inner">
+                <%= image_tag category.image.url(:wide) %>
+              </div>
+            </div>
+            <div class="category_name">
+              <%= category.name %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
 		<%= yield %>
 	</div>
 	<div id="footer">
@@ -79,14 +113,15 @@
 	</div>
 	<%= javascript_tag do %>
 		jQuery(document).ready(function(){
-		<% unless flash[:notice].blank? %>
-			function clearFlash(){
-				jQuery('#flash_notice').fadeOut(1000);
-			}
-			jQuery('#top_nav_divider').after('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:notice] %></div>');
-			jQuery('#flash_notice').fadeIn(500);
-			setTimeout(clearFlash,3000);
-		<% end %>
+    	jQuery("#credits_left").corner("4px");
+  		<% unless flash[:notice].blank? %>
+  			function clearFlash(){
+  				jQuery('#flash_notice').fadeOut(1000);
+  			}
+  			jQuery('#top_nav_divider').after('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:notice] %></div>');
+  			jQuery('#flash_notice').fadeIn(500);
+  			setTimeout(clearFlash,3000);
+  		<% end %>
 		});
 	<% end %>
 </body>

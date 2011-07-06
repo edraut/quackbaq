@@ -4,7 +4,8 @@ class Category < ActiveRecord::Base
   
   scope :ordered, order('position')
   has_attached_file :image,
-    :styles => {  :small_thumb => "70x70#",
+    :styles => {  :small_thumb => "69x69#",
+                  :wide => "89x89#",
                   :medium => "270x180>",
                   :large => "600x400>"
                 },
