@@ -14,7 +14,7 @@ gem 'amqp', '0.6.7'
 gem 'minion'
 gem 'paperclip', '2.3.8'
 gem 'aws-s3'
-gem 'yajl'
+gem 'yajl-ruby'
 # Use unicorn as the web server
 # gem 'unicorn'
 
