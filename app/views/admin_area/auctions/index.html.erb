@@ -9,7 +9,7 @@
 </div>
 <% for auction in Auction.all %>
 <div class="span-20">
-	<div class="span-4"><% if auction.item.content_images.any? %> <%= link_to image_tag( auction.item.content_images.first.image.url(:small_thumb)), admin_area_auction_url(auction) %> <% else %>&nbsp;<% end %></div>
+	<div class="span-4"><% if auction.item.content_images.any? and auction.item.content_images.first.class.name != 'ContentImageTmp'%> <%= link_to image_tag( auction.item.content_images.first.image.url(:small_thumb)), admin_area_auction_url(auction) %> <% else %>&nbsp;<% end %></div>
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
 	<div class="span-4"><%= auction.begin_time.to_formatted_s(:friendly) %></div>

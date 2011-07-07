@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,8 +10,9 @@ gem 'mysql'
 gem 'authlogic'
 gem 'money'
 gem 'nestful'
+gem 'amqp', '0.6.7'
 gem 'minion'
-gem 'paperclip'
+gem 'paperclip', '2.3.8'
 gem 'aws-s3'
 
 # Use unicorn as the web server

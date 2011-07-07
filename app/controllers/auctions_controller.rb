@@ -19,7 +19,10 @@ class AuctionsController < ApplicationController
         redirect_to sign_in_url and return
       end
     end
-    @auctions = Auction.in_progress
+    if @category
+      @auctions = @category.auctions.in_progress
+    end
+    @auctions ||= Auction.in_progress
     @hookbox = true
     unless @this_user
       @user_session = UserSession.new

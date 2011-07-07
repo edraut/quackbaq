@@ -23,6 +23,10 @@ class Auction < ActiveRecord::Base
   
   #instance methods
   
+  def category
+    self.item.category
+  end
+  
   def current_price
     Money.new(self.placed_bids.count)
   end

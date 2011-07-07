@@ -79,7 +79,7 @@
         &nbsp;
   		<% end %>
   	</div>
-	  <% if current_user %>
+	  <% if current_user and controller_name == 'auctions' %>
       <div id="category_nav">
         <div class="span-22 last">&nbsp;</div>
         <div class="horizontal_tiles">
@@ -103,7 +103,10 @@
 	<div id="footer">
 	  <div class="container">
       <div class="span-18 text_links">
-        <%= link_to 'Home', root_url %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'About', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Support', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Privacy Policy', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Terms & Conditions', '#' %>
+        <%= link_to 'Home', root_url %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'About', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Support', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Privacy Policy', '#' %> &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Terms & Conditions', '#' %><% if current_user and current_user.is_a? Admin %>
+           &nbsp;&nbsp;|&nbsp;&nbsp; <%= link_to 'Dashboard', admin_area_dashboard_url %>
+        <% end %>
+        
       </div>
       <div class="span-1 prepend-4">
         <%= link_to image_tag('twitter.png') %>
