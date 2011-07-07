@@ -2,6 +2,7 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+tmp
 log/*.pid
 log/*.output
 config/database.yml
