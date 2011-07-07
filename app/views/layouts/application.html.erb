@@ -10,7 +10,7 @@
   <% end %>
 </head>
 <body>
-	<div class="container quackbaq">
+	<div class="container nav">
   	<div class="top_nav">
   	  <div class="top_logo">
     	  <%= link_to (image_tag 'QB-Logo.png'), root_url %>
@@ -82,7 +82,6 @@
 	  <% if current_user and controller_name == 'auctions' %>
       <div id="category_nav">
         <div class="span-22 last">&nbsp;</div>
-        <div class="horizontal_tiles">
           <% Category.ordered.each_with_index do |category,index| %>
             <div class="category_list_item_wide <% if @category.id == category.id %>selected<% end %> <% if Category.count == (index + 1) %> last<% end %>" data-button="true" href="<%= auctions_url(:category_id => category.id) %>">
               <div class="category_image">
@@ -90,14 +89,29 @@
                   <%= image_tag category.image.url(:wide) %>
                 </div>
               </div>
-              <div class="category_name">
-                <%= category.name %>
-              </div>
             </div>
           <% end %>
+      </div>
+      <div id="category_bar_content">
+        <div id="category_button">
+          <div class="button_left">&nbsp;</div>
+          <div class="button_middle big_font" data-button="true" href="<%= category_url(@category) %>" onclick="void(0)"><%= @category.name.upcase %></div>
+          <div class="button_right">&nbsp;</div>
+        </div>
+        <div id="category_description">
+          <%= @category.description %>
         </div>
       </div>
+    </div>
+      <% if @category %>
+        <div id="category_bar">
+          &nbsp;
+        </div>
+      <% end %>
+    <% else %>
+    </div>
     <% end %>
+  <div class="container quackbaq">
 		<%= yield %>
 	</div>
 	<div id="footer">

@@ -19,6 +19,9 @@ hr {
   padding-bottom: 120px;
   position: relative; }
 
+.container.nav {
+  position: relative; }
+
 #flash_notice {
   width: 100%;
   text-align: center;
@@ -65,9 +68,9 @@ hr {
   font-family: SteelfishRg-Regular; }
 
 #credit_info {
-  position: relative;
-  float: left;
-  margin: 60px 0 0 200px; }
+  position: absolute;
+  right: 0px;
+  top: 45px; }
   #credit_info #credits_left {
     position: relative;
     float: left;
@@ -87,8 +90,8 @@ hr {
 
 #top_nav {
   position: absolute;
-  top: 110px;
-  left: 200px; }
+  top: 100px;
+  right: 0px; }
   #top_nav .top_nav_button {
     position: relative;
     float: left;
@@ -115,7 +118,8 @@ hr {
   position: relative;
   float: left;
   width: 916px;
-  margin-right: 34px; }
+  margin-right: 34px;
+  z-index: 10; }
 
 #sign_up_box {
   position: relative;
@@ -195,25 +199,19 @@ hr {
 .category_list_item_wide {
   position: relative;
   float: left;
-  width: 95px; }
+  width: 101px; }
   .category_list_item_wide .category_image {
     position: relative;
     float: left;
-    width: 89px;
+    width: 98px;
     height: 69px;
     overflow: hidden;
-    border: 3px solid #F4F4F4; }
-  .category_list_item_wide .category_name {
-    position: relative;
-    width: 96px;
-    text-align: center;
-    color: #666;
-    font-weight: bold; }
+    border: 3px solid #F4F4F4;
+    border-bottom: none; }
 
 .category_list_item_wide:active, .category_list_item_wide:hover, .category_list_item_wide.selected {
-  top: -10px; }
-  .category_list_item_wide:active .category_name, .category_list_item_wide:hover .category_name, .category_list_item_wide.selected .category_name {
-    color: #F18B3E; }
+  top: -10px;
+  z-index: 10; }
   .category_list_item_wide:active .category_image, .category_list_item_wide:hover .category_image, .category_list_item_wide.selected .category_image {
     border: 3px solid #DDD;
     height: 89px; }
@@ -221,12 +219,33 @@ hr {
     position: relative;
     float: left;
     border: 2px solid white;
-    width: 89px;
-    height: 89px;
+    width: 94px;
+    height: 85px;
     overflow: hidden; }
     .category_list_item_wide:active .category_image_inner img, .category_list_item_wide:hover .category_image_inner img, .category_list_item_wide.selected .category_image_inner img {
       margin-left: -2px;
       margin-top: -2px; }
+
+#category_bar {
+  position: relative;
+  float: left;
+  top: -23px;
+  background: url(../images/indexMiddleBarBackground.png);
+  background-repeat: repeat-x;
+  height: 66px;
+  width: 100%; }
+
+#category_bar_content {
+  position: absolute;
+  bottom: -26px;
+  z-index: 20; }
+  #category_bar_content #category_button {
+    position: relative;
+    float: left; }
+  #category_bar_content #category_description {
+    position: relative;
+    float: left;
+    padding-left: 20px; }
 
 .button_left {
   position: relative;

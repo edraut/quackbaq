@@ -35,13 +35,15 @@ namespace :deploy do
     # start task unnecessary for Passenger deployment
   end
   task :restart_pushers, :roles => :app do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl restart"
+    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl stop"
+    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl start"
   end
   task :start_pushers, :roles => :app do
     run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl start"
   end
   task :restart_processors, :roles => :push do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl restart"
+    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl stop"
+    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl start"
   end
   task :start_processors, :roles => :push do
     run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl start"
@@ -131,6 +133,9 @@ namespace :bundler do
   task :create_symlink, :roles => [:app, :push] do
     shared_dir = File.join(shared_path, 'bundle')
     release_dir = File.join(current_release, '.bundle')
+    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+    shared_dir = File.join(shared_path, 'vendor_bundle')
+    release_dir = File.join(current_release, 'vendor/bundle')
     run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
   end
  

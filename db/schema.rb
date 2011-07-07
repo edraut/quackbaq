@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110622201119) do
+ActiveRecord::Schema.define(:version => 20110707153308) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20110622201119) do
     t.integer "position"
     t.string  "image_file_name"
     t.string  "image_content_type"
+    t.text    "description"
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"

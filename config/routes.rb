@@ -23,6 +23,7 @@ Quackbaq::Application.routes.draw do
     end
   end
   resources :user_auctions
+  match 'category/:id' => 'categories#show', :as => 'category'
   match 'sign_up' => 'users#new'
   match 'my_account' => 'users#show'
   match 'hookbox/:action', :controller => 'hookbox'
