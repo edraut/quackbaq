@@ -16,6 +16,7 @@ hr {
   background-color: #999; }
 
 .container.quackbaq {
+  margin-top: 50px;
   padding-bottom: 120px;
   position: relative; }
 
@@ -246,6 +247,59 @@ hr {
     position: relative;
     float: left;
     padding-left: 20px; }
+
+.auction_index_item_wrapper {
+  position: relative;
+  float: left;
+  background: url(../images/indexBoxActiveItem.png);
+  width: 446px;
+  height: 150px; }
+
+.auction_index_item_left {
+  position: relative;
+  float: left;
+  margin: 10px 0;
+  padding-left: 15px;
+  width: 155px; }
+
+.auction_index_item_right {
+  position: relative;
+  float: left;
+  margin: 10px 0;
+  padding-left: 20px;
+  border-left: 1px solid #dddddd;
+  width: 255px; }
+  .auction_index_item_right .auction_index_time_left {
+    position: relative;
+    float: left;
+    font-size: 26px;
+    color: #56396f;
+    margin-right: 15px;
+    padding: 5px 0;
+    width: 240px;
+    border-bottom: 1px solid #dddddd; }
+  .auction_index_item_right .auction_index_current_bid {
+    position: relative;
+    float: left;
+    font-size: 18px;
+    color: #56396f;
+    width: 240px;
+    margin-right: 15px;
+    padding: 6px 0;
+    border-bottom: 1px solid #dddddd; }
+    .auction_index_item_right .auction_index_current_bid .auction_index_current_price {
+      position: relative;
+      float: left;
+      width: 91px; }
+    .auction_index_item_right .auction_index_current_bid .auction_index_current_bidder {
+      position: relative;
+      float: left;
+      width: 149px;
+      text-align: right; }
+  .auction_index_item_right .auction_index_buttons {
+    position: relative;
+    float: left;
+    padding: 10px 0; }
 
 .button_left {
   position: relative;

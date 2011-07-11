@@ -1,17 +1,37 @@
-<h1><% if @category %> <%= @category.name %> <% elsif @my_auctions %>My <% end %>Auctions</h1>
-<div class="span-24">
-	<div class="span-8">&nbsp;</div>
-	<div class="span-4">Item</div>
-	<div class="span-4">Auction Type</div>
-	<div class="span-4">Time Left</div>
-	<div class="span-4">&nbsp;</div>
-</div>
+<% if @my_auctions %><h1>My Auctions</h1><% end %>
 <% for auction in @auctions %>
+<div class="auction_index_item_wrapper">
+  <div class="auction_index_item_left">
+    <%= image_tag auction.item.content_images.first.image.url(:small_thumb) %>
+    <div class="auction_index_item_name">
+      <%= auction.item.name %>
+    </div>
+    <div class="auction_index_item_retail">
+      <%= auction.item.full_price.format %>
+    </div>
+  </div>
+  <div class="auction_index_item_right">
+    <div class="auction_index_time_left" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
+  	<div class="auction_index_current_bid">
+      <div class="auction_index_current_price">
+    	  <%= auction.current_price.format %>
+    	</div>
+    	<div class="auction_index_current_bidder">
+        <%= auction.highest_bidder ? auction.highest_bidder.name : 'no bidders yet' %>
+    	</div>
+    </div>
+    <div class="auction_index_buttons">
+      <div class="auction_index_buy_now">
+        <div class="button_left">&nbsp;</div>
+        <div class="button_middle big_font" data-button="true" href="<%= bid_url(@this_user.bids.first, :placed_auction_id => auction.id) %>">BID NOW</div>
+        <div class="button_right">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="span-24">
-	<div class="span-8"><img src="<%= auction.item.content_images.first.image.url(:medium) %>" ></div>
 	<div class="span-4"><%= auction.item.name %></div>
 	<div class="span-4"><%= auction.type %></div>
-	<div class="span-4" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
 	<div class="span-4 last"><%= link_to 'details', auction_url(auction) %></div>
 </div>
 <% end %>

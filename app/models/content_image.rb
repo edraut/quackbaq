@@ -7,9 +7,9 @@ class ContentImage < ContentElement
 
   #special behaviors
   has_attached_file :image,
-    :styles => {  :small_thumb => "70x70#",
-                  :medium => "270x180>",
-                  :large => "600x400>"
+    :styles => {  :small_thumb => "140x75#",
+                  :medium => "270x150>",
+                  :large => "600x320>"
                 },
     :storage => :s3, 
     :s3_credentials => S3_CREDENTIALS,
