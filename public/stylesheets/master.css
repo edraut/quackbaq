@@ -251,6 +251,8 @@ hr {
 .auction_index_item_wrapper {
   position: relative;
   float: left;
+  margin-right: 18px;
+  margin-bottom: 20px;
   background: url(../images/indexBoxActiveItem.png);
   width: 446px;
   height: 150px; }
