@@ -310,9 +310,17 @@ hr {
     padding: 10px 0; }
 
 .auction_detail_top {
+  position: relative;
   background: url(../images/detailBoxTopBorder.png);
   height: 88px;
   width: 915px; }
+  .auction_detail_top .auction_detail_top_block {
+    position: relative;
+    float: left;
+    margin: 0 9px;
+    width: 438px;
+    height: 68px;
+    background-color: white; }
 
 .auction_detail_content {
   background: url(../images/detailBoxMiddleBackground.jpeg);
