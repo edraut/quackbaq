@@ -57,6 +57,7 @@ class ApplicationController < ActionController::Base
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
+      Time.zone = ActiveSupport::TimeZone[-session[:time_zone_offset].to_i]
     end
 
     def current_user

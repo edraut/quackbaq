@@ -309,6 +309,20 @@ hr {
     float: left;
     padding: 10px 0; }
 
+.auction_detail_top {
+  background: url(../images/detailBoxTopBorder.png);
+  height: 88px;
+  width: 915px; }
+
+.auction_detail_content {
+  background: url(../images/detailBoxMiddleBackground.jpeg);
+  width: 915px; }
+
+.auction_detail_bottom {
+  background: url(../images/detailBoxBottomBorder.png);
+  height: 2px;
+  width: 915px; }
+
 .button_left {
   position: relative;
   float: left;

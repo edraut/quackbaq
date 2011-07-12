@@ -1,5 +1,29 @@
-<h1><%= @auction.item.name %></h1>
-<div class="span-8"><img src="<%= @auction.item.content_images.first.image.url(:medium) %>"></div>
+<div class="auction_detail_wrapper">
+  <div class="auction_detail_top">
+    similar / recent auctions here
+  </div>
+  <div class="auction_detail_content">
+    <div class="auction_detail_left">
+      <span class="auction_detail_name"><%= @auction.item.name %></span><br/>
+      <span class="auction_detail_retail">retail: <%= @auction.item.full_price.format %></span><br/>
+      <span class="auction_detail_id">Auction ID: <%= @auction.id %></span><br/>
+      <img src="<%= @auction.item.content_images.first.image.url(:medium) %>">
+    </div>
+    <div class="auction_detail_middle">
+      <div id="time_left"></div>
+      <div id="current_price"></div>
+      <div id="highest_bidder"></div>
+    </div>
+    <div class="auction_detail_right">
+      <div id="bid_history" class="auction_detail_bid_history">
+      </div>
+    </div>
+  </div>
+  <div class="auction_detail_bottom">
+    &nbsp;
+  </div>
+</div>
+<div class="span-8"></div>
 <div class="span-8">
 	<% if current_user %>
 		<% if @this_user.auctions.include? @auction %>

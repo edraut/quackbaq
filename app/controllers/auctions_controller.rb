@@ -42,5 +42,6 @@ class AuctionsController < ApplicationController
 
   def get_auction
     @auction = Auction.find(params[:id])
+    @category = @auction.category
   end
 end
