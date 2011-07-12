@@ -7,7 +7,7 @@
 	<div class="span-4">Begin Time</div>
 	<div class="span-4 last">&nbsp;</div>
 </div>
-<% for auction in Auction.all %>
+<% for auction in Auction.order("begin_time desc").all %>
 <div class="span-20">
 	<div class="span-4"><% if auction.item.content_images.any? and auction.item.content_images.first.class.name != 'ContentImageTmp'%> <%= link_to image_tag( auction.item.content_images.first.image.url(:small_thumb)), admin_area_auction_url(auction) %> <% else %>&nbsp;<% end %></div>
 	<div class="span-4"><%= auction.item.name %></div>
