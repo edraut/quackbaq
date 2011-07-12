@@ -17,7 +17,7 @@ class Auction < ActiveRecord::Base
   #validations
   
   #callbacks
-  before_create :set_end_time
+  before_save :set_end_time
   after_create :create_channel
   #class methods
   
