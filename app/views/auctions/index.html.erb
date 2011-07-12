@@ -1,13 +1,13 @@
 <% if @my_auctions %><h1>My Auctions</h1><% end %>
 <% for auction in @auctions %>
 <div class="auction_index_item_wrapper">
-  <div class="auction_index_item_left">
+  <div class="auction_index_item_left text_center" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
     <%= image_tag auction.item.content_images.first.image.url(:small_thumb) %>
     <div class="auction_index_item_name">
-      <%= auction.item.name %>
+      <strong><%= auction.item.name %></strong>
     </div>
     <div class="auction_index_item_retail">
-      <%= auction.item.full_price.format %>
+      <em>retail: <%= auction.item.full_price.format %></em>
     </div>
   </div>
   <div class="auction_index_item_right">
@@ -21,11 +21,19 @@
     	</div>
     </div>
     <div class="auction_index_buttons">
-      <div class="auction_index_buy_now">
-        <div class="button_left">&nbsp;</div>
-        <div class="button_middle big_font" data-button="true" href="<%= bid_url(@this_user.bids.first, :placed_auction_id => auction.id) %>">BID NOW</div>
-        <div class="button_right">&nbsp;</div>
-      </div>
+      <% if @this_user.bids.available.any? %>
+        <div class="auction_index_buy_now">
+          <div class="button_left">&nbsp;</div>
+          <div class="button_middle big_font" data-button="true" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => auction.id) %>">BID NOW</div>
+          <div class="button_right">&nbsp;</div>
+        </div>
+      <% else %>
+        <div class="auction_index_buy_now">
+          <div class="button_left">&nbsp;</div>
+          <div class="button_middle big_font" data-button="true" href="<%= bidS_url %>">BUY CREDITS</div>
+          <div class="button_right">&nbsp;</div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

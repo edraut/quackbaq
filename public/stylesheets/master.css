@@ -15,6 +15,9 @@ hr {
   color: #999;
   background-color: #999; }
 
+[onclick="void(0)"] {
+  cursor: pointer; }
+
 .container.quackbaq {
   margin-top: 50px;
   padding-bottom: 120px;
@@ -283,8 +286,6 @@ hr {
   .auction_index_item_right .auction_index_current_bid {
     position: relative;
     float: left;
-    font-size: 18px;
-    color: #56396f;
     width: 240px;
     margin-right: 15px;
     padding: 6px 0;
@@ -292,12 +293,17 @@ hr {
     .auction_index_item_right .auction_index_current_bid .auction_index_current_price {
       position: relative;
       float: left;
-      width: 91px; }
+      width: 91px;
+      color: #56396f;
+      font-size: 18px; }
     .auction_index_item_right .auction_index_current_bid .auction_index_current_bidder {
+      padding-top: 4px;
       position: relative;
       float: left;
       width: 149px;
-      text-align: right; }
+      text-align: right;
+      color: #777777;
+      font-weight: bold; }
   .auction_index_item_right .auction_index_buttons {
     position: relative;
     float: left;
@@ -375,3 +381,6 @@ button.button_middle {
 
 .short_height {
   height: 5px; }
+
+.text_center {
+  text-align: center; }
