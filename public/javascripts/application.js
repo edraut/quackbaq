@@ -55,10 +55,12 @@ function clickRefreshImageLink(id,columns){
 	jQuery('#content_element_new_links').show();
 }
 function roundCorners(){
+	jQuery('.auto_bid_block').corner('3px');
 }
 jQuery(document).ready(function(){
 	bindLinkToForm();
 	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);
 	bindClickToSelect();
 	jQuery("[data-button]").live('click',buttonControl);
+	roundCorners();
 })

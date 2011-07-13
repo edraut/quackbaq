@@ -13,11 +13,57 @@
       <span class="auction_detail_retail">retail: <%= @auction.item.full_price.format %></span><br/>
       <span class="auction_detail_id">Auction ID: <%= @auction.id %></span><br/>
       <img src="<%= @auction.item.content_images.first.image.url(:medium) %>">
+      <div class="auction_detail_thumbs">
+        <div class="auction_detail_thumb_bucket" style="width: <%= @auction.item.content_images.count * 115 %>px;">
+          <% for content_image in @auction.item.content_images %>
+            <img src="<%= content_image.image.url(:tiny) %>">
+          <% end %>
+        </div>
+      </div>
+      <div class="auction_detail_description">
+        <%= @auction.item.description %>
+      </div>
     </div>
     <div class="auction_detail_middle">
-      <div id="time_left"></div>
-      <div id="current_price"></div>
-      <div id="highest_bidder"></div>
+      <div class="auction_current_info">
+        <div id="timer">
+          <div id="time_left"></div>
+          <div id="timer_type">timer icon here</div>
+        </div>
+        <div class="auction_detail_bid">
+          <div class="auction_detail_bid_content">
+            <% if @this_user.bids.available.any? %>
+              <div class="button_left">&nbsp;</div>
+              <div class="button_middle big_font" data-button="true" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>">BID</div>
+              <div class="button_right">&nbsp;</div>
+            <% else %>
+              <div class="button_left">&nbsp;</div>
+              <div class="button_middle big_font" data-button="true" href="<%= bids_url %>">BUY CREDITS</div>
+              <div class="button_right">&nbsp;</div>
+            <% end %>
+          </div>
+        </div>
+        <div id="current_price"></div>
+        <div id="icons_and_bidder">
+          <div id="hand_duck"><img src="/images/handDuck.gif" alt="givebaq"></div>
+          <div id="highest_bidder"></div>
+          <div id="duck_foot"><img src="/images/duckfootOn.gif" alt="my auctions"></div>
+        </div>
+      </div>
+      <div class="auction_detail_auto_bid">
+        <div id="auto_bid" class="auto_bid_block">
+          <div class="auto_bid_title">Automated Bidding<div class="auto_bid_help"><a href="#">what's this?</a></div></div>
+          <div class="auto_bid_form">
+            Start at:
+          </div>
+        </div>
+        <div id="quack_attack" class="auto_bid_block">
+          <div class="auto_bid_title">Apply Quack Attack<div class="auto_bid_help"><a href="#">what's this?</a></div></div>
+          <div class="auto_bid_form">
+            Start at:
+          </div>
+        </div>
+      </div>
     </div>
     <div class="auction_detail_right">
       <div id="bid_history" class="auction_detail_bid_history">

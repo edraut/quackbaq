@@ -7,7 +7,8 @@ class ContentImage < ContentElement
 
   #special behaviors
   has_attached_file :image,
-    :styles => {  :small_thumb => "140x75#",
+    :styles => {  :tiny => "105x75#",
+                  :small_thumb => "140x75#",
                   :medium => "270x150>",
                   :large => "600x320>"
                 },
