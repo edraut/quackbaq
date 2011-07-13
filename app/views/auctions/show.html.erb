@@ -15,7 +15,7 @@
       <img src="<%= @auction.item.content_images.first.image.url(:medium) %>">
       <div class="auction_detail_thumbs">
         <div class="auction_detail_thumb_bucket" style="width: <%= @auction.item.content_images.count * 115 %>px;">
-          <% for content_image in @auction.item.content_images %>
+          <% for content_image in @auction.item.content_images[1..-1] %>
             <img src="<%= content_image.image.url(:tiny) %>">
           <% end %>
         </div>
