@@ -34,6 +34,13 @@
           <div class="button_right">&nbsp;</div>
         </div>
       <% end %>
+      <div class="auction_index_mine">
+    		<% if @this_user.auctions.include? @auction %>
+          <%= image_tag 'duckfootOn.gif' %>
+        <% else %>
+          <%= image_tag 'duckfootOff.gif' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

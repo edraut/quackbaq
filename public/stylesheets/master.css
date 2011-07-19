@@ -307,7 +307,11 @@ hr {
   .auction_index_item_right .auction_index_buttons {
     position: relative;
     float: left;
+    width: 240px;
     padding: 10px 0 3px; }
+    .auction_index_item_right .auction_index_buttons .auction_index_mine {
+      position: absolute;
+      right: 0; }
 
 .auction_detail_top {
   position: relative;
@@ -463,14 +467,61 @@ hr {
   .auction_detail_content .auction_detail_right {
     position: relative;
     float: left;
-    width: 265px;
-    height: 100%;
-    border-left: 1px solid #dddddd; }
+    width: 263px;
+    height: 416px; }
 
 .auction_detail_bottom {
   background: url(../images/detailBoxBottomBorder.png);
   height: 2px;
   width: 915px; }
+
+#bid_history {
+  padding-left: 10px; }
+
+.bid_history_item {
+  position: relative;
+  float: left;
+  width: 253px;
+  border-bottom: solid 1px #777777; }
+  .bid_history_item .bid_history_text {
+    position: relative;
+    float: left;
+    width: 200px;
+    color: #777777;
+    padding: 10px 5px; }
+    .bid_history_item .bid_history_text .bid_history_amount {
+      position: relative;
+      float: left;
+      width: 60px;
+      text-align: left; }
+    .bid_history_item .bid_history_text .bid_history_name {
+      position: relative;
+      float: left;
+      width: 140px;
+      text-align: right; }
+  .bid_history_item .bid_history_text.current {
+    background-color: #66497f;
+    color: white; }
+  .bid_history_item .bid_history_image {
+    position: relative;
+    float: left;
+    width: 53px; }
+
+.bid_history_item.current {
+  border-bottom: none; }
+
+#bid_location_map {
+  position: absolute;
+  bottom: 0;
+  padding-left: 8px; }
+  #bid_location_map #bid_location_map_title {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-bottom: 16px;
+    text-align: left;
+    color: #66497f;
+    font-weight: bold; }
 
 .button_left {
   position: relative;

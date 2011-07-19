@@ -34,7 +34,7 @@
           <div class="auction_detail_bid_content">
             <% if @this_user.bids.available.any? %>
               <div class="button_left">&nbsp;</div>
-              <div class="button_middle big_font" data-button="true" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>">BID</div>
+              <div class="button_middle big_font" id="place_bid_link" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>">BID</div>
               <div class="button_right">&nbsp;</div>
             <% else %>
               <div class="button_left">&nbsp;</div>
@@ -68,11 +68,19 @@
     <div class="auction_detail_right">
       <div id="bid_history" class="auction_detail_bid_history">
       </div>
+      <div id="bid_location_map"><div id="bid_location_map_title">Current High Bidder's Location:</div><%= image_tag 'map/mapOff.jpg' %></div>
     </div>
   </div>
   <div class="auction_detail_bottom">
     &nbsp;
   </div>
+</div>
+<div data-id="bid_history_item_template" style="display:none;" class="bid_history_item">
+  <div class="bid_history_text">
+    <div class="bid_history_amount"></div>
+    <div class="bid_history_name"></div>
+  </div>
+  <div class="bid_history_image"></div>
 </div>
 <div class="span-8"></div>
 <div class="span-8">
@@ -83,9 +91,6 @@
 			<%= link_to 'add to my auctions', user_auctions_url + "?auction_id=#{@auction.id}&_method=post" %>
 		<% end %>
 	<% end %>
-	<div class="span-8 last"><div class="span-3">Time Left</div><div id="time_left" class="span-5 last"></div></div>
-	<div class="span-8 last"><div class="span-3">Current Price</div><div id="current_price" class="span-5 last"></div></div>
-	<div class="span-8 last"><div class="span-3">Highest Bidder</div><div id="highest_bidder" class="span-5 last"></div></div>
 </div>
 <div class="span-8 last">
 	<% if current_user %>
@@ -145,7 +150,19 @@
 		timer_handle = setTimeout(cycleTimer,1000);
 		<% if current_user %>
 		function refreshBidHistory(new_history){
-			jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload.new_price + '<br/>');
+		  new_history_item = jQuery("[data-id='bid_history_item_template']").clone();
+		  new_history_item.attr("data-id",'');
+		  jQuery('#bid_history').prepend(new_history_item);
+		  new_history_item.find('.bid_history_amount').html(new_history.payload.new_price);
+		  new_history_item.find('.bid_history_name').html(new_history.user);
+      jQuery('.bid_history_text').removeClass('current');
+      jQuery('.bid_history_item').removeClass('current');
+      new_history_item.find('.bid_history_text').addClass('current');
+      new_history_item.addClass('current');
+      if(jQuery('#bid_history').children().length > 5){
+        jQuery('#bid_history').children(':last').remove();
+      }
+      new_history_item.show();
 		};
 		function refreshStats(frame){
 			jQuery('#current_price').html(frame.payload.new_price);

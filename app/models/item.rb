@@ -15,6 +15,7 @@ class Item < ActiveRecord::Base
   composed_of :shipping_cost, :class_name => 'Money', :mapping => [%w(shipping_cost cents)]
 
   #validations
+  validates_presence_of :name
   
   #callbacks
   
