@@ -5,7 +5,7 @@
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= render :partial => '/layouts/base_stylesheets' %>
   <%= csrf_meta_tag %>
-  <% if @hookbox %>
+  <% if @hookbox and false%>
  	<script src="<%= HOOKBOX_URL %>/static/hookbox.js"></script>
   <% end %>
 </head>

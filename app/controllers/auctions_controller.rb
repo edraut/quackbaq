@@ -23,7 +23,7 @@ class AuctionsController < ApplicationController
       @auctions = @category.auctions.in_progress
     end
     @auctions ||= Auction.in_progress
-    @hookbox = true
+    @pubnub = true
     unless @this_user
       @user_session = UserSession.new
     end
@@ -32,12 +32,12 @@ class AuctionsController < ApplicationController
   def my
     @my_auctions = true
     @auctions = @this_user.auctions
-    @hookbox = true
+    @pubnub = true
     render :action => 'index' and return
   end
   
   def show
-    @hookbox = true
+    @pubnub = true
   end
 
   def get_auction

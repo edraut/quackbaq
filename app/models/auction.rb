@@ -18,7 +18,7 @@ class Auction < ActiveRecord::Base
   
   #callbacks
   before_save :set_end_time
-  after_create :create_channel
+  # after_create :create_channel
   #class methods
   
   #instance methods

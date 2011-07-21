@@ -110,6 +110,8 @@
 		</div>
 	<% end %>
 </div>
+<div pub-key="pub-ae40e77d-8233-4dd0-8c5a-35fac643b743" sub-key="sub-f902c2fd-b264-11e0-bd90-a39c3d1a4b1e" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
 		var tick_count = 0;
@@ -153,8 +155,8 @@
 		  new_history_item = jQuery("[data-id='bid_history_item_template']").clone();
 		  new_history_item.attr("data-id",'');
 		  jQuery('#bid_history').prepend(new_history_item);
-		  new_history_item.find('.bid_history_amount').html(new_history.payload.new_price);
-		  new_history_item.find('.bid_history_name').html(new_history.user);
+		  new_history_item.find('.bid_history_amount').html(new_history.new_price);
+		  new_history_item.find('.bid_history_name').html(new_history.bidder_name);
       jQuery('.bid_history_text').removeClass('current');
       jQuery('.bid_history_item').removeClass('current');
       new_history_item.find('.bid_history_text').addClass('current');
@@ -164,33 +166,54 @@
       }
       new_history_item.show();
 		};
-		function refreshStats(frame){
-			jQuery('#current_price').html(frame.payload.new_price);
-			jQuery('#highest_bidder').html(frame.user);
+		function refreshStats(message){
+			jQuery('#current_price').html(message.new_price);
+			jQuery('#highest_bidder').html(message.bidder_name);
 		};
-		refreshStats({payload:{new_price:'<%= @auction.current_price.format %>'},user:'<%= @auction.highest_bidder_name %>'});
-		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
-		conn = hookbox.connect("<%= HOOKBOX_URL %>");
-		conn.onSubscribed = function(channel_name, subscription) {
-			if(channel_name == "<%= @auction.channel_name %>"){
-				subscription.onPublish = function(frame) {
-					resetTimer(frame.payload.time_left);
-					refreshStats(frame);
-					refreshBidHistory(frame);
-				};
-	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
-				  	var name = item[0];
-					var frame = item[1];
-					if(name == 'PUBLISH'){
-						refreshBidHistory(frame);
-					}
-			    };
-			}
-		};
-		conn.onClose = function() {
-			alert("Connection Lost, please refresh this page");
-		};
-		conn.subscribe("<%= @auction.channel_name %>");
+		refreshStats({new_price:'<%= @auction.current_price.format %>',bidder_name:'<%= @auction.highest_bidder_name %>'});
+//		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
+//		conn = hookbox.connect("<%= HOOKBOX_URL %>");
+//		conn.onSubscribed = function(channel_name, subscription) {
+//			if(channel_name == "<%= @auction.channel_name %>"){
+//				subscription.onPublish = function(frame) {
+//					resetTimer(frame.payload.time_left);
+//					refreshStats(frame);
+//					refreshBidHistory(frame);
+//				};
+//	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
+//				  	var name = item[0];
+//					var frame = item[1];
+//					if(name == 'PUBLISH'){
+//						refreshBidHistory(frame);
+//					}
+//			    };
+//			}
+//		};
+//		conn.onClose = function() {
+//			alert("Connection Lost, please refresh this page");
+//		};
+//		conn.subscribe("<%= @auction.channel_name %>");
+    PUBNUB.subscribe({
+      channel  : "<%= @auction.channel_name %>",
+      callback : function(message) {
+        refreshBidHistory(message);
+        refreshStats(message);
+        resetTimer(message.time_left); },
+      error    : function(e) {
+          // Do not call subscribe() here!
+          // PUBNUB will auto-reconnect.
+          console.log(e);
+      }
+    });
+    PUBNUB.history(
+      {channel:'<%= @auction.channel_name %>',limit: 5},
+      function(info){
+        for(i=0;i < info.length;i++){
+          refreshBidHistory(info[i]);
+          console.log(info[i].new_price);
+        }
+      }
+    );
 		jQuery('#place_bid_link').click(function(e){
 			jQuery.ajax({
 				url: jQuery(e.target).attr('href'),
