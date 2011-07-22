@@ -200,6 +200,14 @@ hr {
     margin-left: -2px;
     margin-top: -2px; }
 
+.category_button_wide {
+  position: relative;
+  float: left;
+  top: 20px;
+  width: 101px;
+  height: 30px;
+  overflow: visible; }
+
 .category_list_item_wide {
   position: relative;
   float: left;
@@ -243,9 +251,11 @@ hr {
   position: absolute;
   bottom: -26px;
   z-index: 20; }
-  #category_bar_content #category_button {
+  #category_bar_content #category_button, #category_bar_content .category_button {
     position: relative;
-    float: left; }
+    float: left;
+    height: 30px;
+    width: 300px; }
   #category_bar_content #category_description {
     position: relative;
     float: left;

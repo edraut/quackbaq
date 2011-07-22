@@ -84,7 +84,7 @@
         <div class="span-22 last">&nbsp;</div>
           <% Category.ordered.each_with_index do |category,index| %>
             <div class="category_list_item_wide <% if @category.id == category.id %>selected<% end %> <% if Category.count == (index + 1) %> last<% end %>" data-button="true" href="<%= auctions_url(:category_id => category.id) %>">
-              <div class="category_image">
+              <div class="category_image" data-id="<%= category.id %>">
                 <div class="category_image_inner">
                   <%= image_tag category.image.url(:wide) %>
                 </div>
@@ -93,11 +93,15 @@
           <% end %>
       </div>
       <div id="category_bar_content">
-        <div id="category_button">
-          <div class="button_left">&nbsp;</div>
-          <div class="button_middle big_font" data-button="true" href="<%= category_url(@category) %>" onclick="void(0)"><%= @category.name.upcase %></div>
-          <div class="button_right">&nbsp;</div>
-        </div>
+        <% Category.ordered.each_with_index do |category,index| %>
+          <div class="category_button_wide">
+            <div class="category_button" <% unless @category.id == category.id %> style="visibility: hidden;"<% end %> data-id="<%= category.id %>">
+              <div class="button_left">&nbsp;</div>
+              <div class="button_middle big_font" data-button="true" href="<%= category_url(category) %>" onclick="void(0)"><%= category.name.upcase %></div>
+              <div class="button_right">&nbsp;</div>
+            </div>
+          </div>
+        <% end %>
         <div id="category_description">
           <%= @category.description %>
         </div>
@@ -133,6 +137,14 @@
 	<%= javascript_tag do %>
 		jQuery(document).ready(function(){
     	jQuery("#credits_left").corner("4px");
+    	jQuery('.category_image').hover(
+    	  function(){
+    	    jQuery(".category_button[data-id='" + jQuery(this).data('id') + "']").css('visibility','visible');
+    	  },
+    	  function(){
+    	    jQuery(".category_button[data-id='" + jQuery(this).data('id') + "']").css('visibility','hidden');
+    	  }
+    	)
   		<% unless flash[:notice].blank? %>
   			function clearFlash(){
   				jQuery('#flash_notice').fadeOut(1000);
