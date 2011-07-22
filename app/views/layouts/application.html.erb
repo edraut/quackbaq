@@ -94,17 +94,17 @@
       </div>
       <div id="category_bar_content">
         <% Category.ordered.each_with_index do |category,index| %>
-          <div class="category_button_wide">
-            <div class="category_button" <% unless @category.id == category.id %> style="visibility: hidden;"<% end %> data-id="<%= category.id %>">
+          <div class="category_info <% if @category.id == category.id %> selected<% end %>" <% unless @category.id == category.id %> style="display:none;"<% end %> data-id="<%= category.id %>">
+            <div class="category_button" >
               <div class="button_left">&nbsp;</div>
               <div class="button_middle big_font" data-button="true" href="<%= category_url(category) %>" onclick="void(0)"><%= category.name.upcase %></div>
               <div class="button_right">&nbsp;</div>
             </div>
+            <div id="category_description">
+              <%= category.description %>
+            </div>
           </div>
         <% end %>
-        <div id="category_description">
-          <%= @category.description %>
-        </div>
       </div>
     </div>
       <% if @category %>
@@ -139,10 +139,12 @@
     	jQuery("#credits_left").corner("4px");
     	jQuery('.category_image').hover(
     	  function(){
-    	    jQuery(".category_button[data-id='" + jQuery(this).data('id') + "']").css('visibility','visible');
+    	    jQuery(".category_info.selected").hide();
+    	    jQuery(".category_info[data-id='" + jQuery(this).data('id') + "']").show();
     	  },
     	  function(){
-    	    jQuery(".category_button[data-id='" + jQuery(this).data('id') + "']").css('visibility','hidden');
+    	    jQuery(".category_info[data-id='" + jQuery(this).data('id') + "']").hide();
+    	    jQuery(".category_info.selected").show();
     	  }
     	)
   		<% unless flash[:notice].blank? %>

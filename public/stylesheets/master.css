@@ -254,8 +254,7 @@ hr {
   #category_bar_content #category_button, #category_bar_content .category_button {
     position: relative;
     float: left;
-    height: 30px;
-    width: 300px; }
+    height: 30px; }
   #category_bar_content #category_description {
     position: relative;
     float: left;
