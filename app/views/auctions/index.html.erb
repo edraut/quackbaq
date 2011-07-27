@@ -11,7 +11,10 @@
     </div>
   </div>
   <div class="auction_index_item_right">
-    <div class="auction_index_time_left" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
+    <div class="auction_index_time">
+      <div class="auction_index_time_left" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
+      <div class="auction_index_timer_icon"><%= image_tag '20secTimerIcon.gif' %></div>
+    </div>
   	<div class="auction_index_current_bid">
       <div data-push_data_type="current_price" data-push_channel="<%= auction.channel_name %>" class="auction_index_current_price">
     	  <%= auction.current_price.format %>

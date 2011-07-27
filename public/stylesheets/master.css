@@ -283,15 +283,24 @@ hr {
   padding-left: 20px;
   border-left: 1px solid #dddddd;
   width: 255px; }
-  .auction_index_item_right .auction_index_time_left {
+  .auction_index_item_right .auction_index_time {
     position: relative;
     float: left;
-    font-size: 26px;
-    color: #66497f;
     margin-right: 15px;
-    padding: 5px 0;
     width: 240px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #dddddd; }
+    .auction_index_item_right .auction_index_time .auction_index_time_left {
+      position: relative;
+      float: left;
+      font-size: 26px;
+      color: #66497f;
+      width: 160px; }
+    .auction_index_item_right .auction_index_time .auction_index_timer_icon {
+      position: relative;
+      float: left;
+      width: 80px;
+      top: 8px; }
   .auction_index_item_right .auction_index_current_bid {
     position: relative;
     float: left;
@@ -317,7 +326,7 @@ hr {
     position: relative;
     float: left;
     width: 240px;
-    padding: 10px 0 3px; }
+    padding: 13px 0 3px; }
     .auction_index_item_right .auction_index_buttons .auction_index_mine {
       position: absolute;
       right: 0; }
@@ -408,7 +417,7 @@ hr {
         .auction_detail_content .auction_detail_middle .auction_current_info #timer #timer_type {
           position: absolute;
           right: 10px;
-          top: 0; }
+          top: 2px; }
       .auction_detail_content .auction_detail_middle .auction_current_info .auction_detail_bid {
         position: relative;
         float: left;

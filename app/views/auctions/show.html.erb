@@ -12,7 +12,7 @@
       <span class="auction_detail_name"><%= @auction.item.name %></span><br/>
       <span class="auction_detail_retail">retail: <%= @auction.item.full_price.format %></span><br/>
       <span class="auction_detail_id">Auction ID: <%= @auction.id %></span><br/>
-      <img src="<%= @auction.item.content_images.first.image.url(:medium) %>">
+      <img src="<%= @auction.item.content_images.first.image.url(:medium) %>"/>
       <div class="auction_detail_thumbs">
         <div class="auction_detail_thumb_bucket" style="width: <%= @auction.item.content_images.count * 115 %>px;">
           <% for content_image in @auction.item.content_images[1..-1] %>
@@ -28,7 +28,7 @@
       <div class="auction_current_info">
         <div id="timer">
           <div id="time_left"></div>
-          <div id="timer_type">timer icon here</div>
+          <div id="timer_type"><%= image_tag '20secTimerIcon.gif' %></div>
         </div>
         <div class="auction_detail_bid">
           <div class="auction_detail_bid_content">
