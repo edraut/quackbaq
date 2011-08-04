@@ -48,13 +48,13 @@ function hiddenFieldProxy(e){
 	if(!(target.data("behavior") == 'hidden_field_proxy')){
 		target = target.parents("[data-behavior='hidden_field_proxy']");
 	}
-	hidden_field = jQuery('#' + target.data('hidden_field'));
+	hidden_field = jQuery('#' + target.data('hiddenField'));
 	hidden_field.val(target.data('value'));
 }
 function bindClickToSelect(){
 	jQuery("[data-click_to_select='true']").click(function(e){
 		target = jQuery(this);
-		jQuery("[data-click_to_select='true'][data-click_id='" + target.data('click_id') + "']").removeClass('selected');
+		jQuery("[data-click_to_select='true'][data-click_id='" + target.data('clickId') + "']").removeClass('selected');
 		target.addClass('selected');
 	})
 }

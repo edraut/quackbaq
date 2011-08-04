@@ -31,7 +31,7 @@
       </div>
       <div class="auction_index_buy_now" data-behavior="buy_bids_link" data-auction_id="<%= auction.id %>" <% if @this_user.bids.available.any? %> style="display:none;"<% end %>>
         <div class="button_left">&nbsp;</div>
-        <div class="button_middle big_font" data-button="true" href="<%= bids_url %>">BUY CREDITS</div>
+        <div class="button_middle big_font" data-button="true" href="<%= bids_path %>">BUY CREDITS</div>
         <div class="button_right">&nbsp;</div>
       </div>
       <div class="auction_index_mine">
@@ -83,30 +83,6 @@
 		};
 		timer_handle = setTimeout(cycleTimer,1000);
 		<% if current_user %>
-//		function refreshBidHistory(new_history){
-//			jQuery('#bid_history').append(new_history.user + ': ' + new_history.payload.new_price + '<br/>');
-//		};
-//		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
-//		conn = hookbox.connect("<%= HOOKBOX_URL %>");
-//		conn.onSubscribed = function(channel_name, subscription) {
-//			if(channel_name == "<%# @auction.channel_name %>"){
-//				subscription.onPublish = function(frame) {
-//					jQuery("[data-id='" + timer_id +"']").data('seconds_left',frame.payload.time_left);
-//					refreshBidHistory(frame);
-//				};
-//	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
-//				  	var name = item[0];
-//					var frame = item[1];
-//					if(name == 'PUBLISH'){
-//						refreshBidHistory(frame);
-//					}
-//			    };
-//			}
-//		};
-//		conn.onClose = function() {
-//			alert("Connection Lost, please refresh this page");
-//		};
-//		conn.subscribe("<%# @auction.channel_name %>");
     function refreshStats(channel_name,message){
     	jQuery("[data-push_data_type='current_price'][data-push_channel='" + channel_name + "']").html(message.new_price);
     	jQuery("[data-push_data_type='highest_bidder'][data-push_channel='" + channel_name + "']").html(message.bidder_name);
@@ -128,6 +104,7 @@
 				url: jQuery(this).attr('href'),
 				type: 'PUT',
 				dataType: 'json',
+				data: {authenticity_token: authenticity_token},
 				success: function(data,textStatus) {
 					jQuery('#available_bids').html(data.bid_count);
 					if(data.bid_count == 0){
