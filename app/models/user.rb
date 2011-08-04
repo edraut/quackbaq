@@ -27,6 +27,13 @@ class User < ActiveRecord::Base
     state :active
     state :inactive
   end
+  #validations
+  validates_presence_of :name
+  #callbacks
+  
+  #class methods
+  
+  #instance methods
   
   def map_number
     if (['US','CA'].include? self.billing_address.country.iso)

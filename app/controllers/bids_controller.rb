@@ -31,7 +31,7 @@ class BidsController < ApplicationController
           @auction.save
         end
         pubnub = Pubnub.new(PUBNUB_PUBLISH, PUBNUB_SUBSCRIBE,PUBNUB_SECRET, false)
-        pubnub.publish('channel' => @auction.channel_name, 'message' => {'new_price' => @auction.current_price.format,'time_left' => @auction.time_left_in_seconds,'bidder_name' => @this_user.email})
+        pubnub.publish('channel' => @auction.channel_name, 'message' => {'new_price' => @auction.current_price.format,'time_left' => @auction.time_left_in_seconds,'bidder_name' => @this_user.name})
         # begin
         #   Nestful.post("#{HOOKBOX_URL}/web/get_channel_info", :params => {:security_token => 'secret', :channel_name => @auction.channel_name})
         # rescue
@@ -40,7 +40,7 @@ class BidsController < ApplicationController
         # Nestful.post("#{HOOKBOX_URL}/web/publish", :params => {:security_token => 'secret', :channel_name => @auction.channel_name, :originator => @this_user.email, :payload => {:new_price => @auction.current_price.format,:time_left => @auction.time_left_in_seconds}.to_json})
         render :json => {:bid_count => @this_user.bids.available.count,:auction_id => @auction.id}, :content_type => 'text/plain' and return
       else
-        pubnub.publish('channel' => @auction.channel_name, 'message' => {'event' => 'WINNER', 'winner' => @auction.winner.email})
+        pubnub.publish('channel' => @auction.channel_name, 'message' => {'event' => 'WINNER', 'winner' => @auction.winner.name})
         # Nestful.post("#{HOOKBOX_URL}/web/publish", :params => {:security_token => 'secret', :channel_name => @auction.channel_name, :originator => 'quackbaq', :payload => {:event => 'WINNER', :winner => @auction.winner.email} })
         # Nestful.post("#{HOOKBOX_URL}/web/destroy_channel", :params => {:security_token => 'secret', :channel_name => @auction.channel_name })
       end
