@@ -131,8 +131,8 @@
 				success: function(data,textStatus) {
 					jQuery('#available_bids').html(data.bid_count);
 					if(data.bid_count == 0){
-						jQuery("[data-behavior='place_bid_link'][data-auction_id='" + data.auction_id + "']").hide();
-						jQuery("[data-behavior='buy_bids_link'][data-auction_id='" + data.auction_id + "']").show();
+						jQuery("[data-behavior='place_bid_link']").hide();
+						jQuery("[data-behavior='buy_bids_link']").show();
 					}
 				}
 			});
