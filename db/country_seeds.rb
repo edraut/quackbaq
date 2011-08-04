@@ -1,19 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
-home = Category.create(:name => 'Home',:position => 1)
-givebaq = Category.create(:name => 'GiveBaq',:position => 2)
-fashion = Category.create(:name => 'Fashion',:position => 3)
-travel = Category.create(:name => 'Travel',:position => 4)
-electronics = Category.create(:name => 'Electronics',:position => 5)
-events = Category.create(:name => 'Events',:position => 6)
-games = Category.create(:name => 'Games',:position => 7)
-lifestyle = Category.create(:name => 'Lifestyle',:position => 8)
-gift_cards = Category.create(:name => 'Gift Cards',:position => 9)
 Country.create({"position"=>43, "name"=>"CHAD", "iso3"=>"TCD", "iso"=>"TD", "id"=>290, "printable_name"=>"Chad", "numcode"=>148, 'map' => 17})
 Country.create({"position"=>69, "name"=>"FAROE ISLANDS", "iso3"=>"FRO", "iso"=>"FO", "id"=>316, "printable_name"=>"Faroe Islands", "numcode"=>234, 'map' => 10})
 Country.create({"position"=>96, "name"=>"INDIA", "iso3"=>"IND", "iso"=>"IN", "id"=>343, "printable_name"=>"India", "numcode"=>356, 'map' => 22})

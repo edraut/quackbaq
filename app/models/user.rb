@@ -28,6 +28,14 @@ class User < ActiveRecord::Base
     state :inactive
   end
   
+  def map_number
+    if (['US','CA'].include? self.billing_address.country.iso)
+      return Address.map_for(self.billing_address.state)
+    else
+      return self.billing_address.country.map
+    end
+  end
+  
   def prepare_for_validation
     self.reset_perishable_token!
     Notifier.account_validation_instructions(self).deliver

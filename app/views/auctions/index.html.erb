@@ -24,7 +24,7 @@
     	</div>
     </div>
     <div class="auction_index_buttons">
-      <div class="auction_index_buy_now"<% unless @this_user.bids.available.any? %> style="display:none;"<% end %> data-behavior="place_bid_link" data-auction_id="<%= auction.id %>" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => auction.id) %>">
+      <div class="auction_index_buy_now"<% unless @this_user.bids.available.any? %> style="display:none;"<% end %> data-behavior="place_bid_link" data-auction_id="<%= auction.id %>" href="<%= place_bid_url(:placed_auction_id => auction.id) %>">
         <div class="button_left">&nbsp;</div>
         <div class="button_middle big_font">BID NOW</div>
         <div class="button_right">&nbsp;</div>
