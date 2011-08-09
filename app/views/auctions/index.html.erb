@@ -1,4 +1,5 @@
 <% if @my_auctions %><h1>My Auctions</h1><% end %>
+<!-- <%= @auctions.length %> : <%= @category.auctions.in_progress.count %>-->
 <% for auction in @auctions %>
 <div class="auction_index_item_wrapper">
   <div class="auction_index_item_left text_center" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
