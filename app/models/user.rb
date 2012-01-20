@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   has_many :auctions, :through => :user_auctions
   
   #special behaviors
-  acts_as_authentic
+  acts_as_authentic do |u|
+    u.login_field = :email
+  end
   
   state_machine :state, :initial => :not_valid do
     event :validate_account do
@@ -51,7 +53,20 @@ class User < ActiveRecord::Base
   def prepare_password_reset
     self.reset_perishable_token!  
     Notifier.password_reset_instructions(self).deliver
-  end  
+  end 
+  
+  def zipcode
+    if billing_address
+      billing_address.zipcode
+    else
+      nil
+    end
+  end
+  
+  def zipcode=(zip)
+    billing_address.zipcode = zip
+    billing_address.save
+  end
   
   ############################################################################################
   ########### Begin CIM methods, copyright 2008 Eric Draut, all rights reserved ##############

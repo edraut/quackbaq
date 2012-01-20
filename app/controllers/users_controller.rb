@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
+    render :template => '/users/sign_up_1' and return
   end
   
   def create

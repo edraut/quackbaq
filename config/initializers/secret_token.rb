@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Quackbaq::Application.config.secret_token = 'dabf9c4a8ce78123a30b3d9cf910feef1700d86697a41e9fb4b98f26e91e6a8f4c39a9f173792d60f6c571997ae16c7cd916a0079db3b5e3ad71c71a40b4289e'
+Quackbaq::Application.config.secret_token = '159221d9e6e06120099a9628b93e2b8b894afbbbe035ec555904a473171344676d51bb545e41f005f1eefccfee0fd3b7b6e0c665000a065f2f6d1b3d6d7e2831'

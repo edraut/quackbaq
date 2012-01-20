@@ -5,9 +5,6 @@
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= render :partial => '/layouts/base_stylesheets' %>
   <%= csrf_meta_tag %>
-  <% if @hookbox and false%>
- 	<script src="<%= HOOKBOX_URL %>/static/hookbox.js"></script>
-  <% end %>
 </head>
 <body>
 	<div class="container nav">
@@ -82,15 +79,15 @@
 	  <% if current_user and controller_name == 'auctions' %>
       <div id="category_nav">
         <div class="span-22 last">&nbsp;</div>
-          <% Category.ordered.each_with_index do |category,index| %>
-            <div class="category_list_item_wide <% if @category.id == category.id %>selected<% end %> <% if Category.count == (index + 1) %> last<% end %>" data-button="true" href="<%= auctions_url(:category_id => category.id) %>">
-              <div class="category_image" data-id="<%= category.id %>">
-                <div class="category_image_inner">
-                  <%= image_tag category.image.url(:wide) %>
-                </div>
+        <% Category.ordered.each_with_index do |category,index| %>
+          <div class="category_list_item_wide <% if @category.id == category.id %>selected<% end %> <% if Category.count == (index + 1) %> last<% end %>" data-button="true" href="<%= auctions_url(:category_id => category.id) %>">
+            <div class="category_image" data-id="<%= category.id %>">
+              <div class="category_image_inner">
+                <%= image_tag category.image.url(:wide) %>
               </div>
             </div>
-          <% end %>
+          </div>
+        <% end %>
       </div>
       <div id="category_bar_content">
         <% Category.ordered.each_with_index do |category,index| %>
@@ -113,7 +110,20 @@
         </div>
       <% end %>
     <% else %>
+      <div id="category_nav">
+        <div class="span-22 last">&nbsp;</div>
+        <% Category.ordered.each_with_index do |category,index| %>
+          <div class="category_list_item_wide <% if Category.count == (index + 1) %> last<% end %>">
+            <div class="category_image">
+              <div class="category_image_inner">
+                <%= image_tag category.image.url(:wide) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
+    <div id="horiz_bar">&nbsp;</div>
     <% end %>
   <div class="container quackbaq">
 		<%= yield %>
