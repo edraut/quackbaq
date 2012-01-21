@@ -1,0 +1,776 @@
+/* ...
+*= require_self
+*= require_tree .
+*/
+
+$purple1: #66497F;
+$orange1: #F8782B;
+$gray3: #DDD;
+$gray9: #777;
+$gray12: #444;
+body {
+	background: #6C6C6C url(/assets/background.jpg) no-repeat;
+}
+a {
+	color: $purple1;
+}
+input[type="text"],input[type="password"]{
+	background-color: #DDDDDD;
+	border:none;
+}
+label {
+	color: #666;
+}
+hr {
+	color: #999;
+	background-color: #999;
+}
+[onclick="void(0)"] {
+	cursor: pointer;
+}
+.container.quackbaq {
+	margin-top: 50px;
+	padding-bottom: 120px;
+	position: relative;
+}
+.container.nav {
+	position: relative;
+}
+#horiz_bar {
+	position: relative;
+	float: left;
+	top: -10px;
+	height: 21px;
+	z-index: 10;
+	background: url('/assets/horiz_bar.png');
+	background-repeat: horizontal;
+	width: 100%;
+}
+.sign_up_background {
+	position:relative;
+	float: left;
+	top: -50px;
+	left: -10px;
+	background: url('/assets/sign_up_background.png');
+	height: 326px;
+	width: 772px;
+	padding-left: 160px;
+	padding-top: 20px;
+}
+.purple_font {
+	color: $purple1;
+}
+.sign_up_title {
+	font-size: 32px;
+}
+.sign_up_vert_align {
+	position: relative;
+	height: 165px;
+}
+.form_background {
+	position: relative;
+	float: left;
+	height: 157px;
+	width: 475px;
+	background-color: $gray3;
+	color: $gray9;
+	font-size: 14px;
+	padding-top: 8px;
+}
+.form_line {
+	width: 100%;
+	height: 35px;
+	padding: 0 10%;
+}
+.field_name {
+	position: relative;
+	float: left;
+	width: 21%;
+	height: 20px;
+	padding: 8px 4% 7px 0;
+	text-align: right;
+}
+.field_entry, input[type="text"].field_entry {
+	position: relative;
+	float: left;
+	width: 55%;
+	height: 19px;
+	margin: 8px 0;
+	background-color: white;
+	-webkit-box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .24);
+	-moz-box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .24);
+	box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .24);
+}
+#sign_up_next{
+	position:absolute;
+	height: 28px;
+	bottom:0;
+	left:508px;
+}
+#progress {
+	position: relative;
+	float: left;
+	margin-top: 15px;
+	font-size: 24px;
+}
+#progress_bar {
+	position: relative;
+	float: left;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+#flash_notice {
+	width: 100%;
+	text-align: center;
+	background-color: #222222;
+	color: #DDDDDD;
+}
+.top_nav {
+	position: relative;
+	float: left;
+	height: 150px;
+	width: 916px;
+	margin-right: 34px;
+}
+.top_logo {
+	position: relative;
+	float: left;
+}
+.top_right_nav {
+	position: relative;
+	float: left;
+	height: 100%;
+	width: 569px;
+}
+#footer {
+	position: fixed;
+	bottom: 0;
+	background: url(/assets/footerBackground.jpg);
+	background-repeat: repeat-x;
+	height: 46px;
+	width: 100%;
+	color: white;
+	font-size: 14px;
+	.container {
+		margin-top: 10px;
+		div.text_links {
+			margin-top: 4px;
+		}
+	}
+	a {
+		color: white;
+	}
+}
+.steelfish { font-family: SteelfishRg-Regular; }
+.big_font {
+	 font-family: SteelfishRg-Regular;
+}
+#credit_info {
+	position: absolute;
+	right: 0px;
+	top: 45px;
+	#credits_left {
+		position: relative;
+		float: left;
+		padding: 1px 10px;
+		background: white;
+		height: 26px;
+		color: #333;
+		font-size: 12px;
+		font-weight: bold;
+		#remaining_credits_amount {
+			font-size: 16px;
+			color: $purple1;
+		}
+	}
+	#buy_credits_button{
+		position: relative;
+		float: left;
+		margin-left: 5px;
+	}
+}
+#top_nav {
+	position:absolute;
+	top: 100px;
+	right: 0px;
+	.top_nav_button {
+		position:relative;
+		float: left;
+		padding: 0px 16px 2px;
+		background-color: $purple1;
+		a{color: white;text-decoration: none;}
+		height: 26px;
+		font-family: SteelfishRg-Regular;
+		font-size: 20px;
+	}
+	.top_nav_button.selected {
+		background-color: white;
+		a{color: $orange1}
+	}
+	.top_nav_divider {
+		position:relative;
+		float: left;
+		width: 1px;
+		height: 26px;
+		background-color: white;
+	}
+}
+#category_nav {
+	position:relative;
+	float: left;
+	width: 916px;
+	margin-right: 34px;
+	z-index: 10;
+}
+#sign_up_box {
+	position: relative;
+	float: left;
+	background: url(/assets/loginTopBox.png);
+	height: 57px;
+	width: 846px;
+	padding: 30px 35px;
+	margin-bottom: 4px;
+	.section_heading {
+		position: relative;
+		float: left;
+		width: 182px;
+		margin: 8px 0;
+		color: white;
+		font-size: 36px;
+	}
+	#sign_up_button {
+		position: absolute;
+		bottom: 30px;
+		right: 35px;
+	}
+}
+#sign_in_pitch{
+	position: relative;
+	float: left;
+	width: 645px;
+	height: 65px;
+	padding-left: 18px;
+	border-left: 1px solid white;
+	color: white;
+	font-size: 14px;
+}
+#category_list {
+	.section_heading {
+		position: relative;
+		float: left;
+		width: 100%;
+		color: $orange1;
+		font-size: 24px;
+	}
+}
+.horizontal_tiles {
+	position:relative;
+	float:left;
+	margin-bottom: 10px;
+}
+.category_list_item {
+	position: relative;
+	float: left;
+	width: 75px;
+	padding: 0 10px;
+	.category_image {
+		position: relative;
+		float: left;
+		width: 69px;
+		height: 69px;
+		border: 3px solid #EEE;
+	}
+	.category_name {
+		position: relative;
+		width: 75px;
+		text-align: center;
+		color: #666;
+		font-weight: bold;
+	}
+}
+.category_list_item:active, .category_list_item:hover, .category_list_item.selected {
+	.category_name{
+		color: #F18B3E;
+	}
+	.category_image {
+		border: 3px solid #DDD;
+	}
+	.category_image_inner {
+		position:relative;
+		float: left;
+		border: 2px solid white;
+		width: 65px;
+		height: 65px;
+		overflow: hidden;
+		img {
+			margin-left: -2px;
+			margin-top: -2px;
+		}
+	}
+}
+.category_button_wide {
+	position:relative;
+	float:left;
+	top: 20px;
+	width: 101px;
+	height: 30px;
+	overflow: visible;
+}
+.category_list_item_wide {
+	position: relative;
+	float: left;
+	width: 101px;
+	.category_image {
+		position: relative;
+		float: left;
+		width: 98px;
+		height: 69px;
+		overflow:hidden;
+		border: 3px solid #F4F4F4;
+		border-bottom: none;
+	}
+}
+.clickable.category_list_item_wide:active, .clickable.category_list_item_wide:hover, .category_list_item_wide.selected {
+	top: -10px;
+	z-index: 10;
+	.category_image {
+		border: 3px solid #DDD;
+		height: 89px;
+	}
+	.category_image_inner {
+		position:relative;
+		float: left;
+		border: 2px solid white;
+		width: 94px;
+		height: 85px;
+		overflow: hidden;
+		img {
+			margin-left: -2px;
+			margin-top: -2px;
+		}
+	}
+}
+#category_bar {
+	position: relative;
+	float: left;
+	top: -23px;
+	background: url(/assets/indexMiddleBarBackground.png);
+	background-repeat: repeat-x;
+	height: 66px;
+	width: 100%;
+}
+#category_bar_content {
+	position:absolute;
+	bottom: -26px;
+	z-index: 20;
+	#category_button, .category_button {
+		position: relative;
+		float: left;
+		height: 30px;
+	}
+	#category_description {
+		position:relative;
+		float:left;
+		padding-left: 20px;
+	}
+}
+.auction_index_item_wrapper {
+	position:relative;
+	float:left;
+	margin-right: 18px;
+	margin-bottom: 20px;
+	background: url(/assets/indexBoxActiveItem.png);
+	width: 446px;
+	height: 150px;
+}
+.auction_index_item_left {
+	position:relative;
+	float:left;
+	margin: 10px 0;
+	padding-left: 15px;
+	width: 155px;
+}
+.auction_index_item_right {
+	position:relative;
+	float:left;
+	margin: 10px 0;
+	padding-left: 20px;
+	border-left: 1px solid $gray3;
+	width: 255px;
+	.auction_index_time {
+		position: relative;
+		float: left;
+		margin-right: 15px;
+		width: 240px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid $gray3;
+		.auction_index_time_left {
+			position: relative;
+			float: left;
+			font-size: 26px;
+			color: $purple1;
+			width: 160px;
+		}
+		.auction_index_timer_icon {
+			position:relative;
+			float:left;
+			width: 80px;
+			top: 8px;
+		}
+	}
+	.auction_index_current_bid {
+		position:relative;
+		float:left;
+		width: 240px;
+		margin-right: 15px;
+		padding: 6px 0;
+		border-bottom: 1px solid $gray3;
+		.auction_index_current_price {
+			position:relative;
+			float:left;
+			width: 91px;
+			color: $purple1;
+			font-size: 18px;
+		}
+		.auction_index_current_bidder {
+			padding-top: 4px;
+			position:relative;
+			float:left;
+			width: 149px;
+			text-align: right;
+			color: $gray9;
+			font-weight: bold;
+		}
+	}
+	.auction_index_buttons {
+		position:relative;
+		float:left;
+		width: 240px;
+		padding: 13px 0 3px;
+		.auction_index_mine {
+			position:absolute;
+			right: 0;
+		}
+	}
+}
+.auction_detail_top {
+	position:relative;
+	background: url(/assets/detailBoxTopBorder.png);
+	padding-left: 1px;
+	height: 88px;
+	width: 914px;
+	.auction_detail_top_block {
+		position: relative;
+		float: left;
+		top: -5px;
+		margin: 0 9px;
+		padding: 5px;
+		width: 428px;
+		height: 58px;
+		background-color: white;
+	}
+}
+.auction_detail_content {
+	position: relative;
+	float:left;
+	background: url(/assets/detailBoxMiddleBackground.jpeg);
+	padding:18px;
+	width: 879px;
+	text-align: center;
+	.auction_detail_left{
+		position: relative;
+		float:left;
+		width: 349px;
+		.auction_detail_name {
+			font-size: 20px;
+			font-weight: bold;
+		}
+		.auction_detail_retail {
+			font-style: italic;
+		}
+		.auction_detail_id {
+			text-decoration: underline;
+			color: $purple1;
+			font-size: 16px;
+		}
+		img {
+			margin-top: 5px;
+		}
+		.auction_detail_thumbs {
+			position:relative;
+			float:left;
+			height: 95px;
+			width: 329px;
+			overflow: hidden;
+			.auction_detail_thumb_bucket{
+				position: absolute;
+				left: 0;
+				top: 10px;
+				img{
+					position:relative;
+					float:left;
+					margin-right: 10px;
+				}
+			}
+		}
+		.auction_detail_description {
+			position:relative;
+			float:left;
+			width:329px;
+			text-align: left;
+		}
+	}
+	.auction_detail_middle {
+		position: relative;
+		float: left;
+		width: 255px;
+		padding: 10px 5px;
+		border-left: 1px solid $gray3;
+		border-right: 1px solid $gray3;
+		text-align: left;
+		.auction_current_info {
+			position:relative;
+			float:left;
+			width:255px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid $gray3;
+			#timer {
+				position:relative;
+				float:left;
+				width: 255px;
+				height: 26px;
+				margin-bottom: 16px;
+				#time_left{
+					padding-left: 10px;
+					color: $purple1;
+					font-size: 26px;
+					font-weight: bold;
+					line-height: 26px;
+				}
+				#timer_type {
+					position:absolute;
+					right:10px;
+					top:2px;
+				}
+			}
+			.auction_detail_bid{
+				position:relative;
+				float: left;
+				left: 50%;
+				margin-bottom: 14px;
+				.auction_detail_bid_content {
+					position:relative;
+					float:left;
+					left: -50%;
+					.button_middle {
+						width: 85px;
+						text-align: center;
+					}
+				}
+			}
+			#current_price {
+				position:relative;
+				float:left;
+				width: 255px;
+				text-align: center;
+				color: $purple1;
+				font-size: 22px;
+				font-weight: bold;
+			}
+			#icons_and_bidder {
+				position:relative;
+				float:left;
+				width: 255px;
+				#hand_duck{
+					position:relative;
+					float:left;
+					width: 45px;
+					padding-left: 5px;
+				}
+				#highest_bidder{
+					position:relative;
+					float:left;
+					width: 155px;
+					text-align: center;
+				}
+				#duck_foot{
+					position:relative;
+					float:left;
+					width: 40px;
+					padding-right: 10px;
+					text-align:right;
+				}
+			}
+		}
+		.auction_detail_auto_bid {
+			position:relative;
+			float:left;
+			padding-top: 24px;
+			.auto_bid_block {
+				position:relative;
+				float:left;
+				background-color: $gray3;
+				margin-bottom: 16px;
+				padding: 5px;
+				.auto_bid_title {
+					position:relative;
+					float:left;
+					width: 245px;
+					font-size: 14px;
+					font-weight: bold;
+					color: $gray12;
+					margin-bottom: 10px;
+					.auto_bid_help {
+						position: absolute;
+						right: 0;
+						top: 0;
+						font-size: 12px;
+						font-weight: normal;
+					}
+				}
+			}
+		}
+	}
+	.auction_detail_right {
+		position: relative;
+		float: left;
+		width: 263px;
+		height: 416px;
+	}
+}
+.auction_detail_bottom {
+	background: url(/assets/detailBoxBottomBorder.png);
+	height: 2px;
+	width: 915px;
+}
+#bid_history{
+	padding-left: 10px;
+}
+.bid_history_item{
+	position: relative;
+	float: left;
+	width: 253px;
+	border-bottom: solid 1px $gray9;
+	.bid_history_text {
+		position: relative;
+		float: left;
+		width: 200px;
+		color: $gray9;
+		padding: 10px 5px;
+		.bid_history_amount {
+			position: relative;
+			float: left;
+			width: 60px;
+			text-align: left;
+		}
+		.bid_history_name {
+			position: relative;
+			float: left;
+			width: 140px;
+			text-align: right;
+		}
+	}
+	.bid_history_text.current {
+		background-color: $purple1;
+		color: white;
+	}
+	.bid_history_image {
+		position: relative;
+		float: left;
+		width: 53px;
+	}
+}
+.bid_history_item.current {
+	border-bottom: none;
+}
+#bid_location_map{
+	position: absolute;
+	bottom: 0;
+	#bid_location_map_title {
+		position: relative;
+		float: left;
+		width: 100%;
+		margin-bottom: 16px;
+		text-align: left;
+		color: $purple1;
+		font-weight: bold;
+	}
+	padding-left: 8px;
+}
+.button_left {
+	position: relative;
+	float: left;
+	width: 8px;
+	height: 28px;
+	background: url(/assets/buttonLeft.png);
+}
+.button_middle {
+	position: relative;
+	float: left;
+	height: 28px;
+	padding: 0 10px;
+	background: url(/assets/buttonMiddle.png);
+	background-repeat: repeat-x;
+	color: white;
+	text-shadow: 0 0 5px rgba(183,84,27,1);
+	font-size: 22px;
+	cursor: pointer;
+	line-height: 28px;
+	a {
+		display: block;
+		position: relative;
+		top: 0;
+		color: white;
+		text-decoration: none;
+		text-shadow: 0 0 5px rgba(183,84,27,1);
+		font-size: 22px;
+		padding: 0;
+		margin: 0;
+	}
+}
+button.button_middle {
+	border: none;
+	margin: 0;
+	font-size: 22px;
+	text-shadow: 0 0 5px rgba(183,84,27,1);
+	color: white;
+}
+.button_right {
+	position: relative;
+	float: left;
+	width: 12px;
+	height: 28px;
+	background: url(/assets/buttonRight.png);
+}
+.form_box_top {
+	position: relative;
+	float: left;
+	width: 916px;
+	height: 17px;
+	background: url(/assets/grayBoxTop.png)
+}
+.form_box_middle {
+	position: relative;
+	float: left;
+	width: 846px;
+	height: auto;
+	padding: 0 35px;
+	background: url(/assets/grayBoxMiddle.png);
+	background-repeat: repeat-y;
+}
+.form_box_bottom {
+	position: relative;
+	float: left;
+	width: 916px;
+	height: 16px;
+	background: url(/assets/grayBoxBottom.png)
+}
+.pull_up {
+	margin-top: -5px;
+}
+.short_height {
+	height: 5px;
+}
+.text_center {
+	text-align: center;
+}

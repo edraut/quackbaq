@@ -1,0 +1,32 @@
+<div class="sign_up_background">
+  <div class="sign_up_title steelfish purple_font">SIGN UP</div>
+  <div class="sign_up_vert_align">
+    <div class="form_background">
+      <%= form_for @user do |f| %>
+      <div class="form_line">
+        <div class="field_name">First Name:</div>
+        <%= f.text_field :first_name, :class => 'field_entry' %>
+      </div>
+      <div class="form_line">
+        <div class="field_name">Last Name:</div>
+        <%= f.text_field :last_name, :class => 'field_entry' %>
+      </div>
+      <div class="form_line">
+        <div class="field_name">Email:</div>
+        <%= f.text_field :email, :class => 'field_entry' %>
+      </div>
+      <div class="form_line">
+        <div class="field_name">Zip Code:</div>
+        <%= f.text_field :zipcode, :class => 'field_entry' %>
+      </div>
+      <% end %>
+    </div>
+    <div id="sign_up_next">
+      <div class="button_left">&nbsp;</div>
+      <div class="button_middle big_font" data-button="true" data-submit="true">NEXT</div>
+      <div class="button_right">&nbsp;</div>
+    </div>
+  </div>
+  <div id="progress" class="steelfish section_heading purple_font">PROGRESS</div>
+  <div id="progress_bar"><%= image_tag 'Percentage-Empty.jpg', :align => 'middle' %></div>
+</div>

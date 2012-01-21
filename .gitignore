@@ -1,4 +1,8 @@
 .bundle
+.rvmrc
+.sass-cache
+bin
+bin/*
 db/*.sqlite3
 log/*.log
 tmp/**/*

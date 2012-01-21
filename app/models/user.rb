@@ -30,7 +30,10 @@ class User < ActiveRecord::Base
     state :inactive
   end
   #validations
-  validates_presence_of :name
+  validates_presence_of :first_name
+  validates_presence_of :last_name
+  validates_presence_of :email
+  validates_with UserValidator
   #callbacks
   
   #class methods
