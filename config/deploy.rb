@@ -5,6 +5,7 @@ after 'deploy:update_code', 'bundler:bundle_new_release'
 
 require 'erb'
 
+set :rake, '/opt/mri/bin/bundle exec rake'
 set :stages, %w(staging production)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
@@ -141,7 +142,7 @@ namespace :bundler do
  
   task :bundle_new_release, :roles => [:app, :push] do
     bundler.create_symlink
-    run "cd #{release_path} && bundle install --without test"
+    run "cd #{release_path} && /opt/mri/bin/bundle install --without test"
   end
 end
  
