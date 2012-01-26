@@ -51,6 +51,33 @@ function hiddenFieldProxy(e){
 	hidden_field = jQuery('#' + target.data('hiddenField'));
 	hidden_field.val(target.data('value'));
 }
+function hiddenMultiProxy(e){
+	target = jQuery(this);
+	hidden_field = jQuery("input[type='hidden'][name='" + target.attr('data-hidden_field') + "[]'][value='" + target.attr('data-value') + "'][data-id='" + target.attr('data-id') + "']");
+	if(hidden_field.length == 0){
+		hidden_field = jQuery('<input type="hidden" name="' + target.attr('data-hidden_field') + '[]" value="' + target.attr('data-value') + '" data-id="' + target.attr('data-id') + '"/>');
+		target.parents('form').append(hidden_field);
+	} else {
+		hidden_field.remove();
+	}
+	if(target.parents("[data-behavior='expander']").length > 0){
+		save_button = jQuery("[data-hidden_proxy_save='true'][data-id='" + target.parents("[data-behavior='expander']:first").attr('data-id') + "']");
+		close_button = jQuery("[data-hidden_proxy_close='true'][data-id='" + target.parents("[data-behavior='expander']:first").attr('data-id') + "']");
+	} else {
+		save_button = jQuery("[data-hidden_proxy_save='true']");
+		close_button = jQuery("[data-hidden_proxy_close='true']");
+	}
+	close_button.hide();
+	save_button.show();
+}
+function bindHiddenFieldProxy(){
+	jQuery("[data-behavior='hidden_field_proxy']").die('click');
+	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);
+}
+function bindHiddenMultiProxy(){
+	jQuery("[data-behavior='hidden_multi_proxy']").die('click');
+	jQuery("[data-behavior='hidden_multi_proxy']").live('click',hiddenMultiProxy);
+}
 function bindClickToSelect(){
 	jQuery("[data-click_to_select='true']").click(function(e){
 		target = jQuery(this);

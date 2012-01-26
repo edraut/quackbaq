@@ -66,7 +66,8 @@ function roundCorners(){
 }
 jQuery(document).ready(function(){
 	bindLinkToForm();
-	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);
+	bindHiddenFieldProxy();
+	bindHiddenMultiProxy();
 	bindClickToSelect();
 	jQuery("[data-button]").live('click',buttonControl);
 	roundCorners();

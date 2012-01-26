@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     {:name => 'Admin', :id => 'Admin'}
   ]
   #accessors
-  attr_accessor :cim_profile
+  attr_accessor :cim_profile, :zipcode_tmp
   
   #associations
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'
@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   #special behaviors
   acts_as_authentic do |u|
     u.login_field = :email
+    u.ignore_blank_passwords = true
+    u.merge_validates_length_of_password_field_options({:if => :should_validate_password, :minimum => 7})
   end
   
   state_machine :state, :initial => :not_valid do
@@ -35,10 +37,20 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_with UserValidator
   #callbacks
-  
+  before_validation :update_authlogic_config
+  after_create :persist_zipcode
   #class methods
   
   #instance methods
+  
+  def update_authlogic_config
+    validate_password_field = should_validate_password
+    true
+  end
+  
+  def should_validate_password
+    !self.new_record?
+  end
   
   def map_number
     if (['US','CA'].include? self.billing_address.country.iso)
@@ -67,8 +79,19 @@ class User < ActiveRecord::Base
   end
   
   def zipcode=(zip)
+    billing_address ||= BillingAddress.new
     billing_address.zipcode = zip
     billing_address.save
+  end
+  
+  def persist_zipcode
+    self.zipcode = self.zipcode_tmp
+    return true
+  end
+  
+  def initialize(attrs = {})
+    self.zipcode_tmp = attrs.delete :zipcode if attrs.has_key? :zipcode
+    super(attrs)
   end
   
   ############################################################################################

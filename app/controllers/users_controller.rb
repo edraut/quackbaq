@@ -10,11 +10,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      @user.prepare_for_validation
-      flash[:notice] = 'We sent account validation instructions to your email address, please check your email.'
-      redirect_to root_url
+      render :template => '/users/sign_up_2' and return
     else
-      render :action => :new
+      render :template => '/users/sign_up_1' and return
     end
   end
   
@@ -36,6 +34,9 @@ class UsersController < ApplicationController
     if params[:reset_password]
       load_user_using_perishable_token
     else
+      @user.prepare_for_validation
+      flash[:notice] = 'We sent account validation instructions to your email address, please check your email.'
+      redirect_to root_url
       require_user
       @user = @this_user # makes our views "cleaner" and more consistent
     end

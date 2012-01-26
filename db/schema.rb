@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(:version => 20120115232040) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                                     :null => false
-    t.string   "crypted_password",                          :null => false
+    t.string   "crypted_password"
     t.string   "password_salt",                             :null => false
     t.string   "persistence_token",                         :null => false
     t.string   "name"
