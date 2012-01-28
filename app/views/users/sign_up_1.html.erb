@@ -21,7 +21,7 @@
       </div>
     </div>
     <% if @user.errors.any? %>
-      <div class="error"><%= @user.errors.full_messages %></div>
+      <div class="error"><ul><li><%= @user.errors.full_messages.uniq.join('</li><li>').html_safe %></li></ul></div>
     <% end %>
     <div id="sign_up_next">
       <div class="button_left">&nbsp;</div>

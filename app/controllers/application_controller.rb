@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_this_user
   before_filter :handle_time_zone
   before_filter :set_nav_tab
+  
   def string_to_money(string)
     Money.new(string.to_f * 100)
   end
@@ -54,6 +55,26 @@ class ApplicationController < ActionController::Base
       @this_user = current_user
     end
     
+    def require_complete_user
+      return false unless require_user
+      logger.info"%%%%%%%%%%#{@this_user.inspect}"
+      unless @this_user.complete?
+        redirect_to sign_up_page(@this_user.next_sign_up_step)
+        return false
+      end
+    end
+
+    def sign_up_page(number)
+      case number
+      when 2
+        sign_up_2_user_url(@this_user)
+      when 3
+        sign_up_3_user_url(@this_user)
+      when 4
+        sign_up_4_user_url(@this_user)
+      end
+    end
+    
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       Time.zone = ActiveSupport::TimeZone[-session[:time_zone_offset].to_i]
@@ -68,7 +89,7 @@ class ApplicationController < ActionController::Base
       unless current_user 
         store_location 
         flash[:notice] = "You must be logged in to access this page" 
-        redirect_to sign_in_url 
+        redirect_to sign_in_url
         return false 
       end
       return true

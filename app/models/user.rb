@@ -20,14 +20,34 @@ class User < ActiveRecord::Base
     u.merge_validates_length_of_password_field_options({:if => :should_validate_password, :minimum => 7})
   end
   
-  state_machine :state, :initial => :not_valid do
+  state_machine :state, :initial => :step_one do
+    event :finish_two do
+      transition :step_one => :step_two
+    end
+    event :finish_three do
+      transition :step_two => :step_three
+    end
     event :validate_account do
-      transition :not_valid => :active
+      transition :step_three => :active
     end
     event :deactivate do
       transition :active => :inactive
     end
-    state :not_valid
+    state :step_one do
+      def next_sign_up_step
+        2
+      end
+    end
+    state :step_two do
+      def next_sign_up_step
+        3
+      end
+    end
+    state :step_three do
+      def next_sign_up_step
+        4
+      end
+    end
     state :active
     state :inactive
   end
@@ -37,11 +57,22 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_with UserValidator
   #callbacks
+  before_validation :clear_old_attempts
   before_validation :update_authlogic_config
   after_create :persist_zipcode
   #class methods
   
   #instance methods
+
+  def clear_old_attempts
+    if self.new_record?
+      User.where(:email => self.email, :state => ['step_one','step_two']).destroy_all
+    end
+  end
+  
+  def complete?
+    self.active? or self.step_three?
+  end
   
   def update_authlogic_config
     validate_password_field = should_validate_password

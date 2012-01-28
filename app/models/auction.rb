@@ -10,9 +10,9 @@ class Auction < ActiveRecord::Base
   belongs_to :item
   has_many :placed_bids, :class_name => 'Bid', :foreign_key => 'placed_auction_id'
   #named_scopes
-  scope :in_progress, :conditions => ["begin_time < utc_timestamp() and end_time > utc_timestamp()"]
-  scope :not_started, :conditions => ["begin_time > utc_timestamp()"]
-  scope :finished, :conditions => ["end_time < utc_timestamp()"]
+  scope :in_progress, where("begin_time < utc_timestamp() and end_time > utc_timestamp()")
+  scope :not_started, where("begin_time > utc_timestamp()")
+  scope :finished, where("end_time < utc_timestamp()")
   #special behaviors
   #validations
   

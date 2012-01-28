@@ -16,6 +16,7 @@ gem 'yajl-ruby'
 gem 'pubnub-ruby'
 gem 'sass'
 gem 'aws-sdk'
+gem 'state_machine'
 
 group :assets do
   gem 'sass-rails'

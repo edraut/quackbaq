@@ -14,6 +14,9 @@ Quackbaq::Application.routes.draw do
       get 'activate'
       post 'request_password_reset'
       get 'forgot_password'
+      get 'sign_up_2'
+      get 'sign_up_3'
+      get 'sign_up_4'
     end
   end
   resources :bids

@@ -56,6 +56,12 @@ hr {
 	width: 772px;
 	padding-left: 160px;
 	padding-top: 20px;
+	.error {
+		position: relative;
+		float: left;
+		width: 200px;
+		margin-left: 34px;
+	}
 }
 .purple_font {
 	color: $purple1;
@@ -78,14 +84,14 @@ hr {
 	padding-top: 8px;
 }
 .form_line {
-	width: 100%;
+	width: 90%;
 	height: 35px;
-	padding: 0 10%;
+	padding-right: 10%;
 }
 .field_name {
 	position: relative;
 	float: left;
-	width: 21%;
+	width: 35%;
 	height: 20px;
 	padding: 8px 4% 7px 0;
 	text-align: right;

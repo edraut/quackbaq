@@ -1,0 +1,38 @@
+<div class="sign_up_background">
+  <div class="sign_up_title steelfish purple_font">SIGN UP</div>
+  <div class="sign_up_vert_align">
+    <div class="form_background">
+      <%= form_for @user do |f| %>
+      <div class="form_line">
+        <div class="field_name">Username:</div>
+        <%= f.text_field :login, :class => 'field_entry' %>
+      </div>
+      <div class="form_line">
+        <div class="field_name">Password:</div>
+        <%= f.text_field :password, :class => 'field_entry' %>
+      </div>
+      <div class="form_line">
+        <div class="field_name">Re-Type Password:</div>
+        <%= f.text_field :password_confirmation, :class => 'field_entry' %>
+      </div>
+      <div class="form_line">
+        <div class="field_name">Avatar:</div>
+        <input type="hidden" name="avatar"/>
+        <div class="slider_mask">
+          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">A</div>
+          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">B</div>
+          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">C</div>
+          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">D</div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <div id="sign_up_next">
+      <div class="button_left">&nbsp;</div>
+      <div class="button_middle big_font" data-button="true" data-submit="true">NEXT</div>
+      <div class="button_right">&nbsp;</div>
+    </div>
+  </div>
+  <div id="progress" class="steelfish section_heading purple_font">PROGRESS</div>
+  <div id="progress_bar"><%= image_tag 'Percentage-Empty.jpg', :align => 'middle' %></div>
+</div>
