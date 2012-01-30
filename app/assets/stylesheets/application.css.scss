@@ -6,6 +6,7 @@
 $purple1: #66497F;
 $orange1: #F8782B;
 $gray3: #DDD;
+$gray6: #AAA;
 $gray9: #777;
 $gray12: #444;
 body {
@@ -91,21 +92,58 @@ hr {
 .field_name {
 	position: relative;
 	float: left;
-	width: 35%;
+	width: 149px;
 	height: 20px;
-	padding: 8px 4% 7px 0;
+	padding: 8px 17px 7px 0;
 	text-align: right;
 }
 .field_entry, input[type="text"].field_entry {
 	position: relative;
 	float: left;
-	width: 55%;
+	width: 236px;
 	height: 19px;
 	margin: 8px 0;
 	background-color: white;
 	-webkit-box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .24);
 	-moz-box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .24);
 	box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .24);
+}
+.slider_controls {
+	position: relative;
+	float: left;
+	width: 234px;
+}
+.slider_arrow {
+	position: relative;
+	float: left;
+	width: 23px;
+	padding-top: 8px;
+}
+.slider_arrow.right {
+	width: 5px;
+}
+.slider_mask {
+	position:relative;
+	float:left;
+	overflow:hidden;
+	width: 187px;
+	height: 35px;
+	padding-top: 4px;
+	margin-right: 16px;
+}
+.slider_container {
+	position:absolute;
+}
+.slider_item {
+	position:relative;
+	float:left;
+	border: 1px solid $gray6;
+	width: 10px;
+	padding: 4px 7px;
+	margin-right: 14px;
+}
+.slider_item.selected {
+	border-color: $orange1;
 }
 #sign_up_next{
 	position:absolute;
@@ -167,10 +205,7 @@ hr {
 		color: white;
 	}
 }
-.steelfish { font-family: SteelfishRg-Regular; }
-.big_font {
-	 font-family: SteelfishRg-Regular;
-}
+.quackbaq_font { font-family: KorolevCondensed-Medium; }
 #credit_info {
 	position: absolute;
 	right: 0px;

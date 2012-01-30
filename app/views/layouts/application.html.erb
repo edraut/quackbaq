@@ -5,6 +5,29 @@
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= render :partial => '/layouts/base_stylesheets' %>
   <%= csrf_meta_tag %>
+  <!--
+  /* @license
+   * MyFonts Webfont Build ID 2029967, 2012-01-29T19:44:23-0500
+   * 
+   * The fonts listed in this notice are subject to the End User License
+   * Agreement(s) entered into by the website owner. All other parties are 
+   * explicitly restricted from using the Licensed Webfonts(s).
+   * 
+   * You may obtain a valid license at the URLs below.
+   * 
+   * Webfont: Korolev Condensed Medium by Device
+   * URL: http://www.myfonts.com/fonts/device/korolev/condensed-medium/
+   * Copyright: Copyright (c) 2010 by Rian Hughes / Device. All rights reserved.
+   * Licensed pageviews: 10,000
+   * 
+   * 
+   * License: http://www.myfonts.com/viewlicense?type=web&buildid=2029967
+   * 
+   * © 2012 Bitstream Inc
+  */
+
+  -->
+
 </head>
 <body>
 	<div class="container nav">
@@ -20,7 +43,7 @@
             </div>
             <div id="buy_credits_button" class="button orange">
               <div class="button_left">&nbsp;</div>
-              <div class="button_middle big_font" data-button="true" href="<%= bids_url %>" onclick="void(0)">BUY CREDITS</div>
+              <div class="button_middle quackbaq_font" data-button="true" href="<%= bids_url %>" onclick="void(0)">BUY CREDITS</div>
               <div class="button_right">&nbsp;</div>
             </div>
           </div>
@@ -94,7 +117,7 @@
           <div class="category_info <% if @category.id == category.id %> selected<% end %>" <% unless @category.id == category.id %> style="display:none;"<% end %> data-id="<%= category.id %>">
             <div class="category_button" >
               <div class="button_left">&nbsp;</div>
-              <div class="button_middle big_font" data-button="true" href="<%= category_url(category) %>" onclick="void(0)"><%= category.name.upcase %></div>
+              <div class="button_middle quackbaq_font" data-button="true" href="<%= category_url(category) %>" onclick="void(0)"><%= category.name.upcase %></div>
               <div class="button_right">&nbsp;</div>
             </div>
             <div id="category_description">

@@ -1,5 +1,5 @@
 <div class="sign_up_background">
-  <div class="sign_up_title steelfish purple_font">SIGN UP</div>
+  <div class="sign_up_title quackbaq_font purple_font">SIGN UP</div>
   <div class="sign_up_vert_align">
     <div class="form_background">
       <%= form_for @user do |f| %>
@@ -17,22 +17,45 @@
       </div>
       <div class="form_line">
         <div class="field_name">Avatar:</div>
-        <input type="hidden" name="avatar"/>
-        <div class="slider_mask">
-          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">A</div>
-          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">B</div>
-          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">C</div>
-          <div data-behavior="hidden_multi_proxy" data-hidden_field="avatar" data-value="1">D</div>
+        <input id="avatar" type="hidden" name="avatar"/>
+        <div class="slider_controls">
+          <div class="slider_arrow left" data-page_role="page_arrow" data-page_role="page_arrow" data-page_direction="left" data-page_id="avatar_pager" style="visibility:hidden;">&lt;</div>
+          <div class="slider_mask">
+            <div class="slider_container" style="width:<%= 15 * 42 %>px;" data-page_role="slider_container" data-page_id="avatar_pager" data-viewport_width="160" data-item_count="<%= 15 %>" data-items_per_page="5">
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">A</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">B</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">C</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">D</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">E</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">F</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">G</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">H</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">I</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">J</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">K</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">L</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">M</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">N</div>
+              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">O</div>
+            </div>
+          </div>
+          <div class="slider_arrow right" data-page_role="page_arrow" data-page_direction="right" data-page_id="avatar_pager">&gt;</div>
         </div>
       </div>
       <% end %>
     </div>
     <div id="sign_up_next">
       <div class="button_left">&nbsp;</div>
-      <div class="button_middle big_font" data-button="true" data-submit="true">NEXT</div>
+      <div class="button_middle quackbaq_font" data-button="true" data-submit="true">NEXT</div>
       <div class="button_right">&nbsp;</div>
     </div>
   </div>
-  <div id="progress" class="steelfish section_heading purple_font">PROGRESS</div>
+  <div id="progress" class="quackbaq_font section_heading purple_font">PROGRESS</div>
   <div id="progress_bar"><%= image_tag 'Percentage-Empty.jpg', :align => 'middle' %></div>
 </div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    bindPagers();
+    bindHiddenFieldProxy();
+  })
+<% end %>

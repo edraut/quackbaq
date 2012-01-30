@@ -1,6 +1,6 @@
 <% unless @this_user %>
   <div id="sign_up_box">
-    <div class="section_heading big_font">
+    <div class="section_heading quackbaq_font">
       Become a Member
     </div>
     <div id="sign_in_pitch">
@@ -9,7 +9,7 @@
     </div>
     <div id="sign_up_button">
       <div class="button_left">&nbsp;</div>
-      <div class="button_middle big_font"><%= link_to 'SIGN UP NOW', sign_up_url %></div>
+      <div class="button_middle quackbaq_font"><%= link_to 'SIGN UP NOW', sign_up_url %></div>
       <div class="button_right">&nbsp;</div>
         <%# image_tag 'buttonSignUpNow.png' %>
     </div>
@@ -19,7 +19,7 @@
   <div class="form_box_top">&nbsp;</div>
   <div class="form_box_middle">
     <%= form_for @user_session, :as => :user_session, :url => user_session_url do |f| %>
-      <div class="section_heading big_font">MEMBER INFO</div>
+      <div class="section_heading quackbaq_font">MEMBER INFO</div>
       <% if @user_session.errors.any? %><div class="span-18 last"> <%= @user_session.errors.full_messages %></div> <% end %>
       <div class="span-22 last">
         <div class="span-6">
@@ -46,7 +46,7 @@
       </div>
       <div class="span-22 last short_height">&nbsp;</div>
       <hr/>
-      <div class="section_heading big_font pull_up">SELECT A CATEGORY OF AUCTIONS</div>
+      <div class="section_heading quackbaq_font pull_up">SELECT A CATEGORY OF AUCTIONS</div>
       <div class="span-22 last">&nbsp;</div>
       <%= hidden_field_tag 'category_id', nil, :id => 'category_id_field' %>
       <div class="horizontal_tiles">
@@ -66,7 +66,7 @@
       <hr class="pull_up"/>
       <div id="sign_in_button pull_up">
         <div class="button_left">&nbsp;</div>
-        <div class="button_middle big_font" data-button="true" data-submit="true">SIGN IN</div>
+        <div class="button_middle quackbaq_font" data-button="true" data-submit="true">SIGN IN</div>
         <div class="button_right">&nbsp;</div>
       </div>
       

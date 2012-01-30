@@ -66,9 +66,13 @@ function roundCorners(){
 }
 jQuery(document).ready(function(){
 	bindLinkToForm();
-	bindHiddenFieldProxy();
-	bindHiddenMultiProxy();
 	bindClickToSelect();
 	jQuery("[data-button]").live('click',buttonControl);
 	roundCorners();
+  //change this to true to enable troubleshooting mode
+  var myfont_webfont_test = false;
+  // change this to false if you're having trouble with WOFFs
+  var woffEnabled = true;
+  // to place your webfonts in a custom directory, uncomment this and set it to where your webfonts are.
+  //var customPath = "/themes/fonts";
 })

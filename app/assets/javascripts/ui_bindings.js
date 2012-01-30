@@ -44,12 +44,11 @@ function limitChars(textarea, limit, infodiv){
 	}
 };
 function hiddenFieldProxy(e){
-	target = jQuery(e.target);
-	if(!(target.data("behavior") == 'hidden_field_proxy')){
-		target = target.parents("[data-behavior='hidden_field_proxy']");
-	}
-	hidden_field = jQuery('#' + target.data('hiddenField'));
+	target = jQuery(this);
+	hidden_field = jQuery('#' + target.data('hidden_field'));
 	hidden_field.val(target.data('value'));
+	jQuery("[data-hidden_field_proxy][data-hidden_field='" + target.data('hidden_field') + "']").removeClass('selected');
+	target.addClass('selected');
 }
 function hiddenMultiProxy(e){
 	target = jQuery(this);
@@ -71,8 +70,8 @@ function hiddenMultiProxy(e){
 	save_button.show();
 }
 function bindHiddenFieldProxy(){
-	jQuery("[data-behavior='hidden_field_proxy']").die('click');
-	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);
+	jQuery("[data-hidden_field_proxy]").die('click');
+	jQuery("[data-hidden_field_proxy]").live('click',hiddenFieldProxy);
 }
 function bindHiddenMultiProxy(){
 	jQuery("[data-behavior='hidden_multi_proxy']").die('click');
@@ -135,4 +134,45 @@ function buttonControl(e){
 			form.submit();
 		}
 	}
+}
+function bindPagers(){
+	jQuery("[data-page_role='page_arrow']").unbind('click');
+	jQuery("[data-page_role='page_arrow']").live('click', slidePage);
+}
+function slidePage(event){
+	target = jQuery(this);
+	pager_id = target.data('page_id');
+	container = jQuery("[data-page_role='slider_container'][data-page_id='" + pager_id + "']");
+	direction = target.data('page_direction');
+	if (!container.data('page_position')){
+		container.data('page_position',0);
+	}
+	viewport_width = parseInt(container.data('viewport_width'));
+	item_count = parseInt(container.data('item_count'));
+	page_views = Math.ceil(item_count / parseInt(container.data('items_per_page')));
+	if(direction == 'left'){
+		left_arrow = target;
+		right_arrow = jQuery("[data-page_role='page_arrow'][data-page_direction='right'][data-page_id='" + pager_id + "']");
+		container.data('page_position',container.data('page_position') - 1);
+	} else {
+		right_arrow = target;
+		left_arrow = jQuery("[data-page_role='page_arrow'][data-page_direction='left'][data-page_id='" + pager_id + "']");
+		container.data('page_position',container.data('page_position') + 1);
+	}
+	console.log('pp: ' + container.data('page_position') + ' pv: ' + page_views)
+	if (container.data('page_position') == 0) {
+		left_arrow.css('visibility','hidden');
+	} else {
+		left_arrow.css('visibility','visible');
+	}
+	if (container.data('page_position') == (page_views - 1)) {
+		right_arrow.css('visibility','hidden');
+	} else {
+		right_arrow.css('visibility','visible');
+	}
+	left_position = container.data('page_position') * viewport_width;
+	left_position = -left_position;
+	left_position_css = left_position + 'px';
+	container.animate({left:left_position_css},1000);
+	return false;
 }

@@ -57,7 +57,6 @@ class ApplicationController < ActionController::Base
     
     def require_complete_user
       return false unless require_user
-      logger.info"%%%%%%%%%%#{@this_user.inspect}"
       unless @this_user.complete?
         redirect_to sign_up_page(@this_user.next_sign_up_step)
         return false

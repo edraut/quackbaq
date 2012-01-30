@@ -34,11 +34,11 @@
           <div class="auction_detail_bid_content">
             <% if @this_user.bids.available.any? %>
               <div class="button_left">&nbsp;</div>
-              <div class="button_middle big_font" id="place_bid_link" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>">BID</div>
+              <div class="button_middle quackbaq_font" id="place_bid_link" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>">BID</div>
               <div class="button_right">&nbsp;</div>
             <% else %>
               <div class="button_left">&nbsp;</div>
-              <div class="button_middle big_font" data-button="true" href="<%= bids_url %>">BUY CREDITS</div>
+              <div class="button_middle quackbaq_font" data-button="true" href="<%= bids_url %>">BUY CREDITS</div>
               <div class="button_right">&nbsp;</div>
             <% end %>
           </div>
