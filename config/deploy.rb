@@ -2,6 +2,7 @@ before "deploy:cold", "config_files:create"
 after "deploy:update_code", "config_files:symlink"
 after "deploy:update", "deploy:cleanup"
 after 'deploy:update_code', 'bundler:bundle_new_release'
+after "deploy:update_code", "deploy:pipeline_precompile"
 
 require 'erb'
 
@@ -144,6 +145,10 @@ namespace :bundler do
     bundler.create_symlink
     run "cd #{release_path} && /opt/mri/bin/bundle install --without test"
   end
+end
+
+task :pipeline_precompile do
+  run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
 end
  
 # If you are using Passenger mod_rails uncomment this:
