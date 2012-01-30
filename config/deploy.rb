@@ -60,6 +60,9 @@ namespace :deploy do
     restart_pushers
     restart_processors
   end
+  task :pipeline_precompile do
+    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+  end
 end
 
 # Tasks for config files
@@ -147,10 +150,6 @@ namespace :bundler do
   end
 end
 
-task :pipeline_precompile do
-  run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
-end
- 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
