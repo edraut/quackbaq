@@ -61,6 +61,8 @@ namespace :deploy do
     restart_processors
   end
   task :pipeline_precompile, :roles => :app do
+    config_files.symlink_assets
+    run "ls -l #{release_path}/public"
     run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
   end
 end
@@ -89,7 +91,6 @@ namespace :config_files do
   task :symlink do
     symlink_database_yml
     symlink_local_config
-    symlink_assets
     # symlink_pictures
   end
 
