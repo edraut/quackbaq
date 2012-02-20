@@ -60,7 +60,7 @@ namespace :deploy do
     restart_pushers
     restart_processors
   end
-  task :pipeline_precompile do
+  task :pipeline_precompile, :roles => :app do
     run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
   end
 end

@@ -1,5 +1,5 @@
 class BidsController < ApplicationController
-  before_filter :require_complete_user
+  before_filter :require_active_user
   
   def index
     @bids = @this_user.bids

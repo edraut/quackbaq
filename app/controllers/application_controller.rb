@@ -55,21 +55,21 @@ class ApplicationController < ActionController::Base
       @this_user = current_user
     end
     
-    def require_complete_user
+    def require_active_user
       return false unless require_user
-      unless @this_user.complete?
-        redirect_to sign_up_page(@this_user.next_sign_up_step)
+      unless @this_user.active?
+        redirect_to next_sign_up_page
         return false
       end
     end
 
-    def sign_up_page(number)
-      case number
-      when 2
+    def next_sign_up_page
+      case @this_user.state
+      when :step_one
         sign_up_2_user_url(@this_user)
-      when 3
+      when :step_two
         sign_up_3_user_url(@this_user)
-      when 4
+      when :step_three
         sign_up_4_user_url(@this_user)
       end
     end

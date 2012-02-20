@@ -1,58 +1,53 @@
-<div class="sign_up_background">
-  <div class="sign_up_title quackbaq_font purple_font">SIGN UP</div>
-  <div class="sign_up_vert_align">
-    <div class="form_background">
+<div id="account_background" class="sign_up_flow">
+  <div id="sign_up_content">
+    <div id="account_title" class="quackbaq_font purple_font">SIGN UP</div>
+    <div class="sign_up_vert_align">
       <%= form_for @user do |f| %>
-      <div class="form_line">
-        <div class="field_name">Username:</div>
-        <%= f.text_field :login, :class => 'field_entry' %>
-      </div>
-      <div class="form_line">
-        <div class="field_name">Password:</div>
-        <%= f.text_field :password, :class => 'field_entry' %>
-      </div>
-      <div class="form_line">
-        <div class="field_name">Re-Type Password:</div>
-        <%= f.text_field :password_confirmation, :class => 'field_entry' %>
-      </div>
-      <div class="form_line">
-        <div class="field_name">Avatar:</div>
-        <input id="avatar" type="hidden" name="avatar"/>
-        <div class="slider_controls">
-          <div class="slider_arrow left" data-page_role="page_arrow" data-page_role="page_arrow" data-page_direction="left" data-page_id="avatar_pager" style="visibility:hidden;">&lt;</div>
-          <div class="slider_mask">
-            <div class="slider_container" style="width:<%= 15 * 42 %>px;" data-page_role="slider_container" data-page_id="avatar_pager" data-viewport_width="160" data-item_count="<%= 15 %>" data-items_per_page="5">
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">A</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">B</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">C</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">D</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">E</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">F</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">G</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">H</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">I</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">J</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">K</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">L</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">M</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">N</div>
-              <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="1">O</div>
+        <div class="form_background account_gray_background">
+          <div class="form_line">
+            <div class="field_name">Username:</div>
+            <%= f.text_field :login, :class => 'field_entry' %>
+          </div>
+          <div class="form_line">
+            <div class="field_name">Password:</div>
+            <%= f.password_field :password, :class => 'field_entry' %>
+          </div>
+          <div class="form_line">
+            <div class="field_name">Re-Type Password:</div>
+            <%= f.password_field :password_confirmation, :class => 'field_entry' %>
+          </div>
+          <div class="form_line">
+            <div class="field_name">Avatar:</div>
+            <%= f.hidden_field :generic_avatar_id, :id => 'avatar' %>
+            <div class="slider_controls">
+              <div class="slider_arrow left" data-page_role="page_arrow" data-page_role="page_arrow" data-page_direction="left" data-page_id="avatar_pager" style="visibility:hidden;">&lt;</div>
+              <div class="slider_mask">
+                <div class="slider_container" style="width:<%= 15 * 42 %>px;" data-page_role="slider_container" data-page_id="avatar_pager" data-viewport_width="160" data-item_count="<%= 15 %>" data-items_per_page="5">
+                  <% 15.times do |i| %>
+                    <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="<%= i %>"><%= i %></div>
+                  <% end %>
+                </div>
+              </div>
+              <div class="slider_arrow right" data-page_role="page_arrow" data-page_direction="right" data-page_id="avatar_pager">&gt;</div>
             </div>
           </div>
-          <div class="slider_arrow right" data-page_role="page_arrow" data-page_direction="right" data-page_id="avatar_pager">&gt;</div>
         </div>
-      </div>
+        <%= f.hidden_field :step, :value => 'finish_two' %>
+        <% if @user.errors.any? %>
+          <div class="error"><ul><li><%= @user.errors.full_messages.uniq.join('</li><li>').html_safe %></li></ul></div>
+        <% end %>
+        <div id="sign_up_next">
+          <div class="button_left">&nbsp;</div>
+          <div class="button_middle quackbaq_font" data-button="true" data-submit="true">NEXT</div>
+          <div class="button_right">&nbsp;</div>
+        </div>
       <% end %>
     </div>
-    <div id="sign_up_next">
-      <div class="button_left">&nbsp;</div>
-      <div class="button_middle quackbaq_font" data-button="true" data-submit="true">NEXT</div>
-      <div class="button_right">&nbsp;</div>
-    </div>
+    <div id="progress" class="quackbaq_font section_heading purple_font">PROGRESS</div>
+    <div id="progress_bar"><%= image_tag 'Percentage-OneThird.jpg', :align => 'middle' %></div>
   </div>
-  <div id="progress" class="quackbaq_font section_heading purple_font">PROGRESS</div>
-  <div id="progress_bar"><%= image_tag 'Percentage-Empty.jpg', :align => 'middle' %></div>
 </div>
+<div id="account_background_bottom">&nbsp;</div>
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
     bindPagers();

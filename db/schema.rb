@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115232040) do
+ActiveRecord::Schema.define(:version => 20120220065112) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(:version => 20120115232040) do
     t.string  "state"
     t.integer "country_id"
     t.string  "zipcode"
+    t.string  "first_name"
+    t.string  "middle_initial"
+    t.string  "last_name"
+    t.string  "city"
+    t.string  "phone"
+    t.string  "email"
+    t.string  "company_c_o"
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
@@ -85,6 +92,13 @@ ActiveRecord::Schema.define(:version => 20120115232040) do
     t.integer  "map"
   end
 
+  create_table "generic_avatars", :force => true do |t|
+    t.string   "name"
+    t.string   "image_file_name"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "item_images", :force => true do |t|
     t.integer  "item_id"
     t.string   "picture_file_name"
@@ -140,7 +154,7 @@ ActiveRecord::Schema.define(:version => 20120115232040) do
     t.datetime "updated_at"
     t.string   "email",                                     :null => false
     t.string   "crypted_password"
-    t.string   "password_salt",                             :null => false
+    t.string   "password_salt"
     t.string   "persistence_token",                         :null => false
     t.string   "name"
     t.string   "type"
@@ -170,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20120115232040) do
     t.string   "login"
     t.string   "status"
     t.string   "income"
+    t.integer  "generic_avatar_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

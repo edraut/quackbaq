@@ -101,8 +101,8 @@ function buttonControl(e){
 		e.stopPropagation();
 		return false;
 	}
-	if(target.attr('href')){
-		document.location = target.attr('href');
+	if(target.prop('href')){
+		document.location = target.prop('href');
 		return false;
 	}
 	link = target.find("[data-behavior='link_to_form']");

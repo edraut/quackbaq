@@ -1,0 +1,7 @@
+<div id="account_left_nav">
+  <%= link_to 'MY AUCTIONS', my_auctions_url, :class => "quackbaq_font account_left_nav" %><br/>&nbsp;<br/>
+  <%= link_to 'MY STATUS', my_auctions_url, :class => "quackbaq_font account_left_nav" %><br/>&nbsp;<br/>
+  <%= link_to 'BIDDING HISTORY', my_auctions_url, :class => "quackbaq_font account_left_nav" %><br/>&nbsp;<br/>
+  <%= link_to 'ACCOUNT SETTINGS', user_url(@this_user), :class => "quackbaq_font account_left_nav" %><br/>&nbsp;<br/>
+  <%= link_to 'PAYMENT OPTIONS', payment_options_user_url(@this_user), :class => "quackbaq_font account_left_nav" %><br/>
+</div>

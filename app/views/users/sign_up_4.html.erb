@@ -1,0 +1,29 @@
+<div id="account_background" class="sign_up_flow">
+  <div id="sign_up_content">
+    <div id="account_title" class="quackbaq_font purple_font">SIGN UP</div>
+    <div class="sign_up_vert_align">
+      <div class="sign_up_full_width">
+        <strong>Your registration is complete.</strong> Enter the site to have a look around, or continue to Payment Options to purchase credits and begin bidding.<br/>&nbsp;<br/>
+      </div>
+      <div id="account_options" class="sign_up_full_width account_gray_background">
+        <div class="centering_wrapper">
+          <div class="centering_inner">
+            <div id="payment_options">
+              <div class="button_left">&nbsp;</div>
+              <div class="button_middle quackbaq_font" data-button="true" href="<%= payment_options_user_url(@user) %>">PAYMENT OPTIONS</div>
+              <div class="button_right">&nbsp;</div>
+            </div>
+            <div id="enter_site">
+              <div class="button_left">&nbsp;</div>
+              <div class="button_middle quackbaq_font" data-button="true" href="<%= root_url %>">ENTER SITE</div>
+              <div class="button_right">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="progress" class="quackbaq_font purple_font">PROGRESS</div>
+    <div id="progress_bar"><%= image_tag 'Percentage-Full.jpg', :align => 'middle' %></div>
+  </div>
+</div>
+<div id="account_background_bottom">&nbsp;</div>

@@ -20,7 +20,7 @@
   <div class="form_box_middle">
     <%= form_for @user_session, :as => :user_session, :url => user_session_url do |f| %>
       <div class="section_heading quackbaq_font">MEMBER INFO</div>
-      <% if @user_session.errors.any? %><div class="span-18 last"> <%= @user_session.errors.full_messages %></div> <% end %>
+      <% if @user_session.errors.any? %><div class="span-18 last error"> <%= @user_session.errors.full_messages.join('<br/>') %></div> <% end %>
       <div class="span-22 last">
         <div class="span-6">
           <%= f.label :email, 'email address' %>

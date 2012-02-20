@@ -1,0 +1,70 @@
+<div id="account_background" class="payment_form">
+  <%= render :partial => 'account_left_nav' %>
+  <div id="account_view_content">
+    <div id="account_title" class="quackbaq_font purple_font">PAYMENT OPTIONS</div>
+    <%= form_for @user do |f| %>
+      <div class="shrink_wrap content_border_bottom">
+        <div class="payment_box_wrapper left">
+          <span class="minor_section_heading">Billing Address</span>
+          <div class="payment_box account_gray_background">
+            <%= f.fields_for :billing_address do |a| %>
+              <div class="payment_form_line">
+                <div class="payment_field_name">First Name:<span class="orange_font">*</span></div>
+                <%= a.text_field :first_name, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Middle Initial:</div>
+                <%= a.text_field :middle_initial, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Last Name:<span class="orange_font">*</span></div>
+                <%= a.text_field :last_name, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Address 1:<span class="orange_font">*</span></div>
+                <%= a.text_field :address1, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Address 2:</div>
+                <%= a.text_field :address2, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Company or C/O:</div>
+                <%= a.text_field :company_c_o, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">City:<span class="orange_font">*</span></div>
+                <%= a.text_field :city, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Zip Code:<span class="orange_font">*</span></div>
+                <%= a.text_field :zipcode, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">Phone:</div>
+                <%= a.text_field :phone, :class => 'field_entry' %>
+              </div>
+              <div class="payment_form_line">
+                <div class="payment_field_name">E-mail Address:<span class="orange_font">*</span></div>
+                <%= a.text_field :email, :class => 'field_entry' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="payment_box_wrapper">
+          <span class="minor_section_heading">Shipping Address</span>
+          <div class="payment_box account_gray_background">
+            stuff
+          </div>
+        </div>
+      </div>
+      <div class="payment_box_wrapper">
+        <span class="minor_section_heading">Credit Card Information</span>
+        <div class="payment_box account_gray_background">
+          stuff
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div id="account_background_bottom">&nbsp;</div>

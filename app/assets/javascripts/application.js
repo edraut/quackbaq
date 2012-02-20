@@ -62,7 +62,7 @@ function roundCorners(){
 	jQuery('.auto_bid_block').corner('3px');
 	jQuery('.bid_history_text').corner('4px left');
 	jQuery('.field_entry').corner('5px');
-	jQuery('.form_background').corner('5px');
+	jQuery('.account_gray_background').corner('5px');
 }
 jQuery(document).ready(function(){
 	bindLinkToForm();

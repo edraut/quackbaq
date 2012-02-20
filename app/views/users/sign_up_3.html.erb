@@ -1,0 +1,39 @@
+<div id="account_background" class="sign_up_flow">
+  <div id="sign_up_content">
+    <div id="account_title" class="quackbaq_font purple_font">SIGN UP</div>
+    <div class="sign_up_vert_align">
+      <%= form_for @user do |f| %>
+        <div class="form_background account_gray_background">
+          <div class="form_line">
+            <div class="field_name">Age:</div>
+            <%= f.select :age_bracket, HasDemographics::AGE_BRACKETS, :class => 'field_entry' %>
+          </div>
+          <div class="form_line">
+            <div class="field_name">Gender:</div>
+            <%= f.select :gender, HasDemographics::GENDERS, :class => 'field_entry' %>
+          </div>
+          <div class="form_line">
+            <div class="field_name">Status:</div>
+            <%= f.select :status, HasDemographics::STATUSES, :class => 'field_entry' %>
+          </div>
+          <div class="form_line">
+            <div class="field_name">Income:</div>
+            <%= f.select :income, HasDemographics::INCOMES, :class => 'field_entry' %>
+          </div>
+        </div>
+        <%= f.hidden_field :step, :value => 'finish_sign_up' %>
+        <% if @user.errors.any? %>
+          <div class="error"><ul><li><%= @user.errors.full_messages.uniq.join('</li><li>').html_safe %></li></ul></div>
+        <% end %>
+        <div id="sign_up_next">
+          <div class="button_left">&nbsp;</div>
+          <div class="button_middle quackbaq_font" data-button="true" data-submit="true">NEXT</div>
+          <div class="button_right">&nbsp;</div>
+        </div>
+      <% end %>
+    </div>
+    <div id="progress" class="quackbaq_font section_heading purple_font">PROGRESS</div>
+    <div id="progress_bar"><%= image_tag 'Percentage-TwoThird.jpg', :align => 'middle' %></div>
+  </div>
+</div>
+<div id="account_background_bottom">&nbsp;</div>

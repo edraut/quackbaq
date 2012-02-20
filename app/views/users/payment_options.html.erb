@@ -1,0 +1,28 @@
+<div id="account_background">
+  <%= render :partial => 'account_left_nav' %>
+  <div id="account_view_content">
+    <div id="account_title" class="quackbaq_font purple_font">PAYMENT OPTIONS</div>
+    <div class="account_full_width">
+      <div id="account_options" class="account_gray_background payment_box">
+        <input type="radio" name="path" value="<%= credit_card_user_url %>"/>Credit Card
+        &nbsp;&nbsp;
+        <input type="radio" name="path" value="<%= paypal_user_url %>"/>Pay Pal
+      </div>
+    </div>
+    <div class="payment_box">
+      <div id="next">
+        <div class="button_left">&nbsp;</div>
+        <div id="next_button" class="button_middle quackbaq_font" data-button="true" href="">NEXT</div>
+        <div class="button_right">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="account_background_bottom">&nbsp;</div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery("input[name='path']").change(function(e){
+      jQuery('#next_button').prop('href',jQuery(this).val());
+    })
+  })
+<% end %>

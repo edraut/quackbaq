@@ -1,5 +1,7 @@
 class Address < ActiveRecord::Base
   belongs_to :country
+  validates_presence_of :zipcode
+  
   STATES = {"AL" => {:view_select => ["Alabama","AL"],:map => 7},
             "AK" => {:view_select => ["Alaska","AK"],:map => 1},
             "AZ" => {:view_select => ["Arizona","AZ"],:map => 4},

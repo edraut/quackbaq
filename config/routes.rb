@@ -17,6 +17,9 @@ Quackbaq::Application.routes.draw do
       get 'sign_up_2'
       get 'sign_up_3'
       get 'sign_up_4'
+      get 'payment_options'
+      get 'credit_card'
+      get 'paypal'
     end
   end
   resources :bids

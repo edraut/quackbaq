@@ -1,6 +1,6 @@
 class AuctionsController < ApplicationController
   before_filter :get_auction, :only => [:edit,:update,:show,:destroy]
-  before_filter :require_complete_user, :only => [:my]
+  before_filter :require_active_user, :only => [:my]
   def index
     if params[:category_id]
       if params[:category_id].to_i > 0

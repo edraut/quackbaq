@@ -1,14 +1,17 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :show
-  
+  before_filter :get_user, :only => [:update, :show, :payment_options, :credit_card]
   def new
     @user = User.new
+    @user.extend Joiner
     render :template => '/users/sign_up_1' and return
   end
   
   def create
-    @user = User.new(params[:user])
+    @user = User.new
+    @user.extend Joiner
+    @user.attributes = params[:user]
     if @user.save
       render :template => '/users/sign_up_2' and return
     else
@@ -33,28 +36,28 @@ class UsersController < ApplicationController
   def update
     if params[:reset_password]
       load_user_using_perishable_token
-    else
-      @user.prepare_for_validation
-      flash[:notice] = 'We sent account validation instructions to your email address, please check your email.'
-      redirect_to root_url
-      require_user
-      @user = @this_user # makes our views "cleaner" and more consistent
-    end
-    
-    if params[:reset_password]
       @user.password = params[@user.class.name.underscore.to_sym][:password]  
       @user.password_confirmation = params[@user.class.name.underscore.to_sym][:password_confirmation]  
       if @user.save  
-      flash[:notice] = "Password successfully updated"  
-      redirect_to root_url
+        flash[:notice] = "Password successfully updated"  
+        redirect_to root_url and return
       else  
-      render :action => :edit  
+        render :action => :edit and return
       end
-    elsif @user.update_attributes(params[@user.class.name.underscore.to_sym])
-      flash[:notice] = "Account updated!"
-      redirect_to user_url(@user)
+    end
+
+    unless @user.joined?
+      @user.extend Joiner
+    end
+    
+    if @user.update_attributes(params[@user.class.name.underscore.to_sym])
+      if !@this_user and 'finish_sign_up' == params[@user.class.name.underscore.to_sym][:step]
+        @user_session = UserSession.new(@user, true)
+        render :template => '/users/sign_up_4' and return
+      end
+      render :template => next_template and return
     else
-      render :action => :edit
+      render :template => this_template and return
     end
   end
 
@@ -67,6 +70,15 @@ class UsersController < ApplicationController
     @user.prepare_password_reset
     flash[:notice] = "We sent password reset instructions to your email address."
     redirect_to root_url and return
+  end
+  
+  def payment_options
+  end
+  
+  def credit_card
+  end
+  
+  def sign_up_4
   end
   
   def activate
@@ -92,4 +104,29 @@ class UsersController < ApplicationController
     end  
   end
   
+  def get_user
+    @user = @this_user || User.find_by_id(params[:id])
+  end
+  
+  def next_template
+    case @user.state
+    when 'step_one'
+      '/users/sign_up_2'
+    when 'step_two'
+      '/users/sign_up_3'
+    when 'active'
+      '/users/show'
+    end
+  end
+  
+  def this_template
+    case @user.state
+    when 'step_one'
+      '/users/sign_up_2'
+    when 'step_two'
+      '/users/sign_up_3'
+    when 'active'
+      '/users/edit'
+    end
+  end
 end

@@ -47,15 +47,14 @@ hr {
 	background-repeat: horizontal;
 	width: 100%;
 }
-.sign_up_background {
+#account_background {
 	position:relative;
 	float: left;
 	top: -50px;
 	left: -10px;
-	background: url('/assets/sign_up_background.png');
-	height: 326px;
-	width: 772px;
-	padding-left: 160px;
+	background: url('/assets/account_background_horiz.png');
+	background-repeat: repeat-y;
+	width: 932px;
 	padding-top: 20px;
 	.error {
 		position: relative;
@@ -63,25 +62,139 @@ hr {
 		width: 200px;
 		margin-left: 34px;
 	}
+	.section_heading {
+		position: relative;
+		float: left;
+		font-size: 32px;
+	}
+}
+#account_background.sign_up_flow {
+	height: 326px;
+}
+#account_background.payment_form {
+}
+#account_background_bottom{
+	background: url('/assets/account_background_bottom.png');
+	width: 932px;
+	position:relative;
+	float: left;
+	top: -50px;
+	left: -10px;
+}
+#progress.section_heading {
+	font-size: 20px;
+}
+#account_options {
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+#sign_up_content {
+	position: relative;
+	width: 82%;
+	margin-left: 17%;
+}
+#account_left_nav {
+	position: relative;
+	float: left;
+	width: 144px;
+	height: 240px;
+	margin: 20px 20px 40px 20px;
+	padding-right: 26px;
+	border-right: 1px solid $gray3;
+	text-align: right;
+}
+a.account_left_nav {
+	text-decoration: none;
+	font-size: 20px;
+	color: $gray9
+}
+#account_view_content {
+	position: relative;
+	float: left;
+	margin: 12px;
+	width: 696px;
+}
+#account_title {
+	position: relative;
+	float:left;
+	text-align: left;
+	font-size: 32px;
+	width: 696px;
+}
+.account_full_width {
+	position: relative;
+	float:left;
+	width: 100%;
+}
+.payment_box {
+	position:relative;
+	float: left;
+	width: 310px;
+	padding-left: 16px;
+	#next {
+		position:absolute;
+		right:0;
+		top: 18px;
+	}
+}
+.payment_box_wrapper {
+	position:relative;
+	float: left;
+	width: 326px;
+	.minor_section_heading {
+		font-weight: bold;
+		font-size: 14px;
+	}
+}
+.payment_box_wrapper.left {
+	margin-right: 10px
+}
+.payment_double_box {
+	position:relative;
+	float: left;
+	width: 662px;
+}
+.payment_form_line {
+	position:relative;
+	float: left;
+	width: 310px;
+	input[type="text"].field_entry {
+		width: 200px;
+	}
+}
+.payment_field_name {
+	position:relative;
+	float: left;
+	width: 90px;
+	margin-top: 8px;
 }
 .purple_font {
 	color: $purple1;
 }
-.sign_up_title {
-	font-size: 32px;
+.orange_font {
+	color: $orange1;
 }
 .sign_up_vert_align {
 	position: relative;
+	float: left;
 	height: 165px;
 }
-.form_background {
+.sign_up_full_width {
+	position:relative;
+	float:left;
+	width: 600px;
+	padding: 10px 0;
+}
+.account_gray_background {
 	position: relative;
 	float: left;
-	height: 157px;
-	width: 475px;
 	background-color: $gray3;
 	color: $gray9;
 	font-size: 14px;
+}
+.form_background {
+	height: 157px;
+	width: 475px;
 	padding-top: 8px;
 }
 .form_line {
@@ -97,7 +210,7 @@ hr {
 	padding: 8px 17px 7px 0;
 	text-align: right;
 }
-.field_entry, input[type="text"].field_entry {
+.field_entry, input[type="text"].field_entry, input[type="password"].field_entry {
 	position: relative;
 	float: left;
 	width: 236px;
@@ -150,6 +263,15 @@ hr {
 	height: 28px;
 	bottom:0;
 	left:508px;
+}
+#payment_options {
+	position:relative;
+	float:left;
+	margin-right: 20px;
+}
+#enter_site {
+	position:relative;
+	float:left;
 }
 #progress {
 	position: relative;
@@ -812,6 +934,24 @@ button.button_middle {
 .short_height {
 	height: 5px;
 }
+.content_border_bottom {
+	padding-bottom: 16px;
+	margin-bottom: 16px;
+	border-bottom: 1px solid $gray3;
+}
 .text_center {
 	text-align: center;
+}
+.centering_wrapper {
+	position:relative;
+	float:left;
+	left: 50%;
+}
+.centering_inner {
+	position:relative;
+	left: -50%;
+}
+.shrink_wrap {
+	position: relative;
+	float:left;
 }
