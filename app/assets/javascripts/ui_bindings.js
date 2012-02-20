@@ -105,6 +105,10 @@ function buttonControl(e){
 		document.location = target.prop('href');
 		return false;
 	}
+	if(target.attr('href')){
+		document.location = target.attr('href');
+		return false;
+	}
 	link = target.find("[data-behavior='link_to_form']");
 	if(link.length == 0){
 		link = target.find("[data-role='delete']");
