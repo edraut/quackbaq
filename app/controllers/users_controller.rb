@@ -81,6 +81,9 @@ class UsersController < ApplicationController
   def sign_up_4
   end
   
+  def sign_up_3
+  end
+  
   def activate
     if params[:validate_account]
       load_user_using_perishable_token

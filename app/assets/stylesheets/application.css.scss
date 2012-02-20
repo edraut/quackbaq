@@ -90,7 +90,8 @@ hr {
 }
 #sign_up_content {
 	position: relative;
-	width: 82%;
+	float: left;
+	width: 83%;
 	margin-left: 17%;
 }
 #account_left_nav {
@@ -178,6 +179,7 @@ a.account_left_nav {
 	position: relative;
 	float: left;
 	height: 165px;
+	width: 100%;
 }
 .sign_up_full_width {
 	position:relative;
