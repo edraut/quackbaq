@@ -67,12 +67,18 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
+  validates_presence_of :zipcode
   validates_with UserValidator
   #callbacks
   #class methods
   
   #instance methods
   
+  def initialize(args = {})
+    super(args)
+    self.billing_address = BillingAddress.new
+  end
+
   def joined?
     self.active? or self.inactive?
   end
