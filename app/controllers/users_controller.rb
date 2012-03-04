@@ -46,6 +46,14 @@ class UsersController < ApplicationController
       end
     end
 
+    if params[:user].has_key? :card
+      if update_card
+        render :template => 'show' and return
+      else
+        render :template => 'credit_card' and return
+      end
+    end
+    
     unless @user.joined?
       @user.extend Joiner
     end
@@ -76,6 +84,12 @@ class UsersController < ApplicationController
   end
   
   def credit_card
+    @user.extend CardHolder
+  end
+
+  def update_card
+    @user.extend CardHolder
+    @user.handle_card_update(params[:user])
   end
   
   def sign_up_4

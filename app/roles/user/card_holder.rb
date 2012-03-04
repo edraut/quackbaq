@@ -1,4 +1,29 @@
 module CardHolder
+CARD_TYPES = [["Visa","visa"], ["MasterCard","master"], ["Discover","discover"], ["AMEX","american_express"]]
+
+  def self.extended(object)
+    object.class.class_eval do
+      attr_accessor :same_address, :cim_profile
+    end
+  end
+  
+  def handle_card_update(params)
+    these_params = params.dup
+    card_params = these_params.delete :card
+    if these_params.delete :same_address
+      these_params.delete :shipping_address
+      shipping_params = these_params[:billing_address_attributes].dup
+      shipping_params.delete :id
+      these_params.merge! :shipping_address_attributes => shipping_params
+    end
+    self.attributes = these_params
+    if self.cim_payment_profile_id
+      self.remove_credit_card
+    end
+    self.add_credit_card(card_params)
+    self.refresh_cim_profile
+  end
+  
   ############################################################################################
   ########### Begin CIM methods, copyright 2008 Eric Draut, all rights reserved ##############
   ############################################################################################
@@ -7,6 +32,9 @@ module CardHolder
       self.cim_id ||= get_new_cim_id
       if self.cim_id.blank?
         return false
+      end
+      if (card_type = card_hash.delete :type) != ActiveMerchant::Billing::CreditCard.type?(card_hash[:number])
+        self.errors.add(:base,"That is not a valid card number for the card type you selected, please check and try again.")
       else
         credit_card = ActiveMerchant::Billing::CreditCard.new(
           :number => card_hash[:number].gsub(/[\s-]/,''),
@@ -21,7 +49,7 @@ module CardHolder
         response = gateway.create_customer_payment_profile(:customer_profile_id => self.cim_id,:payment_profile => {:payment => {:credit_card => credit_card}, :bill_to => {:first_name => self.billing_address.first_name, :last_name => self.billing_address.last_name, :address => (self.billing_address.address_1 + self.billing_address.address_2), :city => self.billing_address.city, :state => self.billing_address.state, :zip => self.billing_address.zipcode, :country => self.billing_address.country.iso}},:validation_mode => :live)
         if response.message != 'Successful.'
           handle_errors(response)
-          self.errors.add_to_base("*When attempting to add your card, we got this response from our processor:*<br/> *#{response.message}*<br/> *Please double-check the information you entered, or try using another credit card.*")
+          self.errors.add(:base,"*When attempting to add your card, we got this response from our processor:*<br/> *#{response.message}*<br/> *Please double-check the information you entered, or try using another credit card.*")
         else
           self.card_valid = true
           self.save
@@ -52,7 +80,7 @@ module CardHolder
         self.save
       else
         handle_errors(response)
-        self.errors.add_to_base("We were unable to contact our secure storage facility, we could not store your credit card info.")
+        self.errors.add(:base,"We were unable to contact our secure storage facility, we could not store your credit card info.")
       end
       self.cim_id
     end

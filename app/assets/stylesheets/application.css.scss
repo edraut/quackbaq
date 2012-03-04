@@ -159,15 +159,27 @@ a.account_left_nav {
 	position:relative;
 	float: left;
 	width: 310px;
-	input[type="text"].field_entry {
-		width: 200px;
+	padding-top: 14px;
+	input[type="text"].field_entry, input[type="text"].field_entry_half, select.field_entry, select.field_entry_half {
+		padding-top:0;
+		padding-bottom:0;
+		margin-top:0;
+		margin-bottom:0;
 	}
+	input[type="text"].field_entry, select.field_entry {
+		width: 170px;
+	}
+	input[type="text"].field_entry_half, select.field_entry_half {
+		width: 83px;
+	}
+}
+.payment_form_line.non_text {
+	padding: 5px 0;
 }
 .payment_field_name {
 	position:relative;
 	float: left;
-	width: 90px;
-	margin-top: 8px;
+	width: 120px;
 }
 .purple_font {
 	color: $purple1;
@@ -212,7 +224,7 @@ a.account_left_nav {
 	padding: 8px 17px 7px 0;
 	text-align: right;
 }
-.field_entry, input[type="text"].field_entry, input[type="password"].field_entry {
+.field_entry, input[type="text"].field_entry, input[type="password"].field_entry, input[type="text"].field_entry_half {
 	position: relative;
 	float: left;
 	width: 236px;
@@ -265,6 +277,11 @@ a.account_left_nav {
 	height: 28px;
 	bottom:0;
 	left:508px;
+}
+#save_settings{
+	position:relative;
+	float: left;
+	height: 28px;
 }
 #payment_options {
 	position:relative;
@@ -956,4 +973,7 @@ button.button_middle {
 .shrink_wrap {
 	position: relative;
 	float:left;
+}
+.padding_bottom {
+	padding-bottom: 10px;
 }

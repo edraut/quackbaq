@@ -18,9 +18,7 @@
         </div>
         <div class="form_line">
           <div class="field_name">Zip Code:</div>
-          <%= f.fields_for :billing_address do |a| %>
-            <%= a.text_field :zipcode, :class => 'field_entry' %>
-          <% end %>
+            <%= f.text_field :zipcode, :class => 'field_entry' %>
         </div>
       </div>
       <%= f.hidden_field :step, :value => 'finish_one' %>

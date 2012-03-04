@@ -17,6 +17,7 @@ gem 'pubnub-ruby'
 gem 'sass'
 gem 'aws-sdk'
 gem 'state_machine'
+gem 'activemerchant'
 
 group :assets do
   gem 'sass-rails'

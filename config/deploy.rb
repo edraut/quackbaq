@@ -62,7 +62,6 @@ namespace :deploy do
   end
   task :pipeline_precompile, :roles => :app do
     config_files.symlink_assets
-    run "ls -l #{release_path}/public"
     run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
   end
 end
@@ -129,7 +128,7 @@ namespace :config_files do
   task :symlink_assets do
     run "rm -rf #{release_path}/public/assets"
     run "mkdir -p #{shared_path}/assets"
-    run "ln -nfs #{shared_path}/config/assets #{release_path}/public/" 
+    run "ln -nfs #{shared_path}/assets #{release_path}/public/" 
   end
   # desc "Create picture directories in shared path" 
   # task :pictures do

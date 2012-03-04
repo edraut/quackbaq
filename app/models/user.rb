@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   
   #associations
   has_one :billing_address, :dependent => :destroy, :foreign_key => 'user_id'
+  has_one :shipping_address, :dependent => :destroy, :foreign_key => 'user_id'
   has_many :bids, :dependent => :destroy
   has_many :user_auctions, :dependent => :destroy
   has_many :auctions, :through => :user_auctions
@@ -60,7 +61,7 @@ class User < ActiveRecord::Base
     state :inactive
   end
 
-  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :billing_address, :shipping_address
 
   #validations
   validates_presence_of :first_name
@@ -71,11 +72,6 @@ class User < ActiveRecord::Base
   #class methods
   
   #instance methods
-
-  def initialize(args = {})
-    super(args)
-    self.billing_address = BillingAddress.new
-  end
   
   def joined?
     self.active? or self.inactive?

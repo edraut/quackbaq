@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220065112) do
+ActiveRecord::Schema.define(:version => 20120304205314) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20120220065112) do
     t.string   "status"
     t.string   "income"
     t.integer  "generic_avatar_id"
+    t.string   "zipcode"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
