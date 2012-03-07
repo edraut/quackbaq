@@ -48,9 +48,9 @@ class UsersController < ApplicationController
 
     if params[:user].has_key? :card
       if update_card
-        render :template => 'show' and return
+        render :template => '/users/show' and return
       else
-        render :template => 'credit_card' and return
+        render :template => '/users/credit_card' and return
       end
     end
     

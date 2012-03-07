@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
   def initialize(args = {})
     super(args)
     self.billing_address = BillingAddress.new
+    self.shipping_address = ShippingAddress.new
   end
 
   def joined?

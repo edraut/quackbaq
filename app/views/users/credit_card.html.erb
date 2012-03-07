@@ -55,7 +55,7 @@
           <span class="minor_section_heading">Shipping Address</span>
           <div class="payment_box account_gray_background padding_bottom">
             <div class="payment_form_line non_text">
-            <%= f.radio_button :same_address, true %> Same as Billing Address<br/>
+            <%= f.radio_button :same_address, true, {:checked => true} %> Same as Billing Address<br/>
             </div>
             <div class="payment_form_line non_text">
             <%= f.radio_button :same_address, false %> Add Shipping Address
@@ -120,7 +120,7 @@
           </div>
           <div class="payment_form_line">
             <div class="payment_field_name">Expiration Date:<span class="orange_font">*</span></div>
-            <%= select_month Date.today, {:field_name => "user[card][month]"}, {:class => 'field_entry_half'} %> <%= select_year Date.today, {:field_name => "user[card][year]", :start_year => Date.today.year},{:class => 'field_entry_half'} %>
+            <%= select_month Date.today, {:field_name => "card[month]", :prefix => 'user'}, {:class => 'field_entry_half'} %> <%= select_year Date.today, {:field_name => "card[year]", :start_year => Date.today.year, :prefix => 'user'},{:class => 'field_entry_half'} %>
           </div>
           <div class="payment_form_line">
             <div class="payment_field_name">Security Code:<span class="orange_font">*</span></div>
@@ -145,8 +145,7 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
     jQuery("input[name='user[same_address]']").change(function(e){
-      console.log(typeof(jQuery(this).val()));
-      if(jQuery("input:radio[name='user[same_address]']:checked").val() == 'true'){
+      if('true' == jQuery(this).val()){
         jQuery('#shipping_address_form').hide();
       } else {
         jQuery('#shipping_address_form').show();
