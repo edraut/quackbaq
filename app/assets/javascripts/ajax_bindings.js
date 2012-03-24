@@ -10,9 +10,10 @@ function bindAjaxEvents(context){
 	jQuery("[data-ajax_behavior='ajax_link']",target_document).live('click', {element_type:'link'}, ajaxEvent);
 };
 function ajaxEvent(e){
+	e.preventDefault();
 	var our_element = jQuery(e.target);
 	var element_type = e.data.element_type;
-	if( element_type == 'link' && (our_element.attr('nodeName').toUpperCase() != 'A') ){
+	if( element_type == 'link' && (our_element.prop('nodeName').toUpperCase() != 'A') ){
 		our_element = our_element.parents('a');
 	};
 	var our_parameters = {
@@ -90,14 +91,15 @@ function ajaxEvent(e){
 			bindAjaxEvents();
 		}
 	};
+	our_parameters.data = {};
 	switch(element_type){
 		case 'form':
 			our_parameters.data = our_element.serializeArray();
 			our_parameters.url = our_element.attr('action');
 			break;
 		case 'link':
-			if (our_element.attr('data-ajax_data')){
-				eval('our_parameters.data = ' + our_element.attr("data-ajax_data"));
+			if (our_element.data('ajax_data')){
+				eval('our_parameters.data = ' + our_element.data("ajax_data"));
 			}
 			our_parameters.url = our_element.attr('href')
 			break;

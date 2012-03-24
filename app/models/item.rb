@@ -20,6 +20,9 @@ class Item < ActiveRecord::Base
   #callbacks
   
   #class methods
+  def self.human_name
+    Item
+  end
   
   #instance methods
   
