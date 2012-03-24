@@ -33,6 +33,7 @@ class AuctionsController < ApplicationController
     @my_auctions = true
     @auctions = @this_user.auctions
     @pubnub = true
+    @nav_tab = 'my_account'
     render :action => 'index' and return
   end
   

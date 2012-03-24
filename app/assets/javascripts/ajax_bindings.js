@@ -102,6 +102,8 @@ function ajaxEvent(e){
 			our_parameters.url = our_element.attr('href')
 			break;
 	}
+	our_parameters.data._method = our_element.data('ajax_method');
+	our_parameters.data.authenticity_token = authenticity_token;
 	jQuery.ajax(our_parameters);
 	return false;
 };

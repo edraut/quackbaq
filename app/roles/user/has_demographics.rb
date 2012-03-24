@@ -1,4 +1,4 @@
-module HasDemographics
+module User::HasDemographics
   GENDERS = ['Male','Female']
   AGE_BRACKETS = ["18-30","31-40","41-50","51-60","61-70","71-"]
   STATUSES = ["Status 1","Status 2"]

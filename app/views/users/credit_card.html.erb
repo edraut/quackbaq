@@ -55,12 +55,12 @@
           <span class="minor_section_heading">Shipping Address</span>
           <div class="payment_box account_gray_background padding_bottom">
             <div class="payment_form_line non_text">
-            <%= f.radio_button :same_address, true, {:checked => true} %> Same as Billing Address<br/>
+            <%= f.radio_button :same_address, true, {:checked => !@user.shipping_address.in_use?} %> Same as Billing Address<br/>
             </div>
             <div class="payment_form_line non_text">
-            <%= f.radio_button :same_address, false %> Add Shipping Address
+            <%= f.radio_button :same_address, false, {:checked => @user.shipping_address.in_use?}  %> Add Shipping Address
             </div>
-            <div id="shipping_address_form" style="display:none;">
+            <div id="shipping_address_form" <% unless @user.shipping_address.in_use? %> style="display:none;" <%end%>>
               <%= f.fields_for :shipping_address do |a| %>
                 <div class="payment_form_line">
                   <div class="payment_field_name">First Name:<span class="orange_font">*</span></div>
@@ -112,7 +112,7 @@
         <div class="payment_box account_gray_background padding_bottom">
           <div class="payment_form_line">
             <div class="payment_field_name">Credit Card:<span class="orange_font">*</span></div>
-            <%= select_tag "user[card][type]", options_for_select(CardHolder::CARD_TYPES), :class => 'field_entry' %>
+            <%= select_tag "user[card][type]", options_for_select(User::CardHolder::CARD_TYPES), :class => 'field_entry' %>
           </div>
           <div class="payment_form_line">
             <div class="payment_field_name">Card Number:<span class="orange_font">*</span></div>

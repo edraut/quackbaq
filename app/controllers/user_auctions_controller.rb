@@ -9,7 +9,16 @@ class UserAuctionsController < ApplicationController
   
   def create
     @user_auction = UserAuction.new(:user_id => @this_user,:auction_id => params[:auction_id])
-    @user_auction.save
-    redirect_to auction_url(params[:auction_id].to_i)
+    if @user_auction.save
+      render :nothing => true, :status => 200
+    else
+      render :json => {:error => @user_auction.errors}
+    end
+  end
+
+  def destroy
+    @user_auction = UserAuction.where(:auction_id => params[:auction_id], :user_id => @this_user.id)
+    @user_auction.each {|ua| ua.destroy}
+    render :nothing => true, :status => 200
   end
 end

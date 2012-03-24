@@ -1,16 +1,15 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :show
-  before_filter :get_user, :only => [:update, :show, :payment_options, :credit_card]
+  before_filter :get_user, :only => [:update, :show, :payment_options, :credit_card, :account_settings]
+
   def new
     @user = User.new
-    @user.extend Joiner
     render :template => '/users/sign_up_1' and return
   end
   
   def create
     @user = User.new
-    @user.extend Joiner
     @user.attributes = params[:user]
     if @user.save
       render :template => '/users/sign_up_2' and return
@@ -47,15 +46,11 @@ class UsersController < ApplicationController
     end
 
     if params[:user].has_key? :card
-      if update_card
+      if update_card && @user.save
         render :template => '/users/show' and return
       else
         render :template => '/users/credit_card' and return
       end
-    end
-    
-    unless @user.joined?
-      @user.extend Joiner
     end
     
     if @user.update_attributes(params[@user.class.name.underscore.to_sym])
@@ -63,8 +58,10 @@ class UsersController < ApplicationController
         @user_session = UserSession.new(@user, true)
         render :template => '/users/sign_up_4' and return
       end
+      set_sub_nav_tab 'account_settings'
       render :template => next_template and return
     else
+      set_sub_nav_tab 'account_settings'
       render :template => this_template and return
     end
   end
@@ -81,14 +78,15 @@ class UsersController < ApplicationController
   end
   
   def payment_options
+    set_sub_nav_tab 'payment_options'
   end
   
   def credit_card
-    @user.extend CardHolder
+    set_sub_nav_tab 'payment_options'
   end
 
   def update_card
-    @user.extend CardHolder
+    set_sub_nav_tab 'payment_options'
     @user.handle_card_update(params[:user])
   end
   
@@ -96,6 +94,10 @@ class UsersController < ApplicationController
   end
   
   def sign_up_3
+  end
+
+  def account_settings
+    set_sub_nav_tab 'account_settings'
   end
   
   def activate
@@ -121,6 +123,17 @@ class UsersController < ApplicationController
     end  
   end
   
+  def set_sub_nav_tab(name)
+    @my_account_sub_nav = name
+    set_nav_tab(name)
+  end
+
+  def set_nav_tab(name)
+    if ['payment_options','account_settings'].include? name
+      @nav_tab = 'my_account'
+    end
+  end
+
   def get_user
     @user = @this_user || User.find_by_id(params[:id])
   end
@@ -132,7 +145,7 @@ class UsersController < ApplicationController
     when 'step_two'
       '/users/sign_up_3'
     when 'active'
-      '/users/show'
+      '/users/account_settings'
     end
   end
   
@@ -143,7 +156,7 @@ class UsersController < ApplicationController
     when 'step_two'
       '/users/sign_up_3'
     when 'active'
-      '/users/edit'
+      '/users/account_settings'
     end
   end
 end

@@ -24,7 +24,7 @@
               <div class="slider_mask">
                 <div class="slider_container" style="width:<%= 15 * 42 %>px;" data-page_role="slider_container" data-page_id="avatar_pager" data-viewport_width="160" data-item_count="<%= 15 %>" data-items_per_page="5">
                   <% 15.times do |i| %>
-                    <div class="slider_item" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="<%= i %>"><%= i %></div>
+                    <div class="avatar_selectable" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="<%= i %>"><%= i %></div>
                   <% end %>
                 </div>
               </div>

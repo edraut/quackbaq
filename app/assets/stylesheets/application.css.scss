@@ -107,7 +107,10 @@ hr {
 a.account_left_nav {
 	text-decoration: none;
 	font-size: 20px;
-	color: $gray9
+	color: $gray9;
+	&.selected {
+		color: $orange1;
+	}
 }
 #account_view_content {
 	position: relative;
@@ -181,6 +184,43 @@ a.account_left_nav {
 	float: left;
 	width: 120px;
 }
+.account_settings_box {
+	position:relative;
+	float: left;
+	width: 468px;
+	padding-left: 16px;
+	.save_settings {
+		position:absolute;
+		right:0;
+		top: 18px;
+	}
+}
+.account_settings_form_line {
+	position:relative;
+	float: left;
+	width: 468px;
+	padding-top: 14px;
+	input[type="password"].field_entry, input[type="text"].field_entry, input[type="text"].field_entry_half, select.field_entry, select.field_entry_half {
+		padding-top:0;
+		padding-bottom:0;
+		margin-top:0;
+		margin-bottom:0;
+	}
+	input[type="password"].field_entry, input[type="text"].field_entry, select.field_entry {
+		width: 232px;
+	}
+	.form_line_error {
+		width: 260px;
+	}
+}
+.account_settings_form_line.non_text {
+	padding: 5px 0;
+}
+.account_settings_field_name {
+	position:relative;
+	float: left;
+	width: 150px;
+}
 .purple_font {
 	color: $purple1;
 }
@@ -215,6 +255,14 @@ a.account_left_nav {
 	width: 90%;
 	height: 35px;
 	padding-right: 10%;
+}
+.form_line_error {
+	position:absolute;
+	left: 85%;
+	background-color: #FBE3E4;
+	color: #8A1F11;
+	border: 1px solid #FBC2C4;
+	padding: 0 5px;
 }
 .field_name {
 	position: relative;
@@ -261,15 +309,19 @@ a.account_left_nav {
 .slider_container {
 	position:absolute;
 }
-.slider_item {
+.avatar_selectable {
 	position:relative;
 	float:left;
 	border: 1px solid $gray6;
 	width: 10px;
 	padding: 4px 7px;
 	margin-right: 14px;
+	text-align: center;
+	&.select_area {
+		margin-top: 15px;
+	}
 }
-.slider_item.selected {
+.avatar_selectable.selected {
 	border-color: $orange1;
 }
 #sign_up_next{
@@ -384,10 +436,10 @@ a.account_left_nav {
 		height: 26px;
 		font-family: SteelfishRg-Regular;
 		font-size: 20px;
-	}
-	.top_nav_button.selected {
-		background-color: white;
-		a{color: $orange1}
+		&.selected {
+			background-color: white;
+			a{color: $orange1}
+		}
 	}
 	.top_nav_divider {
 		position:relative;
@@ -924,6 +976,9 @@ button.button_middle {
 	height: 28px;
 	background: url(/assets/buttonRight.png);
 }
+.button_height {
+	height: 29px;
+}
 .form_box_top {
 	position: relative;
 	float: left;
@@ -976,4 +1031,7 @@ button.button_middle {
 }
 .padding_bottom {
 	padding-bottom: 10px;
+}
+.margin_top {
+	margin-top: 10px;
 }

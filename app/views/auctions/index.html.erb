@@ -1,7 +1,6 @@
 <% if @my_auctions %><h1>My Auctions</h1><% end %>
-<!-- <%= @auctions.length %> : <%= @category.auctions.in_progress.count %>-->
 <% for auction in @auctions %>
-<div class="auction_index_item_wrapper">
+<div class="auction_index_item_wrapper" data-auction_list_item="true" data-auction_id="<%= auction.id %>">
   <div class="auction_index_item_left text_center" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
     <%= image_tag auction.item.content_images.first.image.url(:small_thumb) %>
     <div class="auction_index_item_name">
@@ -35,12 +34,17 @@
         <div class="button_middle quackbaq_font" data-button="true" href="<%= bids_path %>">BUY CREDITS</div>
         <div class="button_right">&nbsp;</div>
       </div>
-      <div class="auction_index_mine">
-    		<% if @this_user.auctions.include? @auction %>
-          <%= image_tag 'duckfootOn.gif' %>
-        <% else %>
-          <%= image_tag 'duckfootOff.gif' %>
-        <% end %>
+      <div class="auction_index_mine" data-mine_button="true" data-state="<%= (@this_user.auctions.include? auction) ? 'on' : 'off' %>">
+    		<%  if @this_user.auctions.include? auction
+              on_options = {}
+              off_options = {:style => 'display:none;'}
+            else
+              on_options = {:style => 'display:none;'}
+              off_options = {}
+            end 
+        %>
+          <%= image_tag 'duckfootOn.gif', on_options.merge(:id => 'duckfootOn') %>
+          <%= image_tag 'duckfootOff.gif', off_options.merge(:id => 'duckfootOff') %>
       </div>
     </div>
   </div>
@@ -84,38 +88,38 @@
 		};
 		timer_handle = setTimeout(cycleTimer,1000);
 		<% if current_user %>
-    function refreshStats(channel_name,message){
-    	jQuery("[data-push_data_type='current_price'][data-push_channel='" + channel_name + "']").html(message.new_price);
-    	jQuery("[data-push_data_type='highest_bidder'][data-push_channel='" + channel_name + "']").html(message.bidder_name);
-    };
-    <% for auction in @auctions %>
-      PUBNUB.subscribe({
-        channel  : "<%= auction.channel_name %>",
-        callback : function(message) {
-          refreshStats("<%= auction.channel_name %>",message); },
-        error    : function(e) {
-            // Do not call subscribe() here!
-            // PUBNUB will auto-reconnect.
-            console.log(e);
-        }
-      });
-    <% end %>
-		jQuery("[data-behavior='place_bid_link']").click(function(e){
-			jQuery.ajax({
-				url: jQuery(this).attr('href'),
-				type: 'PUT',
-				dataType: 'json',
-				data: {authenticity_token: authenticity_token},
-				success: function(data,textStatus) {
-					jQuery('#available_bids').html(data.bid_count);
-					if(data.bid_count == 0){
-						jQuery("[data-behavior='place_bid_link']").hide();
-						jQuery("[data-behavior='buy_bids_link']").show();
-					}
-				}
-			});
-			return false;
-		});
+      function refreshStats(channel_name,message){
+      	jQuery("[data-push_data_type='current_price'][data-push_channel='" + channel_name + "']").html(message.new_price);
+      	jQuery("[data-push_data_type='highest_bidder'][data-push_channel='" + channel_name + "']").html(message.bidder_name);
+      };
+      <% for auction in @auctions %>
+        PUBNUB.subscribe({
+          channel  : "<%= auction.channel_name %>",
+          callback : function(message) {
+            refreshStats("<%= auction.channel_name %>",message); },
+          error    : function(e) {
+              // Do not call subscribe() here!
+              // PUBNUB will auto-reconnect.
+              console.log(e);
+          }
+        });
+      <% end %>
+  		jQuery("[data-behavior='place_bid_link']").click(function(e){
+  			jQuery.ajax({
+  				url: jQuery(this).attr('href'),
+  				type: 'PUT',
+  				dataType: 'json',
+  				data: {authenticity_token: authenticity_token},
+  				success: function(data,textStatus) {
+  					jQuery('#available_bids').html(data.bid_count);
+  					if(data.bid_count == 0){
+  						jQuery("[data-behavior='place_bid_link']").hide();
+  						jQuery("[data-behavior='buy_bids_link']").show();
+  					}
+  				}
+  			});
+  			return false;
+  		});
 		<% end %>
 	});
 <% end %>
