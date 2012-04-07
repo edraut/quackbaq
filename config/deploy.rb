@@ -41,7 +41,7 @@ namespace :deploy do
     run "sudo initctl start coney_island"
   end
   task :start_coney_island, :roles => :push do
-    run "sudo initctl stop coney_island"
+    run "sudo initctl start coney_island"
   end
   task :start do
     start_app
