@@ -47,6 +47,7 @@ function checkForFinishedImage(id){
 	jQuery('#refresh_images_link').attr('href',old_href);
 };
 function clickRefreshImageLink(id,columns){
+  console.log("clicking refresh!");
 	new_item = jQuery('#content_element_container_template').clone();
 	new_item.attr('id','content_element_' + id);
 	new_item.appendTo('#content_element_list');

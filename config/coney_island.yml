@@ -1,0 +1,6 @@
+rails_env: development
+log_level: 0
+carousels:
+  dev_carousel:
+    rider_count: 1
+    ticket: '#'

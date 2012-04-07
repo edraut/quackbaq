@@ -9,8 +9,9 @@ $gray3: #DDD;
 $gray6: #AAA;
 $gray9: #777;
 $gray12: #444;
-body {
+body.quackbaq {
 	background: #6C6C6C url(/assets/background.jpg) no-repeat;
+	padding-bottom: 75px;
 }
 a {
 	color: $purple1;
@@ -36,6 +37,11 @@ hr {
 }
 .container.nav {
 	position: relative;
+}
+#body_bottom {
+	position:relative;
+	width: 100%;
+	height: 75px;
 }
 #horiz_bar {
 	position: relative;
@@ -81,6 +87,27 @@ hr {
 	top: -50px;
 	left: -10px;
 }
+#account_nav_background {
+	position: relative;
+	float: left;
+	width: 203px;
+	background: url('/assets/acct_nav_background_horiz.png');
+	background-repeat: repeat-y;
+	height: 469px;
+}
+#account_nav_bottom {
+	position: relative;
+	float: left;
+	background: url('/assets/acct_nav_bottom.png');
+	width: 203px;
+}
+#account_nav_wrapper {
+	position: relative;
+	float: left;
+	width: 203px;
+	top: -50px;
+	left: -7px;
+}
 #progress.section_heading {
 	font-size: 20px;
 }
@@ -101,8 +128,10 @@ hr {
 	height: 240px;
 	margin: 20px 20px 40px 20px;
 	padding-right: 26px;
-	border-right: 1px solid $gray3;
 	text-align: right;
+}
+.border_right {
+	border-right: 1px solid $gray3;
 }
 a.account_left_nav {
 	text-decoration: none;
@@ -616,6 +645,9 @@ a.account_left_nav {
 	background: url(/assets/indexBoxActiveItem.png);
 	width: 446px;
 	height: 150px;
+	&.full_width {
+		width: 907px;
+	}
 }
 .auction_index_item_left {
 	position:relative;
@@ -623,6 +655,9 @@ a.account_left_nav {
 	margin: 10px 0;
 	padding-left: 15px;
 	width: 155px;
+	&.full_width {
+		width: 325px;
+	}
 }
 .auction_index_item_right {
 	position:relative;
@@ -631,6 +666,9 @@ a.account_left_nav {
 	padding-left: 20px;
 	border-left: 1px solid $gray3;
 	width: 255px;
+	&.full_width {
+		width: 525px;
+	}
 	.auction_index_time {
 		position: relative;
 		float: left;
@@ -876,6 +914,144 @@ a.account_left_nav {
 	background: url(/assets/detailBoxBottomBorder.png);
 	height: 2px;
 	width: 915px;
+}
+#my_auction_title {
+	position:relative;
+	float:left;
+	left: 16px;
+}
+#my_auction_list {
+	position:absolute;
+	left: 213px;
+	top: 50px;
+}
+.my_auction_index_item_wrapper {
+	position:relative;
+	float:left;
+	margin-right: 18px;
+	background: url(/assets/my_auctions_background_horiz.png);
+	width: 706px;
+	height: 75px;
+}
+.my_auction_index_item_left {
+	position:relative;
+	float:left;
+	width: 300px;
+}
+.my_auction_index_item_name, .my_auction_index_item_retail, .my_auction_index_item_image {
+	position:relative;
+	float:left;
+	width: 134px;
+	padding-left: 16px;
+}
+.my_auction_index_item_name {
+	font-size: 18px;
+}
+.my_auction_index_item_retail {
+	font-size: 14px;
+	color: $gray9;
+}
+.my_auction_index_item_middle {
+	position:relative;
+	float:left;
+	width: 210px;
+	padding-left: 16px;
+}
+.my_auction_index_time {
+	position:relative;
+	float:left;
+	font-size: 24px;
+	border-bottom: 1px solid $gray3;
+	width: 190px;
+}
+.my_auction_index_time_left, .my_auction_index_timer_icon {
+	position:relative;
+	float:left;
+}
+.my_auction_index_time_left {
+	width: 125px;
+}
+.my_auction_index_timer_icon {
+	width: 65px;
+}
+.my_auction_index_current_bid {
+	position:relative;
+	float:left;
+	width: 300px;
+}
+.my_auction_index_current_price {
+	position: relative;
+	float: left;
+	width: 80px;
+	font-size: 20px;
+	padding-top: 10px;
+}
+.my_auction_index_current_bidder {
+	position: relative;
+	float: left;
+	width: 110px;
+	font-weight: bold;
+	color: $gray9;
+}
+.my_auction_highest_bidder_avatar{
+	position: relative;
+	float: left;
+	top: 5px;
+	width: 25px;
+	font-size: 24px;
+	color: $gray12;
+}
+.my_auction_highest_bidder_name{
+	position: relative;
+	float: left;
+	width: 85px;
+	padding-top: 16px;
+	font-size: 14px;
+}
+.my_auction_index_item_right{
+	position: relative;
+	float:left;
+	width: 170px;
+}
+.my_auction_index_buttons{
+	position: relative;
+	float: left;
+	width: 156px;
+	padding-left: 14px;
+}
+.my_auction_index_remove{
+	position: relative;
+	float: left;
+	width: 170px;
+	height: 22px;
+}
+.my_auction_index_remove_button{
+	position:absolute;
+	right: 7px;
+	top: -4px;
+	width: 14px;
+	height: 14px;
+	color: $gray9;
+	font-size: 22px;
+	text-align: center;
+	border: 1px solid $gray9;
+}
+.my_auction_index_remove_character{
+	position: absolute;
+	top: -11px;
+}
+.my_auction_index_item_bottom, .my_auction_index_item_top {
+	position:relative;
+	float:left;
+	height: 20px;
+	width: 703px;
+}
+.my_auction_index_item_top {
+	background: url(/assets/my_auctions_top.png);
+}
+.my_auction_index_item_bottom {
+	background: url(/assets/my_auctions_bottom.png);
+	margin-bottom: 20px;
 }
 #bid_history{
 	padding-left: 10px;

@@ -22,6 +22,7 @@ Quackbaq::Application.routes.draw do
       get 'credit_card'
       get 'paypal'
       get 'account_settings'
+      get 'my_status'
     end
   end
   resources :bids

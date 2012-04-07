@@ -1,4 +1,3 @@
-<% if @my_auctions %><h1>My Auctions</h1><% end %>
 <% for auction in @auctions %>
 <div class="auction_index_item_wrapper" data-auction_list_item="true" data-auction_id="<%= auction.id %>">
   <div class="auction_index_item_left text_center" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
@@ -53,73 +52,4 @@
 <div pub-key="pub-ae40e77d-8233-4dd0-8c5a-35fac643b743" sub-key="sub-f902c2fd-b264-11e0-bd90-a39c3d1a4b1e" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
 <script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 
-<%= javascript_tag do %>
-	jQuery(document).ready(function(){
-		var tick_count = 0;
-		var start_time = new Date().getTime();
-		var timer_handle = 0;
-		jQuery("[data-role='time_left']").each(function(i){
-			jQuery(this).data('seconds_left',jQuery(this).attr('data-seconds_left'));
-		});
-		function updateTimer(){
-			jQuery("[data-role='time_left']").each(function(i){
-				jQuery(this).html(humanize_interval(secondsLeft(jQuery(this).data('seconds_left'))));
-			});
-		};
-		updateTimer();
-		function cycleTimer(){
-			tick_count += 1000;
-			slew = (new Date().getTime() - start_time) - tick_count;
-			jQuery("[data-role='time_left']").each(function(i){
-				if(secondsLeft(jQuery(this).data('seconds_left')) == 0){
-					closeAuction(jQuery(this));
-				};
-			});
-			updateTimer();
-			timer_handle = setTimeout(cycleTimer,(1000 - slew));
-		};
-		function secondsLeft(seconds_left){
-			return seconds_left - (tick_count / 1000);
-		};
-		function closeAuction(auction_time_left){
-//			jQuery('#place_bid_link').hide();
-			auction_time_left.html('CLOSED');
-			auction_time_left.attr('data-role','no_time_left');
-		};
-		timer_handle = setTimeout(cycleTimer,1000);
-		<% if current_user %>
-      function refreshStats(channel_name,message){
-      	jQuery("[data-push_data_type='current_price'][data-push_channel='" + channel_name + "']").html(message.new_price);
-      	jQuery("[data-push_data_type='highest_bidder'][data-push_channel='" + channel_name + "']").html(message.bidder_name);
-      };
-      <% for auction in @auctions %>
-        PUBNUB.subscribe({
-          channel  : "<%= auction.channel_name %>",
-          callback : function(message) {
-            refreshStats("<%= auction.channel_name %>",message); },
-          error    : function(e) {
-              // Do not call subscribe() here!
-              // PUBNUB will auto-reconnect.
-              console.log(e);
-          }
-        });
-      <% end %>
-  		jQuery("[data-behavior='place_bid_link']").click(function(e){
-  			jQuery.ajax({
-  				url: jQuery(this).attr('href'),
-  				type: 'PUT',
-  				dataType: 'json',
-  				data: {authenticity_token: authenticity_token},
-  				success: function(data,textStatus) {
-  					jQuery('#available_bids').html(data.bid_count);
-  					if(data.bid_count == 0){
-  						jQuery("[data-behavior='place_bid_link']").hide();
-  						jQuery("[data-behavior='buy_bids_link']").show();
-  					}
-  				}
-  			});
-  			return false;
-  		});
-		<% end %>
-	});
-<% end %>
+<%= render :partial => 'auction_js' %>

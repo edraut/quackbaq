@@ -13,8 +13,9 @@ class ContentImageTmp < ContentImage
     # ...and perform after save in background
   after_save do |content_image| 
     if content_image.image_changed?
-      Minion.amqp_url = IMAGE_PROCESSING_QUEUE_URL
-      Minion.enqueue(['image.upload','image.process'],{:image_id => content_image.id})
+      Rails.logger.info("sending job to coney island")
+      exchange = AMQP.channel.topic('coney_island')
+      exchange.publish({:object_id => content_image.id}.to_json, :routing_key => 'carousels.ContentImageTmp.move_to_s3')
     end
   end
 
@@ -32,7 +33,7 @@ class ContentImageTmp < ContentImage
     # Delete the temporary file when we are done
     temp_file.close
     File.delete(temp_path)
-    
+    s3_upload.regenerate_styles!
   end
 
   # detect if our source file has changed

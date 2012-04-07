@@ -6,7 +6,7 @@
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= csrf_meta_tag %>
 </head>
-<body>
+<body class="quackbaq">
 	<div class="top-nav">
 		<div class="container">
 			<div class="span-2 text-center">
@@ -32,6 +32,6 @@
 	<div class="container">
 		<%= yield %>
 	</div>
-
+<div id="body_bottom">&nbsp;</div>
 </body>
 </html>

@@ -1,0 +1,7 @@
+<% content_element = refresh_image %>
+<%= javascript_tag do %>
+  with(window.parent) {
+
+    clickRefreshImageLink('<%=content_element.id%>',<%=ContentElement::COLUMNS%>);
+  }
+<% end %>

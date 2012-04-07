@@ -100,6 +100,10 @@ class UsersController < ApplicationController
     set_sub_nav_tab 'account_settings'
   end
   
+  def my_status
+    set_sub_nav_tab 'my_status'
+  end
+
   def activate
     if params[:validate_account]
       load_user_using_perishable_token
@@ -129,7 +133,7 @@ class UsersController < ApplicationController
   end
 
   def set_nav_tab(name)
-    if ['payment_options','account_settings'].include? name
+    if ['payment_options','account_settings','my_status'].include? name
       @nav_tab = 'my_account'
     end
   end

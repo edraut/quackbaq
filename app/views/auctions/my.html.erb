@@ -1,0 +1,67 @@
+<div pub-key="pub-ae40e77d-8233-4dd0-8c5a-35fac643b743" sub-key="sub-f902c2fd-b264-11e0-bd90-a39c3d1a4b1e" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+<div id="account_nav_wrapper">
+  <div id="account_nav_background" class="padding_bottom">
+    <%= render :partial => '/users/account_left_nav' %>
+  </div>
+  <div id="account_nav_bottom">&nbsp;</div>
+</div>
+<div id="my_auction_title"><h1 class="quackbaq_font purple_font">MY AUCTIONS</h1></div>
+<div id="my_auction_list">
+  <% for auction in @auctions %>
+  <div  data-my_auction_list_item="true" data-auction_id="<%= auction.id %>">
+    <div class="my_auction_index_item_top">&nbsp;</div>
+    <div class="my_auction_index_item_wrapper">
+      <div class="my_auction_index_item_left text_center border_right" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
+        <div class="my_auction_index_item_image">
+          <%= image_tag auction.item.content_images.first.image.url(:small_thumb) %>
+        </div>
+        <div class="my_auction_index_item_name">
+          <strong><%= auction.item.name %></strong>
+        </div>
+        <div class="my_auction_index_item_retail">
+          <em>Retail: <%= auction.item.full_price.format %></em>
+        </div>
+      </div>
+      <div class="my_auction_index_item_middle border_right">
+        <div class="my_auction_index_time">
+          <div class="my_auction_index_time_left purple_font" id="time_left_<%= auction.id %>" data-role="time_left" data-id="<%= auction.id %>" data-seconds_left="<%= auction.time_left_in_seconds %>"><%= auction.time_left %></div>
+          <div class="my_auction_index_timer_icon"><%= image_tag '20secTimerIcon.gif' %></div>
+        </div>
+        <div class="my_auction_index_current_bid">
+          <div data-push_data_type="current_price" data-push_channel="<%= auction.channel_name %>" class="my_auction_index_current_price purple_font">
+            <%= auction.current_price.format %>
+          </div>
+          <div class="my_auction_index_current_bidder">
+            <div class="my_auction_highest_bidder_avatar">[]</div>
+            <div class="my_auction_highest_bidder_name" data-push_data_type="highest_bidder" data-push_channel="<%= auction.channel_name %>">
+              <%= auction.highest_bidder ? auction.highest_bidder.name : 'no bidders' %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="my_auction_index_item_right">
+        <div class="my_auction_index_remove">
+          <div class="my_auction_index_remove_button" data-not_mine_button="true">
+            <div class="my_auction_index_remove_character">&#215;</div>
+          </div>
+        </div>
+        <div class="my_auction_index_buttons">
+          <div class="auction_index_buy_now"<% unless @this_user.bids.available.any? %> style="display:none;"<% end %> data-behavior="place_bid_link" data-auction_id="<%= auction.id %>" href="<%= place_bid_url(:placed_auction_id => auction.id) %>">
+            <div class="button_left">&nbsp;</div>
+            <div class="button_middle quackbaq_font">BID NOW</div>
+            <div class="button_right">&nbsp;</div>
+          </div>
+          <div class="auction_index_buy_now" data-behavior="buy_bids_link" data-auction_id="<%= auction.id %>" <% if @this_user.bids.available.any? %> style="display:none;"<% end %>>
+            <div class="button_left">&nbsp;</div>
+            <div class="button_middle quackbaq_font" data-button="true" href="<%= bids_path %>">BUY CREDITS</div>
+            <div class="button_right">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my_auction_index_item_bottom">&nbsp;</div>
+  </div>
+  <% end %>
+</div>
+<%= render :partial => 'auction_js' %>

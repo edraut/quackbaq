@@ -77,7 +77,10 @@ class User < ActiveRecord::Base
   validates_with UserValidator
   #callbacks
   #class methods
-  
+  def self.log_stuff(stuff)
+    Rails.logger.info("Got a job for ConeyIsland:")
+    Rails.logger.info(stuff)
+  end
   #instance methods
   
   def initialize(args = {})

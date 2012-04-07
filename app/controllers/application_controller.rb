@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   before_filter :get_this_user
   before_filter :handle_time_zone
-  
+  before_filter :publish_request
+
   def string_to_money(string)
     Money.new(string.to_f * 100)
   end
@@ -106,5 +107,10 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+
+    def publish_request
+      exchange = AMQP.channel.topic('coney_island')
+      exchange.publish({:message => 'Coney Island rules!'}.to_json, :routing_key => 'carousels.User.log_stuff')
     end
 end

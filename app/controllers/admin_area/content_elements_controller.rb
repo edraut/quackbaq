@@ -63,21 +63,16 @@ class AdminArea::ContentElementsController < AdminArea::ApplicationController
     @editable_params.delete :type
     @content_element = content_class.new(@editable_params)
     @content_element.save || success = false
-    
     case content_type
     when 'ContentImageTmp'
-      responds_to_parent do
-        if success
-          render :update do |page|
-            page << "clickRefreshImageLink('#{@content_element.id}',#{ContentElement::COLUMNS});"
-          end
-        else
-          render :partial => 'new_image', :object => @content_element
-        end
+      if success
+        render :partial => 'refresh_image', :object => @content_element and return
+      else
+        render :partial => 'new_image', :object => @content_element and return
       end
     when 'ContentText', 'ContentVideo'
       if success
-        render :partial => 'show_' + content_class.underscore.split('_').last, :object => @content_element
+        render :partial => 'show_' + content_class.underscore.split('_').last, :object => @content_element and return
       else
         render :partial => 'new_' + content_type.underscore.split('_').last, :object => @content_element, :status => 409
       end
