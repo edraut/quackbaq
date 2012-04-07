@@ -1,8 +1,8 @@
-module CardHolder
+module User::CardHolder
 CARD_TYPES = [["Visa","visa"], ["MasterCard","master"], ["Discover","discover"], ["AMEX","american_express"]]
 
-  def self.extended(object)
-    object.class.class_eval do
+  def self.included(klass)
+    klass.class_eval do
       attr_accessor :same_address, :cim_profile
     end
   end
@@ -10,7 +10,8 @@ CARD_TYPES = [["Visa","visa"], ["MasterCard","master"], ["Discover","discover"],
   def handle_card_update(params)
     these_params = params.dup
     card_params = these_params.delete :card
-    if these_params.delete :same_address
+    Rails.logger.info("same address param: #{these_params[:same_address].class.name} #{these_params[:same_address]}")
+    if 'true' == these_params.delete(:same_address)
       these_params.delete :shipping_address
       shipping_params = these_params[:billing_address_attributes].dup
       shipping_params.delete :id

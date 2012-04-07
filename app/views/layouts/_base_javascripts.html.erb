@@ -27,7 +27,6 @@
 <%= javascript_tag do %>
 	var authenticity_token = '<%= form_authenticity_token %>';
 	var preload_date = new Date();
-  console.log('<%= session.inspect.html_safe %>');
 	<% unless session[:time_zone_offset] %>
 		document.location.href = '<%= user_session_path %>?time_zone_offset='+(preload_date.getTimezoneOffset()/60);
 	<% end %>

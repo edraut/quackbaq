@@ -36,29 +36,20 @@ namespace :deploy do
   task :start_app, :roles => :app do
     # start task unnecessary for Passenger deployment
   end
-  task :restart_pushers, :roles => :app do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl stop"
-    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl start"
+  task :restart_coney_island, :roles => :push do
+    run "sudo initctl stop coney_island"
+    run "sudo initctl start coney_island"
   end
-  task :start_pushers, :roles => :app do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_pusher_ctl start"
-  end
-  task :restart_processors, :roles => :push do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl stop"
-    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl start"
-  end
-  task :start_processors, :roles => :push do
-    run "cd #{deploy_to}/current; ./lib/daemons/image_processor_ctl start"
+  task :start_coney_island, :roles => :push do
+    run "sudo initctl stop coney_island"
   end
   task :start do
     start_app
-    start_pushers
-    start_processors
+    start_coney_island
   end
   task :restart do
     restart_app
-    restart_pushers
-    restart_processors
+    restart_coney_island
   end
   task :pipeline_precompile, :roles => :app do
     config_files.symlink_assets

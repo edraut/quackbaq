@@ -38,7 +38,7 @@ class ContentImage < ContentElement
     def regenerate_styles!
       self.image.reprocess! 
       self.processing = false   
-      self.save(false)
+      self.save(:validate => false)
     end
 
     

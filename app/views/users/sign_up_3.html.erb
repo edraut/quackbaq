@@ -6,19 +6,19 @@
         <div class="form_background account_gray_background">
           <div class="form_line">
             <div class="field_name">Age:</div>
-            <%= f.select :age_bracket, HasDemographics::AGE_BRACKETS, :class => 'field_entry' %>
+            <%= f.select :age_bracket, User::HasDemographics::AGE_BRACKETS, :class => 'field_entry' %>
           </div>
           <div class="form_line">
             <div class="field_name">Gender:</div>
-            <%= f.select :gender, HasDemographics::GENDERS, :class => 'field_entry' %>
+            <%= f.select :gender, User::HasDemographics::GENDERS, :class => 'field_entry' %>
           </div>
           <div class="form_line">
             <div class="field_name">Status:</div>
-            <%= f.select :status, HasDemographics::STATUSES, :class => 'field_entry' %>
+            <%= f.select :status, User::HasDemographics::STATUSES, :class => 'field_entry' %>
           </div>
           <div class="form_line">
             <div class="field_name">Income:</div>
-            <%= f.select :income, HasDemographics::INCOMES, :class => 'field_entry' %>
+            <%= f.select :income, User::HasDemographics::INCOMES, :class => 'field_entry' %>
           </div>
         </div>
         <%= f.hidden_field :step, :value => 'finish_sign_up' %>

@@ -1,6 +1,6 @@
 class Address < ActiveRecord::Base
   belongs_to :country
-  
+
   STATES = {"AL" => {:view_select => ["Alabama","AL"],:map => 7},
             "AK" => {:view_select => ["Alaska","AK"],:map => 1},
             "AZ" => {:view_select => ["Arizona","AZ"],:map => 4},
@@ -83,7 +83,11 @@ class Address < ActiveRecord::Base
             'YK' => {:view_select =>
             ["Yukon",	                              "YK"], :map => 2}
           }
-          def self.map_for(state)
-            (STATES.merge CA_PROVENCES)[state][:map]
-          end
+   def self.map_for(state)
+      (STATES.merge CA_PROVENCES)[state][:map]
+   end
+
+   def in_use?
+      self.address1.present?
+   end
 end

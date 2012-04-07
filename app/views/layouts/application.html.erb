@@ -29,7 +29,7 @@
   -->
 
 </head>
-<body>
+<body class="quackbaq">
 	<div class="container nav">
   	<div class="top_nav">
   	  <div class="top_logo">
@@ -48,7 +48,7 @@
             </div>
           </div>
           <div id="top_nav">
-            <div class="top_nav_button <% if @nav_tab == 'account' %>selected<% end %>"><%= link_to 'MY ACCOUNT', user_url(@this_user) %></div>
+            <div class="top_nav_button <% if @nav_tab == 'my_account' %>selected<% end %>"><%= link_to 'MY ACCOUNT', account_settings_user_url(@this_user) %></div>
             <div class="top_nav_divider">&nbsp;</div>
             <div class="top_nav_button <% if @nav_tab == 'how_it_works' %>selected<% end %>"><%= link_to 'HOW IT WORKS', '#' %></div>
             <div class="top_nav_divider">&nbsp;</div>
@@ -99,7 +99,7 @@
         &nbsp;
   		<% end %>
   	</div>
-	  <% if current_user and controller_name == 'auctions' %>
+	  <% if current_user and controller_name == 'auctions' and action_name != 'my' %>
       <div id="category_nav">
         <div class="span-22 last">&nbsp;</div>
         <% Category.ordered.each_with_index do |category,index| %>
@@ -190,5 +190,7 @@
   		<% end %>
 		});
 	<% end %>
+  <div id="body_bottom">&nbsp;</div>
+
 </body>
 </html>

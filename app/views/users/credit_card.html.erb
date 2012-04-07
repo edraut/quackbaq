@@ -2,7 +2,7 @@
   <%= render :partial => 'account_left_nav' %>
   <div id="account_view_content">
     <div id="account_title" class="quackbaq_font purple_font">PAYMENT OPTIONS</div>
-    <%= form_for @user do |f| %>
+    <%= form_for @user, :as => :user, :url => user_url(@user) do |f| %>
       <div class="shrink_wrap content_border_bottom">
         <div class="payment_box_wrapper left">
           <span class="minor_section_heading">Billing Address</span>
@@ -55,12 +55,12 @@
           <span class="minor_section_heading">Shipping Address</span>
           <div class="payment_box account_gray_background padding_bottom">
             <div class="payment_form_line non_text">
-            <%= f.radio_button :same_address, true %> Same as Billing Address<br/>
+            <%= f.radio_button :same_address, true, {:checked => !@user.shipping_address.in_use?} %> Same as Billing Address<br/>
             </div>
             <div class="payment_form_line non_text">
-            <%= f.radio_button :same_address, false %> Add Shipping Address
+            <%= f.radio_button :same_address, false, {:checked => @user.shipping_address.in_use?}  %> Add Shipping Address
             </div>
-            <div id="shipping_address_form" style="display:none;">
+            <div id="shipping_address_form" <% unless @user.shipping_address.in_use? %> style="display:none;" <%end%>>
               <%= f.fields_for :shipping_address do |a| %>
                 <div class="payment_form_line">
                   <div class="payment_field_name">First Name:<span class="orange_font">*</span></div>
@@ -112,7 +112,7 @@
         <div class="payment_box account_gray_background padding_bottom">
           <div class="payment_form_line">
             <div class="payment_field_name">Credit Card:<span class="orange_font">*</span></div>
-            <%= select_tag "user[card][type]", options_for_select(CardHolder::CARD_TYPES), :class => 'field_entry' %>
+            <%= select_tag "user[card][type]", options_for_select(User::CardHolder::CARD_TYPES), :class => 'field_entry' %>
           </div>
           <div class="payment_form_line">
             <div class="payment_field_name">Card Number:<span class="orange_font">*</span></div>
@@ -120,7 +120,7 @@
           </div>
           <div class="payment_form_line">
             <div class="payment_field_name">Expiration Date:<span class="orange_font">*</span></div>
-            <%= select_month Date.today, {:field_name => "user[card][month]"}, {:class => 'field_entry_half'} %> <%= select_year Date.today, {:field_name => "user[card][year]", :start_year => Date.today.year},{:class => 'field_entry_half'} %>
+            <%= select_month Date.today, {:field_name => "card[month]", :prefix => 'user'}, {:class => 'field_entry_half'} %> <%= select_year Date.today, {:field_name => "card[year]", :start_year => Date.today.year, :prefix => 'user'},{:class => 'field_entry_half'} %>
           </div>
           <div class="payment_form_line">
             <div class="payment_field_name">Security Code:<span class="orange_font">*</span></div>
@@ -145,8 +145,7 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
     jQuery("input[name='user[same_address]']").change(function(e){
-      console.log(typeof(jQuery(this).val()));
-      if(jQuery("input:radio[name='user[same_address]']:checked").val() == 'true'){
+      if('true' == jQuery(this).val()){
         jQuery('#shipping_address_form').hide();
       } else {
         jQuery('#shipping_address_form').show();

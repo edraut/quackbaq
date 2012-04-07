@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  include Joiner
+  include CardHolder
+  include HasCredentials
+  include HasDemographics
+  
   #constants
   TYPES = [
     {:name => 'Customer', :id => 'Customer'},
@@ -20,7 +25,8 @@ class User < ActiveRecord::Base
   acts_as_authentic do |u|
     u.login_field = :email
     u.ignore_blank_passwords = true
-    u.merge_validates_length_of_password_field_options({:if => :should_validate_password, :minimum => 7})
+    u.merge_validates_length_of_password_field_options({:if => :should_validate_password, :minimum => 7, :message => "Password is too short"})
+    u.merge_validates_confirmation_of_password_field_options({:message => "Password does not match confirmation"})
   end
   
   state_machine :state, :initial => :blank_slate, :action => nil do
@@ -71,12 +77,16 @@ class User < ActiveRecord::Base
   validates_with UserValidator
   #callbacks
   #class methods
-  
+  def self.log_stuff(stuff)
+    Rails.logger.info("Got a job for ConeyIsland:")
+    Rails.logger.info(stuff)
+  end
   #instance methods
   
   def initialize(args = {})
     super(args)
     self.billing_address = BillingAddress.new
+    self.shipping_address = ShippingAddress.new
   end
 
   def joined?
@@ -103,7 +113,10 @@ class User < ActiveRecord::Base
 
   def should_validate_password
     Rails.logger.info("should validate password? #{self.step_one?}")
-    self.step_one?
+    self.step_one? or self.password.present? or self.password_confirmation.present?
   end
   
+  def next_action
+    nil
+  end
 end

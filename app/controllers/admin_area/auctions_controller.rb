@@ -10,8 +10,10 @@ class AdminArea::AuctionsController < AdminArea::ApplicationController
   end
 
   def create
-    type = params[:auction][:type].constantize
-    @auction = type.new(params[:auction])
+    auction_params = params[:auction].dup
+    type = auction_params.delete :type
+    type = type.constantize
+    @auction = type.new(auction_params)
     if @auction.save
       index
       render :action => 'index' and return

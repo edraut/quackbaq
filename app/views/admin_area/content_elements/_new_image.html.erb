@@ -1,6 +1,6 @@
 <!-- All Code Copyright 2008 Eric Draut all rights reserved -->
 <% content_element = new_image %>
-<% form_for :content_element, content_element, :url => admin_area_content_elements_url,
+<%= form_for content_element, :as => :content_element, :url => admin_area_content_elements_url,
 	:html => {
 		:multipart => true,
 		:target => "content_image_upload_frame",
@@ -50,6 +50,6 @@
 </div>					
 <iframe id="content_image_upload_frame" name="content_image_upload_frame" style="display: none"></iframe>
 
-<% javascript_tag do %>
+<%= javascript_tag do %>
 	bindLimitedTextAreas();
 <% end %>

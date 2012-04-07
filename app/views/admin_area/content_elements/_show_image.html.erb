@@ -18,10 +18,9 @@
 	:'data-ajax_confirm' => 'Are you sure you want to delete this image?' %>
 </div>
 <% if content_element.class.delayed_processing? and content_element.processing? %>
-hello!
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
-		setTimeout("checkForFinishedImage(<%= content_element.id %>)",30000);
+		setTimeout("checkForFinishedImage(<%= content_element.id %>)",10000);
 	});
 <% end %>
 <% end %>

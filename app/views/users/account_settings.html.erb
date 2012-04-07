@@ -1,0 +1,82 @@
+<div id="account_background" class="padding_bottom">
+  <%= render :partial => 'account_left_nav' %>
+  <div id="account_view_content">
+    <div id="account_title" class="quackbaq_font purple_font">ACCOUNT SETTINGS</div>
+    <%= form_for @user, :as => :user, :url => user_url(@user) do |f| %>
+      <div class="account_full_width">
+        <div id="private_settings_title"><strong>Private Settings</strong></div>
+        <div id="private_settings" class="account_settings_box account_gray_background padding_bottom margin_top">
+          <div class="account_settings_form_line">
+            <div class="account_settings_field_name">First Name:</div>
+            <%= f.text_field :first_name, :class => 'field_entry' %>
+            <% if @user.errors[:first_name].any? %>
+              <div class="form_line_error">&lt;- <%= @user.errors[:first_name].map{|error| error + '.'}.join('<br/>').html_safe %></div>
+            <% end %>
+          </div>
+          <div class="account_settings_form_line">
+            <div class="account_settings_field_name">Middle Initial:</div>
+            <%= f.text_field :middle_initial, :class => 'field_entry' %>
+          </div>
+          <div class="account_settings_form_line">
+            <div class="account_settings_field_name">Last Name:</div>
+            <%= f.text_field :last_name, :class => 'field_entry' %>
+            <% if @user.errors[:last_name].any? %>
+              <div class="form_line_error">&lt;- <%= @user.errors[:last_name].map{|error| error + '.'}.join('<br/>').html_safe %></div>
+            <% end %>
+          </div>
+          <div class="account_settings_form_line">
+            <div class="account_settings_field_name">Password:</div>
+            <%= f.password_field :password, :class => 'field_entry' %>
+            <% if @user.errors[:password].any? %>
+              <div class="form_line_error">&lt;- <%= @user.errors[:password].map{|error| error + '.'}.join('<br/>').html_safe %></div>
+            <% end %>
+          </div>
+          <div class="account_settings_form_line">
+            <div class="account_settings_field_name">Re-Type Password:</div>
+            <%= f.password_field :password_confirmation, :class => 'field_entry' %>
+          </div>
+        </div>
+      </div>
+      <div class="account_settings_box button_height padding_bottom">
+        <div class="save_settings">
+          <div class="button_left">&nbsp;</div>
+          <div id="next_button" class="button_middle quackbaq_font" data-button="true" data-submit="true"N>SAVE SETTINGS</div>
+          <div class="button_right">&nbsp;</div>
+        </div>
+      </div>
+    <%end%>
+    <div class="account_settings_box">
+      <hr/>
+    </div>
+    <div id="public_settings_title" class="account_full_width"><strong>Public Settings</strong></div>
+
+    <%= form_for @user, :as => :user, :url => user_url(@user) do |f| %>
+      <div class="account_settings_box account_gray_background padding_bottom margin_top">
+          <div class="account_settings_form_line">
+            <div class="account_settings_field_name">Screen Name:</div>
+            <%= f.text_field :name, :class => 'field_entry' %>
+          </div>
+          <div id="avatar_selection">
+            <%= f.hidden_field :generic_avatar_id, :id => 'avatar' %>
+            <% 15.times do |i| %>
+              <div class="avatar_selectable select_area<%= (@user.generic_avatar_id == i) ? ' selected' : ''%>" data-hidden_field_proxy="true" data-hidden_field="avatar" data-value="<%= i %>"><%= i %></div>
+            <% end %>
+          </div>
+      </div>
+      <div class="account_settings_box button_height padding_bottom">
+        <div class="save_settings">
+          <div class="button_left">&nbsp;</div>
+          <div id="next_button" class="button_middle quackbaq_font" data-button="true" data-submit="true">SAVE SETTINGS</div>
+          <div class="button_right">&nbsp;</div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+
+</div>
+<div id="account_background_bottom">&nbsp;</div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    bindHiddenFieldProxy();
+  })
+<% end %>
