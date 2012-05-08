@@ -8,10 +8,9 @@ end
 def start_amqp
   require 'eventmachine'
   require 'amqp'
-
   Rails.logger.info "[AMQP] Initializing amqp..."
   amqp_thread = Thread.new {
-    failure_handler = lambda {
+    failure_handler = lambda { |settings|
       Rails.logger.fatal "[AMQP] [FATAL] Could not connect to AMQP broker"
     }
     AMQP.start(AMQP.config, :on_tcp_connection_failure => failure_handler)
@@ -32,6 +31,6 @@ if defined?(PhusionPassenger)
   end
 end
 
-if ENV['POW_BIN']
+unless defined? ON_CONEY_ISLAND
   start_amqp
 end

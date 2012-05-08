@@ -7,9 +7,9 @@
   <div id="account_nav_bottom">&nbsp;</div>
 </div>
 <div id="my_auction_title"><h1 class="quackbaq_font purple_font">MY AUCTIONS</h1></div>
-<div id="my_auction_list">
+<div id="my_auction_list" data-auction_page="true" data-logged_in="<% !!current_user %>">
   <% for auction in @auctions %>
-  <div  data-my_auction_list_item="true" data-auction_id="<%= auction.id %>">
+  <div  data-my_auction="true" data-auction_id="<%= auction.id %>" data-push_channel="<%= auction.channel_name %>">
     <div class="my_auction_index_item_top">&nbsp;</div>
     <div class="my_auction_index_item_wrapper">
       <div class="my_auction_index_item_left text_center border_right" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
@@ -29,12 +29,12 @@
           <div class="my_auction_index_timer_icon"><%= image_tag '20secTimerIcon.gif' %></div>
         </div>
         <div class="my_auction_index_current_bid">
-          <div data-push_data_type="current_price" data-push_channel="<%= auction.channel_name %>" class="my_auction_index_current_price purple_font">
+          <div data-push_data_type="current_price" class="my_auction_index_current_price purple_font">
             <%= auction.current_price.format %>
           </div>
           <div class="my_auction_index_current_bidder">
             <div class="my_auction_highest_bidder_avatar">[]</div>
-            <div class="my_auction_highest_bidder_name" data-push_data_type="highest_bidder" data-push_channel="<%= auction.channel_name %>">
+            <div class="my_auction_highest_bidder_name" data-push_data_type="highest_bidder" >
               <%= auction.highest_bidder ? auction.highest_bidder.name : 'no bidders' %>
             </div>
           </div>

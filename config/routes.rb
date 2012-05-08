@@ -27,8 +27,14 @@ Quackbaq::Application.routes.draw do
   end
   resources :bids
   resources :auctions do
+    member do
+      get 'did_i_win'
+    end
     collection do
       get 'my'
+      get 'my_bid_history'
+      get 'my_won'
+      get 'my_bid'
     end
   end
   resources :user_auctions

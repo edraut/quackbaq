@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304205314) do
+ActiveRecord::Schema.define(:version => 20120508012915) do
 
   create_table "addresses", :force => true do |t|
     t.string  "type"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20120304205314) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "shipped_on"
   end
 
   create_table "bids", :force => true do |t|
@@ -50,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20120304205314) do
     t.datetime "placed_at"
     t.integer  "price_paid"
     t.datetime "created_at"
+    t.boolean  "winner",              :default => false
+    t.integer  "amount"
   end
 
   add_index "bids", ["placed_auction_id"], :name => "index_bids_on_placed_auction_id"
@@ -78,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20120304205314) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "processing",                       :default => false, :null => false
+    t.integer  "permanent_id"
   end
 
   create_table "countries", :force => true do |t|
@@ -186,6 +190,8 @@ ActiveRecord::Schema.define(:version => 20120304205314) do
     t.string   "income"
     t.integer  "generic_avatar_id"
     t.string   "zipcode"
+    t.string   "middle_initial"
+    t.string   "screen_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

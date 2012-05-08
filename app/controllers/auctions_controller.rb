@@ -1,5 +1,5 @@
 class AuctionsController < ApplicationController
-  before_filter :get_auction, :only => [:edit,:update,:show,:destroy]
+  before_filter :get_auction, :only => [:edit,:update,:show,:did_i_win,:destroy]
   before_filter :require_active_user, :only => [:my]
   def index
     if params[:category_id]
@@ -37,8 +37,27 @@ class AuctionsController < ApplicationController
     @my_account_sub_nav = 'my_auctions'
   end
   
+  def my_bid_history
+    @my_account_sub_nav = 'bidding_history'
+  end
+
+  def my_won
+    @auctions = Auction.won_by(@this_user)
+    render :partial => 'bid_history_list' and return
+  end
+
+  def my_bid
+    @auctions = Auction.won.bid_on_by(@this_user)
+    render :partial => 'bid_history_list' and return
+  end
+
   def show
     @pubnub = true
+  end
+
+  def did_i_win
+    @did_i_win = (@auction.finished? and @auction.winner == @this_user)
+    render :json => {:did_i_win => @did_i_win} and return
   end
 
   def get_auction

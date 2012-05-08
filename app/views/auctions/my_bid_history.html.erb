@@ -1,0 +1,20 @@
+<div id="account_background" class="padding_bottom">
+  <%= render :partial => '/users/account_left_nav' %>
+  <div id="bid_history_content">
+    <div id="my_auction_title_wrapper">
+      <div id="my_bid_history_title"><h1 class="quackbaq_font purple_font">BIDDING HISTORY</h1></div>
+    </div>
+    <div id="my_bid_history_tabs" data-bid_history_tab_group="bid_history_list">
+      <div class="my_bid_history_tab">
+        <div class="my_bid_history_tab_liner" data-bid_history_tab="auctions_won" data-url="<%= my_won_auctions_url %>">Auctions Won</div>
+      </div>
+      <div class="my_bid_history_tab">
+        <div class="my_bid_history_tab_liner" data-bid_history_tab="auctions_bid_on" data-url="<%= my_bid_auctions_url %>">Auctions Bid On</div>
+      </div>
+      <div class="bid_history_spinner" data-tab_spinner="true" style="display:none;"><%= image_tag('ajax-loader-bar.gif') %></div>
+    </div>
+    <div id="my_bid_history_list" class="bid_history_box padding_bottom padding_top" data-tab_content_wrapper="bid_history_list">
+    </div>
+  </div>
+</div>
+<div id="account_background_bottom">&nbsp;</div>

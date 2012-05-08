@@ -1,0 +1,40 @@
+<div>&nbsp;</div>
+<% for auction in @auctions %>
+  <div class="bid_history_item_top">&nbsp;</div>
+  <div class="bid_history_item_wrapper">
+    <div class="my_auction_index_item_left text_center border_right" onclick="void(0)" data-button="true" href="<%= auction_url(auction) %>">
+      <div class="my_auction_index_item_image">
+        <%= image_tag auction.item.content_images.first.image.url(:small_thumb) %>
+      </div>
+      <div class="my_auction_index_item_name">
+        <strong><%= auction.item.name %></strong>
+      </div>
+      <div class="my_auction_index_item_retail">
+        <em>Retail: <%= auction.item.full_price.format %></em>
+      </div>
+    </div>
+    <div class="bid_history_info">
+      <div class="bid_history_info_item">
+        <div class="bid_history_info_label">Date Won:</div>
+        <div class="bid_history_info_value"><%= auction.date_won.to_formatted_s(:list) %></div>
+      </div>
+      <% if action_name == 'my_bid' %>
+      <div class="bid_history_info_item">
+        <div class="bid_history_info_label">Your Final Bid:</div>
+        <div class="bid_history_info_value"><%= auction.placed_bids.placed_by(@this_user).new_to_old.first.amount.format %></div>
+      </div>
+      <% end %>
+      <div class="bid_history_info_item">
+        <div class="bid_history_info_label">Winning Bid:</div>
+        <div class="bid_history_info_value"><%= auction.winning_bid.amount.format %></div>
+      </div>
+      <% if action_name == 'my_won' %>
+      <div class="bid_history_info_item">
+        <div class="bid_history_info_label">Date Shipped:</div>
+        <div class="bid_history_info_value"><%= auction.shipped_on ? auction.shipped_on.to_formatted_s(:list) : 'not shipped' %></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="bid_history_item_bottom">&nbsp;</div>
+<% end %>

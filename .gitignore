@@ -23,4 +23,7 @@ public/sitemap.xml
 public/.sass-cache
 public/.sass-cache/*
 public/stylesheets/master.scss
+vendor/bundle
+vendor/bundle/*
+vendor/bundle/**/*
 

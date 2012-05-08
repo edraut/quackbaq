@@ -1,10 +1,9 @@
-//= require jquery-1.6.2.min
+//= require jquery-1.7.2.min
 //= require_self
 //= require_tree .
 
 /* All Code Copyright 2008 Eric Draut all rights reserved
 */
-
 function bindLinkToForm(){
 	jQuery("[data-behavior='link_to_form']").live('click',function(e){
 		var form_string = jQuery('<form method="' + jQuery(e.target).attr('data-method') + '" action="' + jQuery(e.target).attr('href') +'" style="display:none;"><input type="hidden" name="authenticity_token" value="'+ authenticity_token + '"></form>');
@@ -47,7 +46,6 @@ function checkForFinishedImage(id){
 	jQuery('#refresh_images_link').attr('href',old_href);
 };
 function clickRefreshImageLink(id,columns){
-  console.log("clicking refresh!");
 	new_item = jQuery('#content_element_container_template').clone();
 	new_item.attr('id','content_element_' + id);
 	new_item.appendTo('#content_element_list');
@@ -64,6 +62,7 @@ function roundCorners(){
 	jQuery('.bid_history_text').corner('4px left');
 	jQuery('.field_entry, .field_entry_half').corner('5px');
 	jQuery('.account_gray_background').corner('5px');
+  jQuery('#my_bid_history_list').corner('tr 5px').corner('bottom 5px');
 };
 jQuery(document).ready(function(){
 	bindLinkToForm();

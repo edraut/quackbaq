@@ -1,4 +1,7 @@
 class ContentImageTmp < ContentImage
+  cattr_accessor :permanent_class
+
+  @@permanent_class = ContentImage
   has_attached_file :image,
     :path => ":rails_root/tmp/uploads/:class/:attachment/:id/:style_:filename"
 
@@ -21,19 +24,20 @@ class ContentImageTmp < ContentImage
 
   def move_to_s3
     temp_path = image.path
-    temp_file = image.to_file # Paperclips way of getting a File object for the attachment
+    temp_file = StringIO.new(File.read(temp_path))
+    temp_file.class_eval { attr_accessor :original_filename, :content_type}
+    temp_file.original_filename = image.original_filename
+    temp_file.content_type = image.content_type
 
     # Save it as a regular attachment
     # this will save to S3
-    self.class.connection.execute("update content_elements set type = 'ContentImage' where id = #{self.id}")
-    s3_upload = ContentImage.find(self.id) # Same db record but we need the S3 version
+    s3_upload = ContentImage.new(:body => self.body, :container_id => self.container_id, :container_type => self.container_type) # Same db record but we need the S3 version
     s3_upload.image = temp_file  # reset the file - it will assume its a new file
-    s3_upload.save!             # Paperclip will upload the file on save
+    s3_upload.save             # Paperclip will upload the file on save
 
-    # Delete the temporary file when we are done
-    temp_file.close
-    File.delete(temp_path)
-    s3_upload.regenerate_styles!
+    self.permanent_id = s3_upload.id
+    self.processing = false
+    self.save
   end
 
   # detect if our source file has changed

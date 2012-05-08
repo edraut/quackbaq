@@ -13,6 +13,9 @@ class Auction < ActiveRecord::Base
   scope :in_progress, where("begin_time < utc_timestamp() and end_time > utc_timestamp()")
   scope :not_started, where("begin_time > utc_timestamp()")
   scope :finished, where("end_time < utc_timestamp()")
+  scope :won, joins(:placed_bids).where(:bids => {:winner => true})
+  scope :bid_on_by, lambda { |user| joins(:placed_bids).where(:bids => {:user_id => user.id}).group("auctions.id")}
+  scope :won_by, lambda { |user| joins(:placed_bids).where(:bids => {:user_id => user.id, :winner => true})}
   #special behaviors
   #validations
   
@@ -20,6 +23,14 @@ class Auction < ActiveRecord::Base
   before_save :set_end_time
   # after_create :create_channel
   #class methods
+
+  state_machine :state, :initial => :not_won, :action => nil do
+    event :win do
+      transition :not_won => :won
+    end
+    state :not_won
+    state :won
+  end
   
   #instance methods
   
@@ -31,9 +42,17 @@ class Auction < ActiveRecord::Base
     Money.new(self.placed_bids.count)
   end
   
+  def highest_bid
+    if self.placed_bids.any?
+      self.placed_bids.new_to_old.first
+    else
+      nil
+    end
+  end
+
   def highest_bidder
     if self.placed_bids.any?
-      self.placed_bids.new_to_old.first.user
+      self.highest_bid.user
     else
       nil
     end
@@ -49,10 +68,15 @@ class Auction < ActiveRecord::Base
   end
   
   def humanize_interval(seconds)
+    seconds = seconds.to_i
     [[60, :seconds], [60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
       if seconds > 0
         seconds, n = seconds.divmod(count)
-        "#{n.to_i}"
+        if [:seconds,:minutes, :hours].include? name
+          "%02d" % n
+        else
+          "#{n.to_i}"
+        end
       end
     }.compact.reverse.join(':')
   end
@@ -71,7 +95,7 @@ class Auction < ActiveRecord::Base
   end
   
   def in_progress?
-    self.time_left_in_seconds > 0
+    !finished?
   end
   
   def not_started?
@@ -79,26 +103,57 @@ class Auction < ActiveRecord::Base
   end
   
   def finished?
-    self.time_left_in_seconds <= 0
+    finished = self.time_left_in_seconds <= 0
+    if finished and !self.won? and self.placed_bids.any?
+      self.assign_winner
+      self.reload
+    end
+    finished
   end
   
+  def ready?
+    (begin_time.is_a? Time) and item.complete?
+  end
+
+  def assign_winner
+    if !self.won? and self.time_left_in_seconds <= 0
+      winning_bid = self.highest_bid
+      if winning_bid
+        winning_bid.winner = true
+        winning_bid.save
+        self.win
+        self.save
+      end
+    end
+  end
+
+  def winning_bid
+    self.placed_bids.where(:winner => true).first
+  end
+
   def winner
-    if self.finished?
-      return self.highest_bidder
+    if self.winning_bid
+      return self.winning_bid.user
     else
       return nil
     end
   end
   
+  def date_won
+    if self.winning_bid
+      self.winning_bid.placed_at
+    else
+      nil
+    end
+  end
+
   def channel_name
     'auction_' + self.id.to_s
-  end
-  
-  def create_channel
-    Nestful.get("#{HOOKBOX_URL}/web/create_channel", :params => {:security_token => 'secret', :channel_name => self.channel_name, :history_size => 5})
   end
   
   def set_end_time
     self.end_time = self.begin_time + 12.hours
   end
+
+
 end

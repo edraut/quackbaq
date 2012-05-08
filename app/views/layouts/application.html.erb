@@ -99,7 +99,7 @@
         &nbsp;
   		<% end %>
   	</div>
-	  <% if current_user and controller_name == 'auctions' and action_name != 'my' %>
+	  <% if current_user and controller_name == 'auctions' and !['my','my_bid_history','my_won','my_bid'].include? action_name %>
       <div id="category_nav">
         <div class="span-22 last">&nbsp;</div>
         <% Category.ordered.each_with_index do |category,index| %>

@@ -1,238 +1,122 @@
-<div class="auction_detail_wrapper">
-  <div class="auction_detail_top">
-    <div class="auction_detail_top_block">
-      similar / recent auctions here
-    </div>
-    <div class="auction_detail_top_block">
-      similar / recent auctions here
-    </div>
-  </div>
-  <div class="auction_detail_content">
-    <div class="auction_detail_left">
-      <span class="auction_detail_name"><%= @auction.item.name %></span><br/>
-      <span class="auction_detail_retail">retail: <%= @auction.item.full_price.format %></span><br/>
-      <span class="auction_detail_id">Auction ID: <%= @auction.id %></span><br/>
-      <img src="<%= @auction.item.content_images.first.image.url(:medium) %>"/>
-      <div class="auction_detail_thumbs">
-        <div class="auction_detail_thumb_bucket" style="width: <%= @auction.item.content_images.count * 115 %>px;">
-          <% for content_image in @auction.item.content_images[1..-1] %>
-            <img src="<%= content_image.image.url(:tiny) %>">
-          <% end %>
-        </div>
+<div data-auction_page="true" data-logged_in="<%= !!current_user %>">
+<div data-auction_type="SingleAuction" data-auction_id="<%= @auction.id %>" data-did_i_win_url="<%= did_i_win_auction_url(@auction) %>" data-push_channel="<%= @auction.channel_name %>">
+  <div class="auction_detail_wrapper">
+    <div class="auction_detail_top">
+      <div class="auction_detail_top_block">
+        similar / recent auctions here
       </div>
-      <div class="auction_detail_description">
-        <%= @auction.item.description %>
+      <div class="auction_detail_top_block">
+        similar / recent auctions here
       </div>
     </div>
-    <div class="auction_detail_middle">
-      <div class="auction_current_info">
-        <div id="timer">
-          <div id="time_left"></div>
-          <div id="timer_type"><%= image_tag '20secTimerIcon.gif' %></div>
-        </div>
-        <div class="auction_detail_bid">
-          <div class="auction_detail_bid_content">
-            <% if @this_user.bids.available.any? %>
-              <div class="button_left">&nbsp;</div>
-              <div class="button_middle quackbaq_font" id="place_bid_link" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>">BID</div>
-              <div class="button_right">&nbsp;</div>
-            <% else %>
-              <div class="button_left">&nbsp;</div>
-              <div class="button_middle quackbaq_font" data-button="true" href="<%= bids_url %>">BUY CREDITS</div>
-              <div class="button_right">&nbsp;</div>
+    <div class="auction_detail_content">
+      <div class="auction_detail_left">
+        <span class="auction_detail_name"><%= @auction.item.name %></span><br/>
+        <span class="auction_detail_retail">retail: <%= @auction.item.full_price.format %></span><br/>
+        <span class="auction_detail_id">Auction ID: <%= @auction.id %></span><br/>
+        <img src="<%= @auction.item.content_images.first.image.url(:medium) %>"/>
+        <div class="auction_detail_thumbs">
+          <div class="auction_detail_thumb_bucket" style="width: <%= @auction.item.content_images.count * 115 %>px;">
+            <% for content_image in @auction.item.content_images[1..-1] %>
+              <img src="<%= content_image.image.url(:tiny) %>">
             <% end %>
           </div>
         </div>
-        <div id="current_price"></div>
-        <div id="icons_and_bidder">
-          <div id="hand_duck"><img src="/images/handDuck.gif" alt="givebaq"></div>
-          <div id="highest_bidder"></div>
-          <div id="duck_foot"><img src="/images/duckfootOn.gif" alt="my auctions"></div>
+        <div class="auction_detail_description">
+          <%= @auction.item.description %>
         </div>
       </div>
-      <div class="auction_detail_auto_bid">
-        <div id="auto_bid" class="auto_bid_block">
-          <div class="auto_bid_title">Automated Bidding<div class="auto_bid_help"><a href="#">what's this?</a></div></div>
-          <div class="auto_bid_form">
-            Start at:
+      <div class="auction_detail_middle">
+        <div class="auction_current_info">
+          <div id="timer">
+            <div id="time_left" data-role="time_left" data-seconds_left="<%= @auction.time_left_in_seconds %>"></div>
+            <div id="timer_type"><%= image_tag '20secTimerIcon.gif' %></div>
+          </div>
+          <div class="auction_detail_bid">
+            <div class="auction_detail_bid_content">
+              <% if @this_user.bids.available.any? %>
+                <div class="button_left">&nbsp;</div>
+                <div class="button_middle quackbaq_font" id="place_bid_link" href="<%= bid_url(@this_user.bids.available.first, :placed_auction_id => @auction.id) %>" data-behavior="place_bid_link">BID</div>
+                <div class="button_right">&nbsp;</div>
+              <% else %>
+                <div class="button_left">&nbsp;</div>
+                <div class="button_middle quackbaq_font" data-button="true" href="<%= bids_url %>">BUY CREDITS</div>
+                <div class="button_right">&nbsp;</div>
+              <% end %>
+            </div>
+          </div>
+          <div id="current_price"></div>
+          <div id="icons_and_bidder">
+            <div id="hand_duck"><%= image_tag "handDuck.gif", :alt => "givebaq"%></div>
+            <div id="highest_bidder"></div>
+            <div id="duck_foot"><%= image_tag "duckfootOn.gif", :alt => "my auctions"%></div>
           </div>
         </div>
-        <div id="quack_attack" class="auto_bid_block">
-          <div class="auto_bid_title">Apply Quack Attack<div class="auto_bid_help"><a href="#">what's this?</a></div></div>
-          <div class="auto_bid_form">
-            Start at:
+        <div class="auction_detail_auto_bid">
+          <div id="auto_bid" class="auto_bid_block">
+            <div class="auto_bid_title">Automated Bidding<div class="auto_bid_help"><a href="#">what's this?</a></div></div>
+            <div class="auto_bid_form">
+              Start at:
+            </div>
+          </div>
+          <div id="quack_attack" class="auto_bid_block">
+            <div class="auto_bid_title">Apply Quack Attack<div class="auto_bid_help"><a href="#">what's this?</a></div></div>
+            <div class="auto_bid_form">
+              Start at:
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="auction_detail_right">
-      <div id="bid_history" class="auction_detail_bid_history">
+      <div class="auction_detail_right">
+        <div id="bid_history" class="auction_detail_bid_history">
+        </div>
+        <div id="bid_location_map"><div id="bid_location_map_title">Current High Bidder's Location:</div><%= image_tag 'map/mapOff.jpg' %></div>
       </div>
-      <div id="bid_location_map"><div id="bid_location_map_title">Current High Bidder's Location:</div><%= image_tag 'map/mapOff.jpg' %></div>
+    </div>
+    <div class="auction_detail_bottom">
+      &nbsp;
     </div>
   </div>
-  <div class="auction_detail_bottom">
-    &nbsp;
+  <div data-id="bid_history_item_template" style="display:none;" class="bid_history_item">
+    <div class="bid_history_text">
+      <div class="bid_history_amount"></div>
+      <div class="bid_history_name"></div>
+    </div>
+    <div class="bid_history_image"></div>
+  </div>
+  <div class="span-8"></div>
+  <div class="span-8">
+  	<% if current_user %>
+  		<% if @this_user.auctions.include? @auction %>
+  			This auction is in your auctions list.<br/>
+  		<% else %>
+  			<%= link_to 'add to my auctions', user_auctions_url + "?auction_id=#{@auction.id}&_method=post" %>
+  		<% end %>
+  	<% end %>
+  </div>
+  <div class="span-8 last">
+  	<% if current_user %>
+  		<div class="span-8 last">
+  			You have <span id="available_bids"><%= @this_user.bids.available.count %></span> bids available.
+  		</div>
+  		<div class="span-8 last">
+  			<%= link_to 'place a bid', bid_url(@this_user.bids.first, :placed_auction_id => @auction.id), 
+  		:id => 'place_bid_link', 
+  		:style => @this_user.bids.available.any? ? '' : 'display:none;',
+      :'data-behavior' => 'place_bid_link'
+  	 	 %>
+  			<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
+  		</div>
+  		<div class="span-8 last">&nbsp;</div>
+  		<div class="span-8 last" id="bid_history">
+  			<h3>Bid History</h3>
+  		</div>
+  	<% end %>
   </div>
 </div>
-<div data-id="bid_history_item_template" style="display:none;" class="bid_history_item">
-  <div class="bid_history_text">
-    <div class="bid_history_amount"></div>
-    <div class="bid_history_name"></div>
-  </div>
-  <div class="bid_history_image"></div>
-</div>
-<div class="span-8"></div>
-<div class="span-8">
-	<% if current_user %>
-		<% if @this_user.auctions.include? @auction %>
-			This auction is in your auctions list.<br/>
-		<% else %>
-			<%= link_to 'add to my auctions', user_auctions_url + "?auction_id=#{@auction.id}&_method=post" %>
-		<% end %>
-	<% end %>
-</div>
-<div class="span-8 last">
-	<% if current_user %>
-		<div class="span-8 last">
-			You have <span id="available_bids"><%= @this_user.bids.available.count %></span> bids available.
-		</div>
-		<div class="span-8 last">
-			<%= link_to 'place a bid', bid_url(@this_user.bids.first, :placed_auction_id => @auction.id), 
-		:id => 'place_bid_link', 
-		:style => @this_user.bids.available.any? ? '' : 'display:none;'
-	 	 %>
-			<%= link_to 'buy bids', bids_url, :id => 'buy_bids_link', :style => @this_user.bids.available.empty? ? '' : 'display:none;' %>
-		</div>
-		<div class="span-8 last">&nbsp;</div>
-		<div class="span-8 last" id="bid_history">
-			<h3>Bid History</h3>
-		</div>
-	<% end %>
 </div>
 <div pub-key="pub-ae40e77d-8233-4dd0-8c5a-35fac643b743" sub-key="sub-f902c2fd-b264-11e0-bd90-a39c3d1a4b1e" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
 <script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
-<%= javascript_tag do %>
-	jQuery(document).ready(function(){
-		var tick_count = 0;
-		var start_time = new Date().getTime();
-		var seconds_left = <%= @auction.time_left_in_seconds %>;
-		var timer_handle = 0;
-		function resetTimer(seconds){
-			tick_count = 0;
-			start_time = new Date().getTime();
-			seconds_left = seconds;
-			clearTimeout(timer_handle)
-			updateTimer();
-			timer_handle = setTimeout(cycleTimer,1000);
-		}
-		function updateTimer(){
-			jQuery('#time_left').html(humanize_interval(secondsLeft()));
-		}
-		updateTimer();
-		function cycleTimer(){
-			tick_count += 1000;
-			if(secondsLeft() == 0){
-				closeAuction();
-				return false;
-			}
-			slew = (new Date().getTime() - start_time) - tick_count;
-			updateTimer();
-			timer_handle = setTimeout(cycleTimer,(1000 - slew));
-		}
-		function secondsLeft(){
-			return seconds_left - (tick_count / 1000);
-		}
-		function closeAuction(){
-			clearTimeout(timer_handle);
-			jQuery('#place_bid_link').hide();
-			jQuery('#time_left').html('CLOSED');
-//			jQuery.ajax()
-		}
-		timer_handle = setTimeout(cycleTimer,1000);
-		<% if current_user %>
-		function refreshBidHistory(new_history){
-		  new_history_item = jQuery("[data-id='bid_history_item_template']").clone();
-		  new_history_item.attr("data-id",'');
-		  jQuery('#bid_history').prepend(new_history_item);
-		  new_history_item.find('.bid_history_amount').html(new_history.new_price);
-		  new_history_item.find('.bid_history_name').html(new_history.bidder_name);
-      jQuery('.bid_history_text').removeClass('current');
-      jQuery('.bid_history_item').removeClass('current');
-      new_history_item.find('.bid_history_text').addClass('current');
-      new_history_item.addClass('current');
-      if(jQuery('#bid_history').children().length > 5){
-        jQuery('#bid_history').children(':last').remove();
-      }
-      new_history_item.show();
-		};
-		function refreshStats(message){
-			jQuery('#current_price').html(message.new_price);
-			jQuery('#highest_bidder').html(message.bidder_name);
-		};
-		refreshStats({new_price:'<%= @auction.current_price.format %>',bidder_name:'<%= @auction.highest_bidder_name %>'});
-//		hookbox.logging.get('net.protocols.rtjp').setLevel(hookbox.logging.DEBUG);
-//		conn = hookbox.connect("<%= HOOKBOX_URL %>");
-//		conn.onSubscribed = function(channel_name, subscription) {
-//			if(channel_name == "<%= @auction.channel_name %>"){
-//				subscription.onPublish = function(frame) {
-//					resetTimer(frame.payload.time_left);
-//					refreshStats(frame);
-//					refreshBidHistory(frame);
-//				};
-//	  			for (var i = 0, item; item = subscription.history[i]; ++i) {
-//				  	var name = item[0];
-//					var frame = item[1];
-//					if(name == 'PUBLISH'){
-//						refreshBidHistory(frame);
-//					}
-//			    };
-//			}
-//		};
-//		conn.onClose = function() {
-//			alert("Connection Lost, please refresh this page");
-//		};
-//		conn.subscribe("<%= @auction.channel_name %>");
-    PUBNUB.subscribe({
-      channel  : "<%= @auction.channel_name %>",
-      callback : function(message) {
-        refreshBidHistory(message);
-        refreshStats(message);
-        resetTimer(message.time_left); },
-      error    : function(e) {
-          // Do not call subscribe() here!
-          // PUBNUB will auto-reconnect.
-          console.log(e);
-      }
-    });
-    PUBNUB.history(
-      {channel:'<%= @auction.channel_name %>',limit: 5},
-      function(info){
-        for(i=0;i < info.length;i++){
-          refreshBidHistory(info[i]);
-          console.log(info[i].new_price);
-        }
-      }
-    );
-		jQuery('#place_bid_link').click(function(e){
-			jQuery.ajax({
-				url: jQuery(e.target).attr('href'),
-				type: 'GET',
-				dataType: 'json',
-				cache: false,
-				success: function(data,textStatus) {
-					jQuery('#available_bids').html(data.bid_count);
-					if(data.bid_count == 0){
-						jQuery('#place_bid_link').hide();
-						jQuery('#buy_bids_link').show();
-					}
-				}
-			});
-			return false;
-		});
-		<% end %>
-	});
-<% end %>
 <% unless current_user %>
 	<%= link_to 'sign in', sign_in_url %> or <%= link_to 'sign_up', sign_up_url %> to join the auction.
 <% end %>

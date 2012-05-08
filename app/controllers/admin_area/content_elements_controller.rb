@@ -111,6 +111,9 @@ class AdminArea::ContentElementsController < AdminArea::ApplicationController
       @content_elements = ContentElement.find(params[:content_element])
     else
       @content_element = ContentElement.find(params[:id])
+      if @content_element.class.delayed_processing? and !@content_element.processing?
+        @content_element = @content_element.class.permanent_class.find(@content_element.permanent_id)
+      end
     end
   end
 end
